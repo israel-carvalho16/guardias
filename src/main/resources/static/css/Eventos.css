@@ -1,0 +1,269 @@
+@font-face {
+  font-family: "arabic";
+  src: url("../Font/GlacialIndifference-Regular.otf");
+}
+
+:root {
+  --roxo-logo: #8e6db5;
+  --azul1: #91a4ce;
+  --azul2: #91b0d4;
+  --azul3: #92bedb;
+  --roxo-principal: #5b289e;
+  --roxo-secundario: #8f73b2;
+  --lilas: #dedae0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "arabic", Arial, sans-serif;
+}
+
+body {
+  background-color: var(--lilas);
+  color: #333;
+  line-height: 1.6;
+}
+
+#motivo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+  padding: 30px;
+  gap: 25px;
+}
+
+#motivo_h3 {
+  text-align: center;
+  font-size: 2rem;
+  border: 2px groove var(--roxo-logo);
+  color: var(--roxo-principal);
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+#motivo_texto {
+  margin-top: 20px;
+  text-align: justify;
+  font-size: 1.1rem;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.titulos {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 23px;
+  background-color: var(--azul3);
+  color: #052a79;
+  padding: 10px;
+}
+
+#CARDS {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 20px;
+}
+
+.cardsEventos {
+  border: 3px groove var(--roxo-logo);
+  text-align: center;
+  margin: 5px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.cardsEventos p {
+  margin: 15px 0;
+}
+a {
+  text-decoration: none;
+}
+
+#aprender {
+  width: 78%;
+  display: block;
+  margin: auto;
+}
+
+#ambiente {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: auto;
+}
+
+#trilha {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: auto;
+}
+
+#imgIlu {
+  width: 30%;
+  max-width: 400px;
+  display: block;
+  margin: 20px auto 0;
+}
+
+ul,
+li {
+  font-size: 19px;
+  list-style-type: none;
+  margin-bottom: 8px;
+}
+
+ol {
+  text-align: justify;
+  font-size: 19px;
+  margin: 20px 0 30px 20px;
+}
+
+button {
+  background-color: var(--azul3);
+  border: 3px solid var(--roxo-principal);
+  font-size: 16px;
+  color: #000;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+button:hover {
+  font-size: 17px;
+  cursor: pointer;
+  background-color: var(--azul2);
+}
+
+/* footer */
+.footer-site {
+  background-color: var(--roxo-principal);
+  color: white;
+  text-align: center;
+  padding: 25px 20px;
+  margin-top: 40px;
+}
+
+.footer-site p {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.footer-site .redes-sociais {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin: 15px 0;
+}
+
+.footer-site .redes-sociais img {
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.footer-site .redes-sociais img:hover {
+  transform: scale(1.2);
+}
+
+/* colaboradores */
+.colaboradores-section {
+  background-color: var(--azul1);
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.titulo-centralizado {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.colaboradores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colaboradores img {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* responsividade */
+@media (max-width: 1240px) {
+  #CARDS {
+    grid-template-columns: 1fr;
+  }
+
+  .cardsEventos {
+    text-align: center;
+  }
+
+  #imgIlu {
+    width: 90%;
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+
+  #ambiente,
+  #trilha {
+    width: 90%;
+    height: auto;
+  }
+
+  #aprender {
+    width: 90%;
+    height: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  #motivo {
+    grid-template-columns: 1fr;
+  }
+
+  #motivo_h3 {
+    font-size: 1.6rem;
+  }
+
+  #motivo_texto {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .titulos {
+    font-size: 20px;
+  }
+
+  #motivo {
+    padding: 15px;
+  }
+
+  #motivo_h3 {
+    font-size: 1.3rem;
+  }
+
+  ul,
+  li,
+  ol {
+    font-size: 16px;
+  }
+
+  .cardsEventos {
+    padding: 12px;
+  }
+}

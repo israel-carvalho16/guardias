@@ -1,0 +1,64 @@
+.conteudo {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  /* footer */
+.footer-site {
+    background-color: var(--roxo-principal);
+    color: white;
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 40px;
+  } 
+  .footer-site p {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .footer-site .redes-sociais {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 15px 0;
+  }
+  
+  .footer-site .redes-sociais img {
+    width: 40px;
+    height: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .footer-site .redes-sociais img:hover {
+    transform: scale(1.2);
+  }
+  /* colaboradores */
+.colaboradores-section {
+    background-color: var(--azul1);
+    padding: 30px 20px;
+    text-align: center;
+  }
+  
+  .titulo-centralizado {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .colaboradores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .colaboradores img {
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+    display: block;
+  } 
+  

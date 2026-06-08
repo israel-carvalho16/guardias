@@ -1,0 +1,214 @@
+:root {
+  --roxo-logo: #8e6db5;
+  --azul1: #91a4ce;
+  --azul2: #91b0d4;
+  --azul3: #92bedb;
+  --roxo-principal: #5b289e;
+  --roxo-secundario: #8f73b2;
+  --lilas: #dedae0;
+}
+
+/* corpo do site */
+
+body {
+  background-color: var(--lilas);
+  color: #333;
+  line-height: 1.6;
+}
+
+/* conteúdo principal */
+
+main {
+  margin: 30px 5%;
+  border: 2px groove var(--roxo-logo);
+  font-size: 17px;
+  padding: 3%;
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.titulo-pagina {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--roxo-principal);
+  font-size: 2rem;
+}
+
+/* blocos de projeto */
+
+.bloco-projeto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 30px;
+  align-items: center;
+  background-color: #f8f6fc;
+  padding: 20px;
+  border: 2px solid var(--azul2);
+  border-radius: 12px;
+}
+
+.bloco-projeto section {
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bloco-projeto img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* títulos */
+
+h3 {
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--roxo-principal);
+}
+
+h6 {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+h6 a {
+  color: var(--roxo-principal);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+h6 a:hover {
+  text-decoration: underline;
+}
+
+/* textos */
+
+p {
+  text-align: justify;
+  margin-bottom: 14px;
+}
+
+/* link saiba mais */
+
+.saiba-mais {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.saiba-mais a {
+  color: var(--roxo-principal);
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.saiba-mais a:hover {
+  text-decoration: underline;
+}
+
+/* colaboradores */
+
+.colaboradores-section {
+  background-color: var(--azul1);
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.titulo-centralizado {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.colaboradores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colaboradores img {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* footer */
+
+.footer-site {
+  background-color: var(--roxo-principal);
+  color: white;
+  text-align: center;
+  padding: 25px 20px;
+  margin-top: 40px;
+}
+
+.footer-site p {
+  margin-bottom: 15px;
+}
+.footer-site p{
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 15px auto;
+}
+.footer-site .redes-sociais {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.footer-site .redes-sociais img {
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.footer-site .redes-sociais img:hover {
+  transform: scale(1.2);
+}
+
+/* responsividade */
+
+@media (max-width: 900px) {
+
+  .bloco-projeto {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  p {
+    text-align: left;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  main {
+    margin: 20px 3%;
+    padding: 15px;
+  }
+
+  .titulo-pagina {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+}

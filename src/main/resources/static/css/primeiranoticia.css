@@ -1,0 +1,62 @@
+/* Paleta: rosa pastel (#f8c8dc) / roxo claro (#d7a9e3) / roxo escuro (#5b0c87) */
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #f8c8dc, #d7a9e3);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 10px;
+}
+
+/* Card principal */
+.container {
+    max-width: 900px;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 3px solid #d7a9e3;
+    animation: fadeIn 0.8s ease forwards;
+    backdrop-filter: blur(5px);
+}
+
+/* Título com gradiente */
+.titulo {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 700;
+    background: linear-gradient(90deg, #5b0c87, #d7a9e3);
+    color: transparent;
+    margin-bottom: 20px;
+}
+/* Texto */
+p {
+    line-height: 1.8em;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* Botão com efeito neon */
+.btn-voltar {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 30px;
+    background: #5b0c87;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(91, 12, 135, 0.5);
+}
+
+.btn-voltar:hover {
+    background: #d7a9e3;
+    color: black;
+    box-shadow: 0 0 25px #d7a9e3;
+    transform: scale(1.08);
+}
+

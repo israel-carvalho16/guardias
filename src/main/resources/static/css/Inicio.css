@@ -1,0 +1,1062 @@
+:root { 
+
+  --roxo-logo: #8e6db5; 
+
+  --azul1: #91a4ce; 
+
+  --azul2: #91b0d4; 
+
+  --azul3: #92bedb; 
+
+ 
+
+ 
+
+  --roxo-principal: #5b289e; 
+
+  --roxo-secundario: #8f73b2; 
+
+  --lilas: #dedae0; 
+
+} 
+
+ 
+
+ 
+
+@font-face { 
+
+  font-family: "arabic"; 
+
+  src: url("../Font/GlacialIndifference-Regular.otf"); 
+
+} 
+
+ 
+
+ 
+
+* { 
+
+  font-family: arabic; 
+
+} 
+
+ 
+
+ 
+
+body { 
+
+  background-color: var(--lilas); 
+
+  color: #333; 
+
+  line-height: 1.6; 
+
+} 
+
+ 
+
+ 
+
+/* HERO */ 
+
+.hero { 
+
+  position: relative; 
+
+  display: flex; 
+
+  align-items: center; 
+
+  justify-content: center; 
+
+  width: 100%; 
+
+  height: 500px; 
+
+  overflow: hidden; 
+
+  background: #000; 
+
+} 
+
+ 
+
+ 
+
+.hero .video-bg { 
+
+  position: absolute; 
+
+  top: 0; 
+
+  left: 0; 
+
+  width: 100%; 
+
+  height: 100%; 
+
+  object-fit: cover; 
+
+  opacity: 0.75; 
+
+  z-index: 0; 
+
+} 
+
+ 
+
+ 
+
+.hero::after { 
+
+  content: ""; 
+
+  position: absolute; 
+
+  inset: 0; 
+
+  background: rgba(91, 40, 158, 0.35); 
+
+  z-index: 0; 
+
+} 
+
+ 
+
+ 
+
+.hero-content { 
+
+  position: relative; 
+
+  z-index: 1; 
+
+  color: white; 
+
+  max-width: 700px; 
+
+  text-align: center; 
+
+  padding: 20px; 
+
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6); 
+
+} 
+
+ 
+
+ 
+
+.hero-content h1 { 
+
+  font-size: 42px; 
+
+  font-weight: 700; 
+
+} 
+
+ 
+
+ 
+
+/* TÓPICOS */ 
+
+#escolhe { 
+
+  display: grid; 
+
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+
+  gap: 25px; 
+
+  padding: 20px; 
+
+  max-width: 1200px; 
+
+  margin: 30px auto; 
+
+  background-color: white; 
+
+  border: 2px solid var(--roxo-logo); 
+
+  border-radius: 10px; 
+
+  text-align: center; 
+
+} 
+
+ 
+
+ 
+
+#escolhe section { 
+
+  background: white; 
+
+  padding: 20px; 
+
+  border-radius: 20px; 
+
+  border: 2px solid var(--azul2); 
+
+  transition: 0.3s; 
+
+} 
+
+ 
+
+ 
+
+#escolhe section:hover { 
+
+  transform: translateY(-3px); 
+
+} 
+
+ 
+
+ 
+
+/* QUEM SOMOS */ 
+
+#toma { 
+
+  max-width: 1200px; 
+
+  margin: 40px auto; 
+
+  padding: 25px; 
+
+  display: grid; 
+
+  grid-template-columns: 1fr 300px 1fr; 
+
+  gap: 25px; 
+
+  background: white; 
+
+  border: 4px solid var(--roxo-logo); 
+
+  border-radius: 10px; 
+
+  text-align: justify; 
+
+} 
+
+ 
+
+ 
+
+#toma h1 { 
+
+  grid-column: 1 / 2; 
+
+  font-size: 2.4rem; 
+
+  margin-bottom: 15px; 
+
+  text-align: left; 
+
+} 
+
+ 
+
+ 
+
+#toma img { 
+
+  grid-column: 2 / 3; 
+
+  width: 100%; 
+
+  max-width: 260px; 
+
+  height: auto; 
+
+  display: block; 
+
+  margin: 0 auto 10px auto; 
+
+  border-radius: 10px; 
+
+} 
+
+ 
+
+ 
+
+#toma section { 
+
+  background-color: #fdfdfd; 
+
+  padding: 20px; 
+
+  border: 2px solid #d1d1d1; 
+
+  border-radius: 20px; 
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+
+} 
+
+ 
+
+ 
+
+#toma section:nth-of-type(1) { 
+
+  grid-column: 1 / 2; 
+
+  font-size: 1.05rem; 
+
+  line-height: 1.7; 
+
+} 
+
+ 
+
+ 
+
+#toma section:nth-of-type(2) { 
+
+  grid-column: 3 / 4; 
+
+  background: #f2f2f2; 
+
+  font-size: 1rem; 
+
+  line-height: 1.6; 
+
+} 
+
+ 
+
+ 
+
+/* MAIN GERAL */ 
+
+main { 
+
+  max-width: 900px; 
+
+  margin: 30px auto; 
+
+  padding: 20px; 
+
+  text-align: center; 
+
+} 
+
+ 
+
+ 
+
+main h1 { 
+
+  font-size: 2.2rem; 
+
+  margin-bottom: 30px; 
+
+} 
+
+ 
+
+ 
+
+main > img { 
+
+  width: 100%; 
+
+  max-width: 700px; 
+
+  margin: 30px auto; 
+
+  display: block; 
+
+  border-radius: 10px; 
+
+} 
+
+ 
+
+ 
+
+section { 
+
+  background: #f5f5f5; 
+
+  padding: 20px; 
+
+  margin: 25px 0; 
+
+  border-radius: 12px; 
+
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+
+} 
+
+ 
+
+ 
+
+section h3 { 
+
+  margin-bottom: 15px; 
+
+  font-size: 1.4rem; 
+
+  color: #333; 
+
+} 
+
+ 
+
+ 
+
+section img { 
+
+  width: 180px; 
+
+  height: 180px; 
+
+  border-radius: 50%; 
+
+  object-fit: cover; 
+
+  margin-bottom: 15px; 
+
+} 
+
+ 
+
+ 
+
+section p { 
+
+  font-size: 1rem; 
+
+  line-height: 1.5; 
+
+  color: #444; 
+
+} 
+
+ 
+
+ 
+
+/* SANEAMENTO */ 
+
+#saneamento { 
+
+  max-width: 800px; 
+
+  margin: 0 auto; 
+
+  padding: 20px; 
+
+  text-align: center; 
+
+} 
+
+ 
+
+ 
+
+#saneamento h1 { 
+
+  margin-bottom: 20px; 
+
+  font-size: 32px; 
+
+  color: var(--roxo-principal); 
+
+} 
+
+ 
+
+ 
+
+.saneamento-section { 
+
+  display: flex; 
+
+  flex-direction: column; 
+
+  gap: 20px; 
+
+} 
+
+ 
+
+ 
+
+.san-item { 
+
+  background: white; 
+
+  border-radius: 12px; 
+
+  border: 2px solid var(--roxo-logo); 
+
+  overflow: hidden; 
+
+  transition: 0.2s; 
+
+} 
+
+ 
+
+ 
+
+.san-item:hover { 
+
+  transform: scale(1.02); 
+
+} 
+
+ 
+
+ 
+
+.san-item summary { 
+
+  padding: 18px 20px; 
+
+  cursor: pointer; 
+
+  font-size: 1.2rem; 
+
+  font-weight: 600; 
+
+  background: var(--roxo-logo); 
+
+  color: white; 
+
+  position: relative; 
+
+  list-style: none; 
+
+} 
+
+ 
+
+ 
+
+.san-item summary::-webkit-details-marker { 
+
+  display: none; 
+
+} 
+
+ 
+
+ 
+
+.san-item summary::after { 
+
+  content: "▼"; 
+
+  position: absolute; 
+
+  right: 20px; 
+
+  top: 50%; 
+
+  transform: translateY(-50%); 
+
+  transition: 0.3s; 
+
+} 
+
+ 
+
+ 
+
+.san-item[open] summary::after { 
+
+  transform: translateY(-50%) rotate(180deg); 
+
+} 
+
+ 
+
+ 
+
+.san-item p, 
+
+.san-item ul { 
+
+  padding: 20px; 
+
+  background: #f4f9ff; 
+
+  line-height: 1.6; 
+
+  color: #333; 
+
+  text-align: left; 
+
+} 
+
+ 
+
+ 
+
+.san-item ul { 
+
+  padding-left: 40px; 
+
+} 
+
+ 
+
+ 
+
+/* EQUIPE */ 
+
+main section img { 
+
+  width: 180px; 
+
+  height: 180px; 
+
+  border-radius: 50%; 
+
+  object-fit: cover; 
+
+} 
+
+ 
+
+ 
+
+/* EMPODERAMENTO */ 
+
+#empoder { 
+
+  max-width: 900px; 
+
+  margin: 0 auto; 
+
+  padding: 20px; 
+
+  text-align: center; 
+
+} 
+
+ 
+
+ 
+
+#empoder section { 
+
+  background: white; 
+
+  padding: 25px; 
+
+  border-radius: 12px; 
+
+  margin: 30px 0; 
+
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+
+} 
+
+ 
+
+ 
+
+#empoder section h3 { 
+
+  font-size: 1.6rem; 
+
+  margin-bottom: 15px; 
+
+} 
+
+ 
+
+ 
+
+#empoder section h4 { 
+
+  font-size: 1.2rem; 
+
+  margin: 20px 0 10px; 
+
+} 
+
+ 
+
+ 
+
+#empoder section img { 
+
+  width: 260px; 
+
+  max-width: 90%; 
+
+  height: auto; 
+
+  border-radius: 12px; 
+
+  margin: 15px auto; 
+
+  display: block; 
+
+} 
+
+ 
+
+ 
+
+/* COLABORADORES */ 
+
+.colaboradores-section { 
+
+  background-color: var(--azul1); 
+
+  padding: 30px 20px; 
+
+  text-align: center; 
+
+} 
+
+ 
+
+ 
+
+.colaboradores-section h4 { 
+
+  margin: 0 0 20px 0; 
+
+  font-size: 1.8rem; 
+
+  color: #333; 
+
+} 
+
+ 
+
+ 
+
+.colaboradores { 
+
+  display: flex; 
+
+  justify-content: center; 
+
+  align-items: center; 
+
+} 
+
+ 
+
+ 
+
+.colaboradores img { 
+
+  max-width: 700px; 
+
+  width: 100%; 
+
+  height: auto; 
+
+  display: block; 
+
+} 
+
+ 
+
+ 
+
+/* RESPONSIVIDADE */ 
+
+@media (max-width: 900px) { 
+
+  #toma { 
+
+    grid-template-columns: 1fr; 
+
+    text-align: center; 
+
+  } 
+
+ 
+
+ 
+
+  #toma h1, 
+
+  #toma img, 
+
+  #toma section:nth-of-type(1), 
+
+  #toma section:nth-of-type(2) { 
+
+    grid-column: auto; 
+
+  } 
+
+ 
+
+ 
+
+  #toma h1 { 
+
+    text-align: center; 
+
+  } 
+
+ 
+
+ 
+
+  #toma img { 
+
+    max-width: 220px; 
+
+  } 
+
+ 
+
+ 
+
+  .hero-content h1 { 
+
+    font-size: 30px; 
+
+  } 
+
+} 
+
+#tela-login { 
+
+  position: fixed; 
+
+  top: 0; 
+
+  left: 0; 
+
+  width: 100%; 
+
+  height: 100%; 
+
+  background: rgba(0,0,0,0.7); 
+
+  display: flex; /* correto */ 
+
+  justify-content: center; 
+
+  align-items: center; 
+
+  z-index: 9999; 
+
+} 
+
+@media (max-width: 768px) { 
+
+  #escolhe { 
+
+    grid-template-columns: 1fr; 
+
+  } 
+
+ 
+
+ 
+
+  main { 
+
+    padding: 15px; 
+
+  } 
+
+ 
+
+ 
+
+  section { 
+
+    padding: 15px; 
+
+  } 
+
+ 
+
+ 
+
+  main > img { 
+
+    max-width: 100%; 
+
+  } 
+
+ 
+
+ 
+
+  #saneamento h1, 
+
+  main h1 { 
+
+    font-size: 28px; 
+
+  } 
+
+} 
+
+ 
+
+ 
+
+@media (max-width: 600px) { 
+
+  .hero { 
+
+    height: 350px; 
+
+  } 
+
+ 
+
+ 
+
+  .hero-content { 
+
+    padding: 15px; 
+
+  } 
+
+ 
+
+ 
+
+  .hero-content h1 { 
+
+    font-size: 24px; 
+
+  } 
+
+ 
+
+ 
+
+  section img, 
+
+  main section img { 
+
+    width: 140px; 
+
+    height: 140px; 
+
+  } 
+
+ 
+
+ 
+
+  .san-item summary { 
+
+    font-size: 1rem; 
+
+    padding: 15px; 
+
+  } 
+
+ 
+
+ 
+
+  .san-item p, 
+
+  .san-item ul { 
+
+    padding: 15px; 
+
+    font-size: 0.95rem; 
+
+  } 
+
+ 
+
+ 
+
+  .colaboradores-section h4 { 
+
+    font-size: 1.4rem; 
+
+  } 
+
+} 
+
+ 
+
+ 
+
+@media (max-width: 480px) { 
+
+  #toma, 
+
+  #escolhe, 
+
+  #saneamento, 
+
+  #empoder, 
+
+  main { 
+
+    width: 95%; 
+
+    margin-left: auto; 
+
+    margin-right: auto; 
+
+    padding: 12px; 
+
+  } 
+
+ 
+
+ 
+
+  .hero-content h1 { 
+
+    font-size: 20px; 
+
+  } 
+
+ 
+
+ 
+
+  main h1, 
+
+  #saneamento h1 { 
+
+    font-size: 24px; 
+
+  } 
+
+ 
+
+ 
+
+  section h3 { 
+
+    font-size: 1.2rem; 
+
+  } 
+  section p, 
+
+  #empoder section p { 
+
+    font-size: 0.95rem; 
+
+  } 
+
+} 
