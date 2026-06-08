@@ -1,4 +1,4 @@
-package com.project.omni;
+package com.project.omni.contatos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

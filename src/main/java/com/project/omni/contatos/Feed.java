@@ -1,4 +1,4 @@
-package com.project.omni;
+package com.project.omni.contatos;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

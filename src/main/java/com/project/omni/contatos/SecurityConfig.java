@@ -1,4 +1,4 @@
-package com.project.omni;
+package com.project.omni.contatos;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

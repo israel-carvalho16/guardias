@@ -1,4 +1,4 @@
-package com.project.omni;
+package com.project.omni.contatos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
