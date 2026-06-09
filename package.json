@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "animejs": "^4.4.1"
+  },
+  "devDependencies": {
+    "cypress": "^15.16.0"
   }
 }
