@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Controler {
 
-    @Autowired
-    private Repository_feed repositoryFeed;
+    private final Repository_feed repositoryFeed;
+
+    Controler(Repository_feed repositoryFeed) {
+        this.repositoryFeed = repositoryFeed;
+    }
 
     @GetMapping("/contato")
     public String abrirPagina() {
