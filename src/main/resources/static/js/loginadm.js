@@ -1,4 +1,4 @@
-function login() {
+/*function login() {
     const btnText = document.getElementById("btnText");
     const loader = document.getElementById("loader");
     let user = document.getElementById("usuario").value;

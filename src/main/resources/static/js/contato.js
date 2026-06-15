@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
   const radios = document.querySelectorAll(".rating input");
   const labels = document.querySelectorAll(".rating label");
 
@@ -24,4 +24,4 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-});
+});*/

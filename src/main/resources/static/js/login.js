@@ -1,4 +1,4 @@
-document.getElementById("formLogin").addEventListener("submit", function(e) {
+/*document.getElementById("formLogin").addEventListener("submit", function(e) {
     
     let email = document.querySelector("input[name='username']").value;
     let senha = document.querySelector("input[name='password']").value;
