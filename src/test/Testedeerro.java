@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.project.omni;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,18 @@ public class testedeerro {
     private MockMvc mockMvc;
 
     @MockBean
-    private RepositoryFeed repositoryFeed; 
+    private RepositoryFeed repositoryFeed;
 
     @Test
     public void deveRetornarErroAoEnviarContatoQuandoFalharAoSalvarNoBanco() throws Exception {
-        // 1. Configuração do Mock para lançar a exceção
+        // Configuração do Mock
         Mockito.when(repositoryFeed.save(Mockito.any(Feed.class)))
                .thenThrow(new RuntimeException("Erro no banco"));
 
-        // 2. Execução da requisição POST e validação
+        // Execução e validação
         mockMvc.perform(MockMvcRequestBuilders.post("/contato/enviar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"nome\": \"Teste\", \"mensagem\": \"Olá\"}"))
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"nome\": \"Teste\", \"mensagem\": \"Olá\"}"))
                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
     }
 }
