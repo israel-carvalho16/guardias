@@ -1,15 +1,15 @@
-package com.project.omni.Admin;
+package com.project.omni.Volun;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration("adminSecurityConfig")
-public class SecurityConfig {
+@Configuration("VolunSecurityConfig")
+public class SecurityConfigV {
 
     @Bean
-public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
+public SecurityFilterChain VolunFilterChain(HttpSecurity http) throws Exception {
     
     return http.build();
 }
