@@ -1,4 +1,4 @@
-function toggleSenha() {
+/*function toggleSenha() {
     const passInput = document.getElementById("senha");
     const eyeIcon = document.getElementById("togglePassword");
    
