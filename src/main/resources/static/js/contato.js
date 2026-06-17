@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const numero = parseInt(label.textContent);
 
         if (numero <= valorSelecionado) {
-          if (valorSelecionado <= 5) {
+          if (valorSelecionado < 5) {
             label.classList.add("red");
           } else {
             label.classList.add("green");
