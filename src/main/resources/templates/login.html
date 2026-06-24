@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Login</h1>
+
+        <div id="alert" class="alert alert-error" style="display:none"></div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" placeholder="••••••">
+        </div>
+
+        <button class="btn btn-primary" onclick="handleLogin()">Entrar</button>
+
+        <p style="text-align:center; margin-top:1rem; font-size:0.9rem">
+            Não tem conta? <a href="register.html">Cadastre-se</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        if (auth.isLoggedIn()) {
+            window.location.href = 'index.html';
+        }
+
+        async function handleLogin() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const alert = document.getElementById('alert');
+
+            alert.style.display = 'none';
+
+            if (!email || !password) {
+                alert.textContent = 'Preencha todos os campos';
+                alert.style.display = 'block';
+                return;
+            }
+
+            try {
+                const data = await api.login({ email, password });
+                auth.save(data);
+
+                if (auth.isAdmin()) {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                alert.textContent = e.message;
+                alert.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+    </script>
+</body>
+</html>

@@ -5,12 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration("adminSecurityConfig")
+// COMENTE ESTA LINHA PARA DESATIVAR O CONFLITO:
+// @Configuration("adminSecurityConfig")
 public class SecurityConfigAdmin {
 
-@Bean
-public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
-    
-    return http.build();
-}
+    // Você pode deixar o método aqui comentado ou apagá-lo depois
+    // @Bean
+    // public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
+    //     return http.build();
+    // }
 }

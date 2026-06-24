@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro — Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Cadastro</h1>
+
+        <div id="alert" class="alert" style="display:none"></div>
+
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" placeholder="Seu nome">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" id="password" placeholder="mínimo 6 caracteres">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirmar senha</label>
+            <input type="password" id="confirmPassword" placeholder="repita a senha">
+        </div>
+
+        <button class="btn btn-primary" onclick="handleRegister()">Cadastrar</button>
+
+        <p style="text-align:center; margin-top:1rem; font-size:0.9rem">
+            Já tem conta? <a href="login.html">Entrar</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        if (auth.isLoggedIn()) {
+            window.location.href = 'index.html';
+        }
+
+        async function handleRegister() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const alertEl = document.getElementById('alert');
+
+            alertEl.style.display = 'none';
+            alertEl.className = 'alert alert-error';
+
+            if (!name || !email || !password || !confirmPassword) {
+                alertEl.textContent = 'Preencha todos os campos';
+                alertEl.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 6) {
+                alertEl.textContent = 'A senha deve ter no mínimo 6 caracteres';
+                alertEl.style.display = 'block';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alertEl.textContent = 'As senhas não coincidem';
+                alertEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                const data = await api.register({ name, email, password });
+                auth.save(data);
+
+                alertEl.className = 'alert alert-success';
+                alertEl.textContent = 'Cadastro realizado com sucesso!';
+                alertEl.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } catch (e) {
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleRegister();
+        });
+    </script>
+</body>
+</html>

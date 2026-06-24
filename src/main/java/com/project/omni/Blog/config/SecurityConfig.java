@@ -1,11 +1,13 @@
 package com.project.omni.Blog.config;
 
-import com.project.omni.Blog.security.JwtFilter;
+// 1. O import correto já está aqui
+import com.project.omni.Blog.security.JwtFilter; 
 
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 
-import org.apache.tomcat.JarScanFilter;
+// REMOVIDO: import org.apache.tomcat.JarScanFilter; <-- O erro estava aqui
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,7 +26,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JarScanFilter jwtFilter;
+    
+    private final JwtFilter jwtFilter; 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -44,7 +47,6 @@ public class SecurityConfig {
             throws Exception {
 
         http
-
                 .csrf(csrf -> csrf.disable())
 
                 .sessionManagement(session ->
@@ -97,7 +99,8 @@ public class SecurityConfig {
                 )
 
                 .addFilterBefore(
-                        (Filter) jwtFilter,
+                        // CORRIGIDO: Removido o cast manual (Filter), agora vai direto
+                        jwtFilter, 
                         UsernamePasswordAuthenticationFilter.class
                 );
 

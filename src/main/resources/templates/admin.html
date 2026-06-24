@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin — Blog</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Blog</a>
+        <div class="nav-links" id="navLinks"></div>
+    </nav>
+
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
+            <h1 style="color:#2c3e50">Painel Admin</h1>
+            <button class="btn btn-success" onclick="openModal()">+ Novo Post</button>
+        </div>
+
+        <div id="alert" class="alert" style="display:none"></div>
+        <div id="loading" class="loading">Carregando posts...</div>
+
+        <table class="table" id="postsTable" style="display:none">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Data</th>
+                    <th>Comentários</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="postsBody"></tbody>
+        </table>
+
+        <p id="emptyMsg" style="display:none; text-align:center; color:#888; margin-top:2rem">
+            Nenhum post criado ainda.
+        </p>
+    </div>
+
+    <!-- Modal criar/editar post -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Novo Post</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <div id="modalAlert" class="alert" style="display:none"></div>
+
+            <div class="form-group">
+                <label for="postTitle">Título</label>
+                <input type="text" id="postTitle" placeholder="Título do post">
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">Conteúdo</label>
+                <textarea id="postContent" style="min-height:200px" placeholder="Escreva o conteúdo aqui..."></textarea>
+            </div>
+
+            <div style="display:flex; gap:1rem; justify-content:flex-end">
+                <button class="btn" style="background:#ccc" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-primary" style="width:auto" onclick="savePost()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        auth.requireAdmin();
+
+        let editingPostId = null;
+
+        function buildNav() {
+            const nav = document.getElementById('navLinks');
+            const user = auth.getUser();
+            nav.innerHTML = `
+                <span style="color:white;font-size:0.9rem">Olá, ${user.name}</span>
+                <a href="index.html">Ver Blog</a>
+                <button onclick="auth.logout()">Sair</button>
+            `;
+        }
+
+        async function loadPosts() {
+            const loading = document.getElementById('loading');
+            const alertEl = document.getElementById('alert');
+            const table = document.getElementById('postsTable');
+            const emptyMsg = document.getElementById('emptyMsg');
+            const tbody = document.getElementById('postsBody');
+
+            try {
+                const posts = await api.getPosts();
+                loading.style.display = 'none';
+
+                if (posts.length === 0) {
+                    emptyMsg.style.display = 'block';
+                    return;
+                }
+
+                table.style.display = 'table';
+                tbody.innerHTML = posts.map(post => `
+                    <tr id="row-${post.id}">
+                        <td><strong>${post.title}</strong></td>
+                        <td>${post.authorName}</td>
+                        <td>${new Date(post.createdAt).toLocaleDateString('pt-BR')}</td>
+                        <td style="text-align:center">${post.comments.length}</td>
+                        <td>
+                            <div style="display:flex; gap:0.5rem">
+                                <button class="btn btn-primary btn-sm"
+                                    onclick="openModal(${post.id}, '${encodeURIComponent(post.title)}', '${encodeURIComponent(post.content)}')">
+                                    Editar
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="deletePost(${post.id})">
+                                    Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (e) {
+                loading.style.display = 'none';
+                alertEl.textContent = e.message;
+                alertEl.className = 'alert alert-error';
+                alertEl.style.display = 'block';
+            }
+        }
+
+        function openModal(id = null, title = '', content = '') {
+            editingPostId = id;
+            document.getElementById('modalTitle').textContent = id ? 'Editar Post' : 'Novo Post';
+            document.getElementById('postTitle').value = id ? decodeURIComponent(title) : '';
+            document.getElementById('postContent').value = id ? decodeURIComponent(content) : '';
+            document.getElementById('modalAlert').style.display = 'none';
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            editingPostId = null;
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        async function savePost() {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+            const alertEl = document.getElementById('modalAlert');
+
+            alertEl.style.display = 'none';
+            alertEl.className = 'alert alert-error';
+
+            if (!title || !content) {
+                alertEl.textContent = 'Preencha todos os campos';
+                alertEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                if (editingPostId) {
+                    await api.updatePost(editingPostId, { title, content });
+                } else {
+                    await api.createPost({ title, content });
+                }
+
+                closeModal();
+                loadPosts();
+
+                const alertMain = document.getElementById('alert');
+                alertMain.className = 'alert alert-success';
+                alertMain.textContent = editingPostId ? 'Post atualizado!' : 'Post criado!';
+                alertMain.style.display = 'block';
+                setTimeout(() => alertMain.style.display = 'none', 2000);
+
+            } catch (e) {
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+
+        async function deletePost(id) {
+            if (!confirm('Deseja excluir este post? Todos os comentários serão removidos.')) return;
+
+            try {
+                await api.deletePost(id);
+                document.getElementById(`row-${id}`).remove();
+
+                const alertEl = document.getElementById('alert');
+                alertEl.className = 'alert alert-success';
+                alertEl.textContent = 'Post excluído!';
+                alertEl.style.display = 'block';
+                setTimeout(() => alertEl.style.display = 'none', 2000);
+
+            } catch (e) {
+                const alertEl = document.getElementById('alert');
+                alertEl.className = 'alert alert-error';
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+
+        // fecha modal clicando fora
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        buildNav();
+        loadPosts();
+    </script>
+</body>
+</html>

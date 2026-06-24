@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post — Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Blog</a>
+        <div class="nav-links" id="navLinks"></div>
+    </nav>
+    <div class="container">
+        <div id="loading" class="loading">Carregando post...</div>
+        <div id="alert" class="alert alert-error" style="display:none"></div>
+        <div id="postContent" style="display:none">
+            <h1 id="postTitle" style="color:#2c3e50; margin-bottom:0.5rem"></h1>
+            <div id="postMeta" class="meta" style="margin-bottom:1rem"></div>
+            <div id="postBody" style="line-height:1.8; margin-bottom:2rem"></div>
+            <hr style="margin:2rem 0; border:none; border-top:1px solid #ddd">
+            <h2 style="color:#2c3e50; margin-bottom:1rem">Comentários</h2>
+            <div id="comments"></div>
+            <div id="commentForm" style="display:none; margin-top:2rem">
+                <h3 style="margin-bottom:0.8rem; color:#555">Deixe seu comentário</h3>
+                <div id="commentAlert" class="alert" style="display:none"></div>
+                <div class="form-group">
+                    <textarea id="commentText" style="min-height:100px" placeholder="Escreva seu comentário..."></textarea>
+                </div>
+                <button class="btn btn-primary" style="width:auto" onclick="handleComment()">Comentar</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        function buildNav() {
+            const nav = document.getElementById('navLinks');
+            if (!auth.isLoggedIn()) {
+                nav.innerHTML = '<a href="login.html">Entrar</a><a href="register.html">Cadastrar</a>';
+                return;
+            }
+            const user = auth.getUser();
+            let links = '<span style="color:white;font-size:0.9rem">Olá, ' + user.name + '</span>';
+            if (auth.isAdmin()) links += '<a href="admin.html">Painel Admin</a>';
+            links += '<button onclick="auth.logout()">Sair</button>';
+            nav.innerHTML = links;
+        }
+        function getPostId() {
+            return new URLSearchParams(window.location.search).get('id');
+        }
+        async function loadPost() {
+            const postId = getPostId();
+            if (!postId) {
+                document.getElementById('loading').style.display = 'none';
+                const el = document.getElementById('alert');
+                el.textContent = 'Post não encontrado.';
+                el.style.display = 'block';
+                return;
+            }
+            const loading = document.getElementById('loading');
+            const alertEl = document.getElementById('alert');
+            const postContent = document.getElementById('postContent');
+            const commentsEl = document.getElementById('comments');
+            const commentForm = document.getElementById('commentForm');
+            try {
+                const post = await api.getPost(postId);
+                loading.style.display = 'none';
+                postContent.style.display = 'block';
+                document.getElementById('postTitle').textContent = post.title;
+                document.getElementById('postMeta').innerHTML = 'Por ' + post.authorName + ' &mdash; ' + new Date(post.createdAt).toLocaleDateString('pt-BR');
+                document.getElementById('postBody').innerHTML = post.content.replace(/\n/g, '<br>');
+                const comments = post.comments || [];
+                if (comments.length === 0) {
+                    commentsEl.innerHTML = '<p style="color:#888">Nenhum comentário ainda.</p>';
+                } else {
+                    commentsEl.innerHTML = comments.map(function(c) {
+                        return '<div class="comment"><div class="meta">' + c.authorName + ' &mdash; ' + new Date(c.createdAt).toLocaleDateString('pt-BR') + '</div><p>' + c.content + '</p></div>';
+                    }).join('');
+                }
+                if (auth.isLoggedIn()) commentForm.style.display = 'block';
+            } catch (e) {
+                loading.style.display = 'none';
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+        async function handleComment() {
+            const postId = getPostId();
+            const text = document.getElementById('commentText').value.trim();
+            const alertEl = document.getElementById('commentAlert');
+            alertEl.style.display = 'none';
+            alertEl.className = 'alert alert-error';
+            if (!text) {
+                alertEl.textContent = 'Escreva um comentário.';
+                alertEl.style.display = 'block';
+                return;
+            }
+            try {
+                await api.createComment(postId, { content: text });
+                document.getElementById('commentText').value = '';
+                alertEl.className = 'alert alert-success';
+                alertEl.textContent = 'Comentário enviado!';
+                alertEl.style.display = 'block';
+                loadPost();
+            } catch (e) {
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+        buildNav();
+        loadPost();
+    </script>
+</body>
+</html>
