@@ -6,13 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notícias - Guardiãs das Águas</title>
 
+  <!-- Widgets de Acessibilidade Estáveis -->
   <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
+  
+  <!-- Arquivo JavaScript Unificado -->
+  <script src="/omni_BACK-geraldo/src/main/resources/static/js/home.js" defer></script>
 
-  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/ddd.css">
+  <!-- Biblioteca FontAwesome obrigatória para os ícones -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+
+  <!-- Links de Folha de Estilo Padronizados -->
+  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/Inicio.css">
+  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/noticias.css">
 </head>
 
 <body>
+  <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -25,114 +34,201 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  <header>
-    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas">
-    <h2>Guardiãs das Águas</h2>
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
+    </div>
 
-    <nav> 
-      <ul> 
+    <nav class="header-nav"> 
+      <ul class="nav-links"> 
         <li><a href="pagina1.html">Início</a></li> 
-        <li><a href="noticias.html">Notícias</a></li> 
+        <li><a href="noticias.html" aria-current="page">Notícias</a></li> 
         <li><a href="Projeto.html">Projetos</a></li> 
         <li><a href="Evento.html">Eventos</a></li> 
-        <li> 
+        <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
-            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html">MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href=""></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a> 
+            <div class="dropdown-content" role="menu">
+              <a href="MG.html" role="menuitem">MG</a> 
+              <a href="CE.html" role="menuitem">CE</a> 
+            </div>
           </details> 
         </li> 
         <li><a href="contatos.html">Contato</a></li> 
       </ul>
     </nav> 
-  </header>
 
-  <main class="container">
-    <article class="card">
-      <img src="/src/main/resources/static/img/primeira.png" alt="Área de floresta preservada">
-      <h2>O governo anunciou novas áreas de proteção ambiental com foco em biomas ameaçados</h2>
-      <p>
-        As florestas regulam o clima, protegem a biodiversidade e mantêm a vida na Terra.
-        Sem elas, os impactos ambientais se tornam ainda mais graves.
-      </p>
-      <h6>10/02/2025</h6>
-      <a href="primeiranoticia.html" class="btn">Ler mais</a>
-    </article>
+    <!-- Botões de Ação Padronizados -->
+    <div class="auth-actions">
+      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header> 
 
-    <article class="card">
-      <img src="https://brasil.un.org/sites/default/files/styles/featured_image/public/2025-09/COP30.png?itok=O8eWJ9Ra" alt="Imagem sobre a COP30 em Belém">
-      <h2>COP30: o que saiu da conferência do clima em Belém</h2>
-      <p>
-        A COP30 em Belém encerrou com acordos sobre financiamento e adaptação climática, mas as críticas apontam falhas
-        na redução do uso de combustíveis fósseis.
-      </p>
-      <h6>20/11/2025</h6>
-      <a href="noticia2.html" class="btn">Ler mais</a>
-    </article>
+  <!-- CONTEÚDO PRINCIPAL COM HUB DE BUSCA E FILTROS -->
+  <main class="noticias-container" id="conteudo-principal" role="main">
+    
+    <div class="news-hub-header">
+      <div class="header-title-search">
+        <h1 class="titulo-centralizado">Notícias</h1>
+        
+        <!-- Barra de Pesquisa em Tempo Real -->
+        <div class="search-box-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" placeholder="Buscar notícias ou biomas..." aria-label="Buscar artigos">
+        </div>
+      </div>
 
-    <article class="card">
-      <img src="/src/main/resources/static/img/AGUA 03.jpg" alt="Imagem relacionada à escassez de água">
-      <h2>O custo trilionário da falta de água para o planeta</h2>
-      <p>
-        A escassez crescente de água, agravada pelo calor e pela seca, deve provocar insegurança alimentar,
-        deslocamento de populações e instabilidade política. O problema já afeta cerca de 2 bilhões de pessoas.
-      </p>
-      <h6>13/03/2025</h6>
-      <a href="noticia3.html" class="btn">Ler mais</a>
-    </article>
+      <!-- Grade de Tags de Categoria Interativa -->
+      <div class="categories-filter-bar" role="tablist" aria-label="Filtrar notícias por assunto">
+        <button class="filter-tag active" role="tab" aria-selected="true">Todas</button>
+        <button class="filter-tag" role="tab" aria-selected="false">Clima</button>
+        <button class="filter-tag" role="tab" aria-selected="false">Recursos Hídricos</button>
+        <button class="filter-tag" role="tab" aria-selected="false">Sustentabilidade</button>
+        <button class="filter-tag" role="tab" aria-selected="false">Saneamento</button>
+      </div>
+    </div>
 
-    <article class="card">
-      <img src="https://renovainvest.com.br/wp-content/uploads/2024/10/creditos-de-carbono.webp" alt="Imagem ilustrativa sobre créditos de carbono">
-      <h2>Créditos de carbono são questionados</h2>
-      <p>
-        Relatórios apontam que muitos projetos de compensação não reduzem emissões reais e podem até prejudicar
-        comunidades locais.
-      </p>
-      <h6>08/12/2025</h6>
-      <a href="noticia4.html" class="btn">Ler mais</a>
-    </article>
+    <!-- Grid Simétrica com Filtros de Atributo Inseridos -->
+    <div class="noticias-grid">
+      
+      <!-- Card 1 -->
+      <article class="card-noticia" data-category="clima sustentabilidade todas">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/primeira.png" alt="Área de floresta preservada">
+        </div>
+        <div class="card-body">
+          <h2>O governo anunciou novas áreas de proteção ambiental com foco em biomas ameaçados</h2>
+          <p>As florestas regulam o clima, protegem a biodiversidade e mantêm a vida na Terra. Sem elas, os impactos ambientais se tornam ainda mais graves.</p>
+          <span class="card-date">10/02/2025</span>
+          <a href="primeiranoticia.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <img src="/src/main/resources/static/img/peixe com plastico.jpg" alt="Peixe em ambiente com poluição plástica">
-      <h2>Nova tecnologia promete limpar os oceanos</h2>
-      <p>
-        Cientistas desenvolveram uma técnica capaz de recolher microplásticos de forma mais eficiente.
-      </p>
-      <h6>22/08/2025</h6>
-      <a href="pagina5.html" class="btn">Ler mais</a>
-    </article>
+      <!-- Card 2 -->
+      <article class="card-noticia" data-category="clima todas">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/lula.webp" alt="Imagem sobre a COP30 em Belém">
+        </div>
+        <div class="card-body">
+          <h2>COP30: o que saiu da conferência do clima em Belém</h2>
+          <p>A COP30 em Belém encerrou com acordos sobre financiamento e adaptação climática, mas as críticas apontam falhas na redução do uso de combustíveis fósseis.</p>
+          <span class="card-date">20/11/2025</span>
+          <a href="noticia2.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <img src="/src/main/resources/static/img/alagoa.webp" alt="Paisagem de Alagoas relacionada à questão do esgoto">
-      <h2>Falta de coleta de esgoto atinge 83% dos alagoanos e ameaça saúde e turismo</h2>
-      <p>
-        No Brasil, são quase 100 milhões de pessoas sem coleta e tratamento de esgoto, o que compromete a saúde da
-        população e, no caso de Alagoas, ameaça também o turismo.
-      </p>
-      <h6>09/12/2025</h6>
-      <a href="noticia6.html" class="btn">Ler mais</a>
-    </article>
+      <!-- Card 3 -->
+      <article class="card-noticia" data-category="recursos hidricos saneamento todas">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/AGUA 03.jpg" alt="Imagem relacionada à escassez de água">
+        </div>
+        <div class="card-body">
+          <h2>O custo trilionário da falta de água para o planeta</h2>
+          <p>A escassez crescente de água, agravada pelo calor e pela seca, deve provocar insegurança alimentar, deslocamento de populações e instabilidade política. O problema já afeta cerca de 2 bilhões de pessoas.</p>
+          <span class="card-date">13/03/2025</span>
+          <a href="noticia3.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card-noticia" data-category="sustentabilidade todas">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/co2.webp" alt="Imagem ilustrativa sobre créditos de carbono">
+        </div>
+        <div class="card-body">
+          <h2>Créditos de carbono são questionados</h2>
+          <p>Relatórios apontam que muitos projetos de compensação não reduzem emissões reais e podem até prejudicar comunidades locais.</p>
+          <span class="card-date">08/12/2025</span>
+          <a href="noticia4.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
+      <!-- Card 5 -->
+    <article class="card-noticia" data-category="recursos hidricos sustentabilidade saneamento">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/peixe com plastico.jpg" alt="Peixe em ambiente com poluição plástica">
+        </div>
+        <div class="card-body">
+          <h2>Nova tecnologia promete limpar os oceanos</h2>
+          <p>Cientistas desenvolveram uma técnica capaz de recolher microplásticos de forma mais eficiente.</p>
+          <span class="card-date">22/08/2025</span>
+          <a href="pagina5.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card-noticia" data-category="saneamento recursos hidricos">
+        <div class="card-thumb">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/alagoa.webp" alt="Paisagem de Alagoas relacionada à questão do esgoto">
+        </div>
+        <div class="card-body">
+          <h2>Falta de coleta de esgoto atinge 83% dos alagoanos e ameaça saúde e turismo</h2>
+          <p>No Brasil, são quase 100 milhões de pessoas sem coleta e tratamento de esgoto, o que compromete a saúde da população e, no caso de Alagoas, ameaça também o turismo.</p>
+          <span class="card-date">09/12/2025</span>
+          <a href="noticia6.html" class="btn-ler-mais">Ler mais</a>
+        </div>
+      </article>
+
+    </div> <!-- Fechamento da noticias-grid -->
   </main>
 
-  <footer>
-    <p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
-
-    <div class="redes-sociais">
-      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/youtube.png" alt="YouTube">
-      </a>
-
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/insta.png" alt="Instagram">
-      </a>
-    </div>
-  </footer>
-
-  <section class="colaboradores-section">
-    <h4 class="titulo-centralizado">COLABORADORES</h4>
+  <!-- SEÇÃO DE COLABORADORES (ALINHADA ANTES DO FOOTER) -->
+  <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
+    <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Nossos colaboradores">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
+
+  <!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- Coluna 1: Sobre o Projeto -->
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+
+      <!-- Coluna 2: Links de Navegação -->
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul role="menu" aria-label="Links rápidos do rodapé">
+          <li><a href="pagina1.html" role="menuitem">Início</a></li>
+          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
+          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
+          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Institucional e Contato -->
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="Acesse nosso canal no YouTube" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Siga nosso perfil no Instagram" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha Divisória de Acabamento -->
+    <hr class="footer-divider">
+
+    <!-- Base do Footer com Créditos -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <p class="footer-credits">
+        Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer" aria-label="Acesse o site da Permution (abre em nova aba)">Permution</a>
+      </p>
+    </div>
+  </footer>
 </body>
 
 </html>

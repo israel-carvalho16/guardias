@@ -6,13 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projetos - Guardiãs das Águas</title>
 
-  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
+  <!-- Widgets de Acessibilidade Estáveis -->
+  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
+  
+  <!-- Arquivo JavaScript Unificado do Projeto -->
+  <script src="/omni_BACK-geraldo/src/main/resources/static/js/home.js" defer></script>
 
-  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/projeto.css">
+  <!-- Biblioteca FontAwesome obrigatória para ícones -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+
+  <!-- Links de Folha de Estilo Padronizados -->
+  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/Inicio.css">
+  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/projetos.css">
 </head>
 
 <body>
+  <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -20,175 +29,224 @@
     </div>
   </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js" onload="initVLibras()"></script>
   <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    function initVLibras() {
+      if (window.VLibras && window.VLibras.Widget) {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      }
+    }
   </script>
 
-  <header>
-    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas">
-    <h2>Guardiãs das Águas</h2>
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
+    </div>
 
-    <nav> 
-      <ul> 
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
+      <ul class="nav-links"> 
         <li><a href="pagina1.html">Início</a></li> 
         <li><a href="noticias.html">Notícias</a></li> 
-        <li><a href="Projeto.html">Projetos</a></li> 
+        <li><a href="Projeto.html" aria-current="page">Projetos</a></li> 
         <li><a href="Evento.html">Eventos</a></li> 
-        <li> 
+        <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
-            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html">MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="*"></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a> 
+            <div class="dropdown-content" role="menu">
+              <a href="MG.html" role="menuitem">MG</a> 
+              <a href="CE.html" role="menuitem">CE</a> 
+            </div>
           </details> 
         </li> 
         <li><a href="contatos.html">Contato</a></li> 
       </ul>
     </nav> 
-  </header>
 
-  <main>
-    <h3 class="titulo-pagina">Projetos</h3>
+    <!-- Botões de Ação Unificados -->
+    <div class="auth-actions">
+      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header> 
 
-    <section id="Juazeiro" class="bloco-projeto">
-      <section>
-        <img src="/src/main/resources/static/img/Screenshot_20251202-094113~2.png" alt="Projeto em Juazeiro do Norte, Ceará" width="400" height="400">
-        <h6>
-          <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer">
-            Acessar publicação
-          </a>
-        </h6>
-      </section>
+  <!-- CONTEÚDO PRINCIPAL (VITRINE DE PROJETOS EM ASIMETRIA PREMIUM) -->
+  <main class="projetos-container" id="conteudo-principal" role="main">
+    <h1 class="titulo-centralizado">Projetos</h1>
 
-      <section>
-        <h3>Juazeiro do Norte/CE</h3>
+    <!-- Projeto 1: Juazeiro do Norte -->
+    <article id="Juazeiro" class="bloco-projeto">
+      <div class="projeto-media-box">
+        <div class="projeto-img-wrapper">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Screenshot_20251202-094113~2.png" alt="Grupo de alunas e pesquisadoras reunidas no laboratório do projeto em Juazeiro do Norte, Ceará">
+        </div>
+        <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
+          <i class="fab fa-instagram"></i> Acessar publicação
+        </a>
+      </div>
+
+      <div class="projeto-content-box">
+        <h2>Juazeiro do Norte / CE</h2>
         <p>
           O projeto desenvolvido pelo grupo Guardiãs das Águas em Juazeiro do Norte, no Ceará,
           é uma iniciativa voltada para a educação ambiental e o saneamento, com foco em incentivar
           meninas e mulheres a atuarem em pesquisas sobre conservação ambiental.
         </p>
-
         <p>
           O núcleo de Juazeiro do Norte, assim como outros, realiza atividades de mobilização social
           e conscientização sobre a importância do saneamento na cidade. O grupo utiliza as redes sociais
           para divulgar informações sobre a situação do saneamento local e promover a discussão sobre o tema.
         </p>
-      </section>
-    </section>
+      </div>
+    </article>
 
-    <section id="Aracaju" class="bloco-projeto">
-      <section>
-        <img src="/src/main/resources/static/img/Aracaju.png" alt="Projeto em Aracaju, Sergipe" width="400" height="400">
-        <h6>
-          <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer">
-            Acessar publicação
-          </a>
-        </h6>
-      </section>
-
-      <section>
-        <h3>Aracaju/SE</h3>
+    <!-- Projeto 2: Aracaju (Pronto para receber o texto complementar) -->
+    <article id="Aracaju" class="bloco-projeto projeto-inverted">
+      <div class="projeto-media-box">
+        <div class="projeto-img-wrapper">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Aracaju.png" alt="Ação de conscientização ambiental em andamento no núcleo de Aracaju, Sergipe">
+        </div>
+        <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
+          <i class="fab fa-instagram"></i> Acessar publicação
+        </a>
+      </div>
+      <div class="projeto-content-box">
+        <h2>Aracaju / SE</h2>
         <p>
           O projeto desenvolvido pelo grupo Guardiãs das Águas em Aracaju é uma iniciativa de educação
           científica e ambiental voltada para estudantes, com foco específico no saneamento básico na cidade.
         </p>
-
         <p>
           As atividades do projeto incluem a promoção de discussões e conscientização sobre o funcionamento
           do saneamento em Aracaju, além da formação de jovens pesquisadoras para a ciência e o meio ambiente,
           como exemplificado pela conquista do primeiro lugar em um evento nacional com um projeto sobre
           biocerâmica a partir de cascas de caranguejo.
         </p>
-      </section>
-    </section>
+      </div>
+    </article>
 
-    <section id="Uber" class="bloco-projeto">
-      <section>
-        <img src="/src/main/resources/static/img/Uberlândia.png" alt="Projeto em Uberlândia, Minas Gerais" width="400" height="400">
-        <h6>
-          <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer">
-            Acessar publicação
-          </a>
-        </h6>
-      </section>
+    <!-- Projeto 3: Uberlândia -->
+    <article id="Uber" class="bloco-projeto">
+      <div class="projeto-media-box">
+        <div class="projeto-img-wrapper">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Uberlândia.png" alt="Grupo de estudantes realizando testes de qualidade da água no laboratório da UFU em Uberlândia, Minas Gerais">
+        </div>
+        <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
+          <i class="fab fa-instagram"></i> Acessar publicação
+        </a>
+      </div>
 
-      <section>
-        <h3>Uberlândia/MG</h3>
+      <div class="projeto-content-box">
+        <h2>Uberlândia / MG</h2>
         <p>
           O projeto Guardiãs das Águas em Uberlândia é uma iniciativa da Universidade Federal de Uberlândia (UFU)
           que visa incentivar a participação de meninas e mulheres em pesquisas e ações relacionadas à conservação
           ambiental e ao saneamento básico.
         </p>
-
         <p>
           Entre as principais atividades do projeto estão a inclusão científica de alunas do ensino fundamental,
           médio e superior, o monitoramento de ambientes aquáticos locais, como córregos e o Rio Uberabinha,
           a conscientização sobre tratamento de água e esgoto, e a formação de multiplicadoras da ciência cidadã.
         </p>
-
         <p>
           O projeto também promove imersões científicas, permitindo que as participantes vivenciem na prática
           o processo de pesquisa, muitas vezes em parceria com instituições como o SENAI.
         </p>
-      </section>
-    </section>
+      </div>
+    </article>
 
-    <section id="MT" class="bloco-projeto">
-      <section>
-        <img src="/src/main/resources/static/img/MT.png" alt="Projeto em Cuiabá, Mato Grosso" width="500" height="400">
-        <h6>
-          <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer">
-            Acessar publicação
-          </a>
-        </h6>
-      </section>
 
-      <section>
-        <h3>Cuiabá/MT</h3>
+    <!-- Projeto 4: Cuiabá / MT -->
+    <article id="MT" class="bloco-projeto projeto-inverted">
+      <div class="projeto-media-box">
+        <div class="projeto-img-wrapper">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/MT.png" alt="Estudantes e pesquisadoras realizando análises e monitoramento de recursos hídricos em Cuiabá, Mato Grosso">
+        </div>
+        <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
+          <i class="fab fa-instagram"></i> Acessar publicação
+        </a>
+      </div>
+
+      <div class="projeto-content-box">
+        <h2>Cuiabá / MT</h2>
         <p>
           O projeto Guardiãs das Águas em Cuiabá envolve alunas e mulheres em pesquisas científicas para o
           monitoramento e a conservação de recursos hídricos. As participantes realizam coletas e análises de
           água em rios da cidade como parte de suas atividades.
         </p>
-
         <p>
           As principais ações incluem o monitoramento de ambientes aquáticos, a inserção de meninas e mulheres
           no meio científico, a promoção de atividades de educação ambiental e a realização de parcerias com
           instituições como a UFU, a UFMT, o CNPq e a prefeitura de Cuiabá.
         </p>
-      </section>
-    </section>
+      </div>
+    </article>
+  </main>
+    <!-- Botão Saiba Mais Institucional -->
+    <div class="saiba-mais-wrapper">
+      <a href="https://ppgeco.inbio.ufu.br/acontece/2024/09/projeto-guardioes-das-aguas-do-triangulo" target="_blank" rel="noopener noreferrer" class="btn-saiba-mais-global">
+        <i class="fas fa-info-circle"></i> Clique para saber mais sobre o projeto completo
+      </a>
+    </div>
 
-    <section class="saiba-mais">
-      <h6>
-        <a href="https://ppgeco.inbio.ufu.br/acontece/2024/09/projeto-guardioes-das-aguas-do-triangulo" target="_blank" rel="noopener noreferrer">
-          Clique para saber mais
-        </a>
-      </h6>
-    </section>
   </main>
 
-<footer class="footer-site">
-
-<p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
-
-<div class="redes-sociais">
-<a href="https://instagram.com">
-<img src="/src/main/resources/static/img/Instagram_icon.png" alt="Instagram">
-</a>
-
-<a href="https://youtube.com">
-<img src="/src/main/resources/static/img/youtube.png" alt="YouTube">
-</a>
-</div>
-
-</footer>
-
-  <section class="colaboradores-section">
-    <h4 class="titulo-centralizado">COLABORADORES</h4>
+  <!-- SEÇÃO DE COLABORADORES (ALINHADA ANTES DO FOOTER) -->
+  <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
+    <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Nossos colaboradores">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
+
+  <!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- Coluna 1: Sobre o Projeto -->
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+
+      <!-- Coluna 2: Links de Navegação -->
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul role="menu" aria-label="Links rápidos do rodapé">
+          <li><a href="pagina1.html" role="menuitem">Início</a></li>
+          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
+          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
+          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Institucional e Contato -->
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="Acesse nosso canal no YouTube" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Siga nosso perfil no Instagram" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha Divisória de Acabamento -->
+    <hr class="footer-divider">
+
+    <!-- Base do Footer com Créditos -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <p class="footer-credits">
+        Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer" aria-label="Acesse o site da Permution (abre em nova aba)">Permution</a>
+      </p>
+    </div>
+  </footer>
 </body>
 
 </html>

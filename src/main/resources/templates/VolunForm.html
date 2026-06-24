@@ -1,28 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/src/main/resources/static/css/Vform.css">
+    <title>Inscrição de Voluntariado - Guardiãs das Águas</title>
+    
+    <!-- Link para o FontAwesome (Para o ícone de voltar) -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <!-- Arquivo CSS Exclusivo para o Formulário de Voluntários -->
+    <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/voluntario.css">
+    <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/formularios.css">
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
+
+    <!-- Botão Flutuante Elegante para Voltar à Home -->
+    <a href="pagina1.html" class="btn-back-home">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+    </a>
+
+    <!-- Fundo Abstrato com Esferas Fluídas de Alta UI -->
+    <div class="background-circles">
+        <div class="sphere circle-primary"></div>
+        <div class="sphere circle-secondary"></div>
+        <div class="sphere circle-accent"></div>
     </div>
-    <form>
-        <h3>Seja um Voluntário!</h3>
-        <label for="username">Username</label>
-        <input type="text" placeholder="Nome Completo" id="username" required>
 
-        <label for="e-mail">E-mail</label>
-        <input type="text" placeholder="Email" id="E-mail" required>
+    <!-- Container Principal do Formulário (Efeito de Vidro) -->
+    <div class="volun-container">
+        
+        <!-- Identidade Visual do Projeto -->
+        <div class="form-header">
+            <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo Guardiãs das Águas" class="form-logo">
+            <h2>Guardiãs das Águas</h2>
+            <p>Faça parte do movimento</p>
+        </div>
 
-        <label for="link">seu link da rede social</label>
-        <input type="text" placeholder="link de alguma rede social sua" id="link" required>
+        <form action="#" method="POST">
+            <h3>Ficha de Inscrição</h3>
+            
+            <!-- Grid de Duas Colunas para os Campos -->
+            <div class="form-grid">
+                
+                <div class="input-field">
+                    <label for="volun-name">Nome Completo</label>
+                    <input type="text" placeholder="Seu nome completo" id="volun-name" required>
+                </div>
 
-        <button>Log In</button>
-    </form>
+                <div class="input-field">
+                    <label for="volun-email">E-mail</label>
+                    <input type="email" placeholder="seuemail@exemplo.com" id="volun-email" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="volun-cpf">CPF</label>
+                    <input type="text" placeholder="000.000.000-00" id="volun-cpf" maxlength="14" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="volun-phone">Telefone / WhatsApp</label>
+                    <input type="tel" placeholder="(00) 00000-0000" id="volun-phone" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="volun-gender">Gênero</label>
+                    <select id="volun-gender" required>
+                        <option value="" disabled selected hidden>Selecione</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="outro">Outro / Prefiro não dizer</option>
+                    </select>
+                </div>
+
+                <div class="input-field">
+                    <label for="volun-pass">Criar Senha de Acesso</label>
+                    <input type="password" placeholder="Crie uma senha forte" id="volun-pass" required>
+                </div>
+
+            </div>
+
+            <!-- Botão de Envio Sólido -->
+            <button type="submit" class="btn-submit-volun">Enviar Inscrição</button>
+        </form>
+    </div>
+
 </body>
 </html>

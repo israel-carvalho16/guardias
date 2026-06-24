@@ -1,0 +1,317 @@
+/* ==========================================================================
+   ESTILO FORMULÁRIO DE VOLUNTÁRIOS - GUARDIÃS DAS ÁGUAS (PARTE 1 DE 2)
+   ========================================================================= */
+
+:root {
+  --roxo-escuro: #14052a;
+  --roxo-vivido: #5b289e;
+  --azul-hidro: #3182ce;
+  --azul-claro: #91b0d4;
+  --text-white: #ffffff;
+  --text-muted: #b3a5c7;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@font-face {
+  font-family: "arabic";
+  src: url("../Font/GlacialIndifference-Regular.otf");
+}
+
+/* Reset de Elementos e Configurações Globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "arabic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--roxo-escuro);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+  padding: 60px 20px;
+}
+
+/* ==========================================================================
+   FUNDO DINÂMICO (3 ESFERAS ORGÂNICAS EM MOVIMENTO)
+   ========================================================================= */
+.background-circles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none; /* Impede que interfiram nos cliques do formulário */
+}
+
+.sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px); /* Suaviza levemente as bordas das esferas */
+}
+
+/* Círculo 1 (Roxo Superior Esquerdo) */
+.circle-primary {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, var(--roxo-vivido), #8e6db5);
+  top: 15%;
+  left: 20%;
+  animation: orbit1 12s ease-in-out infinite alternate;
+}
+
+/* Círculo 2 (Azul Central Direito) */
+.circle-secondary {
+  width: 280px;
+  height: 280px;
+  background: linear-gradient(135deg, var(--azul-claro), var(--azul-hidro));
+  bottom: 20%;
+  right: 18%;
+  animation: orbit2 16s ease-in-out infinite alternate;
+}
+
+/* Círculo 3 (Mini Destaque Roxo/Azul) */
+.circle-accent {
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(135deg, #7c3aed, #2b6cb0);
+  top: 50%;
+  left: 25%;
+  opacity: 0.6;
+  animation: orbit1 9s ease-in-out infinite alternate-reverse;
+}
+
+/* Animações de Órbita Premium */
+@keyframes orbit1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 20px) scale(1.08); }
+  100% { transform: translate(15px, -15px) scale(0.95); }
+}
+
+@keyframes orbit2 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, -30px) scale(0.92); }
+  100% { transform: translate(-10px, 15px) scale(1.05); }
+}
+
+/* ==========================================================================
+   BOTÃO FLUTUANTE VOLTAR AO INÍCIO (MELHORADO COM RESPIRO)
+   ========================================================================= */
+.btn-back-home {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  z-index: 10;
+  padding: 10px 22px; /* Margem interna com o respiro perfeito validado na tela admin */
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.btn-back-home:hover {
+  color: var(--text-white);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(-50%) translateY(-1px);
+}
+
+@media (min-width: 768px) {
+  .btn-back-home {
+    left: 40px;
+    transform: none;
+  }
+  .btn-back-home:hover {
+    transform: translateY(-1px);
+  }
+}
+/* ==========================================================================
+   ESTILO FORMULÁRIO DE VOLUNTÁRIOS - GUARDIÃS DAS ÁGUAS (PARTE 2 DE 2)
+   ========================================================================= */
+
+/* Container Principal (Efeito de Vidro Amplo) */
+.volun-container {
+  width: 100%;
+  max-width: 650px; /* Largura estendida para acomodar duas colunas confortavelmente */
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 16px;
+  padding: 40px 35px 45px 35px; /* Altura com respiro de segurança na base */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  position: relative;
+}
+
+/* Cabeçalho do Formulário */
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--text-white);
+  padding: 3px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.form-header h2 {
+  color: var(--text-white);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.form-header p {
+  color: var(--azul-claro);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+
+/* Título interno do formulário */
+form h3 {
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* Grid Inteligente de Duas Colunas (UI Humana e Organizada) */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Divide o espaço em duas colunas iguais */
+  gap: 20px; /* Espaçamento idêntico entre linhas e colunas */
+  margin-bottom: 25px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  color: var(--text-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Inputs e Selects Translúcidos Unificados */
+form input, form select {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--text-white) !important;
+  outline: none;
+  transition: var(--transition);
+  height: 48px; /* Força uma altura idêntica para inputs e selects */
+}
+
+/* Customização do campo select para combinar com o tema */
+form select {
+  cursor: pointer;
+  appearance: none; /* Remove a seta padrão feia do sistema */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+}
+
+/* Estilização das opções do Select para ficarem visíveis no fundo escuro */
+form select option {
+  background-color: var(--roxo-escuro);
+  color: var(--text-white);
+}
+
+/* Placeholders em tons foscos elegantes */
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.9rem;
+}
+
+/* Foco Ativo (Efeito Iluminação nas Bordas) */
+form input:focus, form select:focus {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--azul-claro) !important;
+  box-shadow: 0 0 12px rgba(145, 176, 212, 0.2);
+}
+
+/* Botão de Envio de Alta Conversão */
+.btn-submit-volun {
+  width: 100%;
+  background-color: var(--text-white) !important;
+  color: var(--roxo-escuro) !important;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-submit-volun:hover {
+  background-color: var(--azul-claro) !important;
+  color: var(--roxo-escuro) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(145, 176, 212, 0.35);
+}
+
+/* Antifiltro de preenchimento automático do Chrome */
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-white) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(20, 5, 42, 0.6) inset !important;
+}
+
+/* ==========================================================================
+   DIRETIVAS RESPONSIVAS (MOBILE-FRIENDLY)
+   ========================================================================= */
+@media (max-width: 680px) {
+  .volun-container {
+    padding: 35px 20px;
+    margin: 20px auto;
+  }
+  
+  /* Transforma as duas colunas em uma linha única vertical no celular */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  form h3 {
+    font-size: 1.4rem;
+    margin-bottom: 22px;
+  }
+}
