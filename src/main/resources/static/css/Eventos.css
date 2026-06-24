@@ -1,269 +1,325 @@
-@font-face {
-  font-family: "arabic";
-  src: url("../Font/GlacialIndifference-Regular.otf");
-}
+/* ==========================================================================
+   SISTEMA DE DESIGN PREMIUM - PORTAL DE EVENTOS CRONOLÓGICOS
+   ========================================================================= */
 
 :root {
   --roxo-logo: #8e6db5;
   --azul1: #91a4ce;
   --azul2: #91b0d4;
-  --azul3: #92bedb;
   --roxo-principal: #5b289e;
   --roxo-secundario: #8f73b2;
-  --lilas: #dedae0;
+  --lilas: #f4f1f7;
+  --bg-white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #ffffff;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 4px 6px -1px rgba(91, 40, 158, 0.04);
+  --shadow-md: 0 20px 25px -5px rgba(91, 40, 158, 0.07);
+  --radius-lg: 16px;
+  --radius-md: 12px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "arabic", Arial, sans-serif;
+/* Container Estrutural da Página */
+.eventos-container {
+  max-width: 1200px;
+  margin: 120px auto 60px !important; /* Altura ideal para livrar o menu fixo de vidro */
+  padding: 0 4% !important;
 }
 
-body {
-  background-color: var(--lilas);
-  color: #333;
-  line-height: 1.6;
+/* ==========================================================================
+   1. BLOCOS DE INTRODUÇÃO / ENGAJAMENTO (ASIMETRIA DO PROJETO)
+   ========================================================================= */
+.bloco-motivo-introducao {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 60px !important;
+  background: var(--bg-white) !important;
+  padding: 45px !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(142, 109, 181, 0.06) !important;
+  margin-bottom: 45px !important;
+  align-items: center !important;
+  transition: var(--transition) !important;
 }
 
-#motivo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 30px;
-  padding: 30px;
-  gap: 25px;
+.bloco-motivo-introducao:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
-#motivo_h3 {
-  text-align: center;
-  font-size: 2rem;
-  border: 2px groove var(--roxo-logo);
+/* Classe de inversão alternada herdada dos padrões */
+.bloco-motivo-introducao.projeto-inverted {
+  flex-direction: row-reverse !important;
+}
+
+.bloco-motivo-introducao .motivo-media-box,
+.bloco-motivo-introducao .motivo-content-box {
+  flex: 1 !important;
+  width: 50% !important;
+  max-width: 50% !important;
+}
+
+.motivo-media-box img {
+  width: 100% !important;
+  max-width: 420px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+  border-radius: var(--radius-md);
+}
+
+.titulo-introducao {
+  font-size: 1.9rem !important;
+  color: var(--roxo-principal) !important;
+  margin-bottom: 16px !important;
+  font-weight: 700 !important;
+}
+
+.motivo-content-box p {
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  color: var(--text-dark) !important;
+  margin-bottom: 14px !important;
+  text-align: justify !important;
+  opacity: 0.9;
+}
+
+/* Lista Ordenada Customizada */
+.lista-aprendizado {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.lista-aprendizado li {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.lista-aprendizado li strong {
   color: var(--roxo-principal);
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 10px;
 }
 
-#motivo_texto {
-  margin-top: 20px;
-  text-align: justify;
-  font-size: 1.1rem;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
+/* ==========================================================================
+   2. SEÇÃO DOS CARDS DE CRONOGRAMA REAIS
+   ========================================================================= */
+.secao-lista-eventos {
+  margin-top: 80px;
+  margin-bottom: 60px;
 }
 
-.titulos {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 23px;
-  background-color: var(--azul3);
-  color: #052a79;
-  padding: 10px;
+.msg-agradecimento {
+  margin-top: 60px !important;
+  font-size: 2rem !important;
 }
 
-#CARDS {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 20px;
+.eventos-grid-layout {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas impecáveis e simétricas */
+  gap: 30px !important;
+  margin-top: 40px !important;
 }
 
-.cardsEventos {
-  border: 3px groove var(--roxo-logo);
-  text-align: center;
-  margin: 5px;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 12px;
+/* O Card de Evento Individual */
+.card-evento-item {
+  background: var(--bg-white) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid rgba(142, 109, 181, 0.1) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: var(--transition) !important;
 }
 
-.cardsEventos p {
-  margin: 15px 0;
-}
-a {
-  text-decoration: none;
-}
-
-#aprender {
-  width: 78%;
-  display: block;
-  margin: auto;
+.card-evento-item:hover {
+  transform: translateY(-6px) !important;
+  border-color: var(--azul2) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
-#ambiente {
+/* Caixa de topo do card (Logo + Etiqueta de Status) */
+.evento-thumb-box {
   width: 100%;
-  max-width: 500px;
-  display: block;
-  margin: auto;
-}
-
-#trilha {
-  width: 100%;
-  max-width: 500px;
-  display: block;
-  margin: auto;
-}
-
-#imgIlu {
-  width: 30%;
-  max-width: 400px;
-  display: block;
-  margin: 20px auto 0;
-}
-
-ul,
-li {
-  font-size: 19px;
-  list-style-type: none;
-  margin-bottom: 8px;
-}
-
-ol {
-  text-align: justify;
-  font-size: 19px;
-  margin: 20px 0 30px 20px;
-}
-
-button {
-  background-color: var(--azul3);
-  border: 3px solid var(--roxo-principal);
-  font-size: 16px;
-  color: #000;
-  padding: 8px 14px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-button:hover {
-  font-size: 17px;
-  cursor: pointer;
-  background-color: var(--azul2);
-}
-
-/* footer */
-.footer-site {
-  background-color: var(--roxo-principal);
-  color: white;
-  text-align: center;
-  padding: 25px 20px;
-  margin-top: 40px;
-}
-
-.footer-site p {
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.footer-site .redes-sociais {
+  height: 160px;
+  background: linear-gradient(135deg, #fbfafd, #f3edf9);
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 25px;
-  margin: 15px 0;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid rgba(142, 109, 181, 0.06);
 }
 
-.footer-site .redes-sociais img {
-  width: 40px;
-  height: 40px;
-  transition: 0.3s;
-  cursor: pointer;
+.evento-logo-img {
+  height: 90px !important;
+  width: 90px !important;
+  object-fit: contain !important;
+  transition: var(--transition) !important;
 }
 
-.footer-site .redes-sociais img:hover {
-  transform: scale(1.2);
+.card-evento-item:hover .evento-logo-img {
+  transform: scale(1.06) rotate(3deg) !important;
 }
 
-/* colaboradores */
-.colaboradores-section {
-  background-color: var(--azul1);
-  padding: 30px 20px;
-  text-align: center;
+/* Etiqueta de inscrições */
+.evento-tag-status {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: #28a745; /* Verde padrão ativo */
+  color: #ffffff;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.titulo-centralizado {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #333;
+/* Tratamentos de status alternativos via CSS combinando com o texto */
+.card-evento-item:nth-of-type(2) .evento-tag-status,
+.card-evento-item:nth-of-type(3) .evento-tag-status,
+.card-evento-item:nth-of-type(4) .evento-tag-status,
+.card-evento-item:nth-of-type(6) .evento-tag-status {
+  background-color: var(--roxo-secundario); /* Lilás para Em Breve */
 }
 
-.colaboradores {
+.card-evento-item:nth-of-type(5) .evento-tag-status {
+  background-color: #6c757d; /* Cinza para Encerrado */
+}
+
+/* Corpo do card */
+.evento-card-body {
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+}
+
+/* Meta-lista (Dia, Local, Horário) */
+.evento-meta-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin-bottom: 16px !important;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evento-meta-list li {
+  font-size: 0.9rem !important;
+  color: var(--text-dark) !important;
+  font-weight: 600 !important;
+  display: flex;
   align-items: center;
+  gap: 10px;
+  opacity: 0.9;
 }
 
-.colaboradores img {
-  max-width: 700px;
+.evento-meta-list li i {
+  color: var(--roxo-principal);
+  width: 16px;
+  text-align: center;
+}
+
+.evento-descricao {
+  font-size: 0.95rem !important;
+  color: var(--text-dark) !important;
+  line-height: 1.5 !important;
+  margin-bottom: 24px !important;
+  opacity: 0.8;
+  text-align: left !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Botão de cadastro */
+.btn-evento-cadastro {
+  text-decoration: none !important;
+  text-align: center !important;
+  background-color: var(--roxo-principal) !important;
+  color: var(--text-light) !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  margin-top: auto !important; /* Força os botões a ficarem pareados na base */
+  transition: var(--transition) !important;
+}
+
+.btn-evento-cadastro:hover {
+  background-color: #441c78 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(91, 40, 158, 0.2) !important;
+}
+
+/* Botão cinza de encerrado */
+.btn-evento-cadastro.btn-evento-encerrado {
+  background-color: #e2e8f0 !important;
+  color: #718096 !important;
+  cursor: not-allowed;
+}
+.btn-evento-cadastro.btn-evento-encerrado:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Banner Ilustrativo Final */
+.evento-banner-decorativo {
+  max-width: 1000px;
   width: 100%;
-  height: auto;
-  display: block;
+  margin: 60px auto 20px auto !important;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
-/* responsividade */
-@media (max-width: 1240px) {
-  #CARDS {
-    grid-template-columns: 1fr;
-  }
-
-  .cardsEventos {
-    text-align: center;
-  }
-
-  #imgIlu {
-    width: 90%;
-    float: none;
-    display: block;
-    margin: 0 auto;
-  }
-
-  #ambiente,
-  #trilha {
-    width: 90%;
-    height: auto;
-  }
-
-  #aprender {
-    width: 90%;
-    height: auto;
-  }
+.evento-banner-decorativo img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
 }
 
-@media (max-width: 900px) {
-  #motivo {
-    grid-template-columns: 1fr;
-  }
+/* Créditos adicionais do footer */
+.footer-canva-credits {
+  text-align: right;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+.footer-canva-credits p span {
+  font-weight: 600;
+  color: #ffffff;
+}
+.footer-credits-source {
+  margin-top: 4px;
+}
 
-  #motivo_h3 {
-    font-size: 1.6rem;
+/* ==========================================================================
+   DIRETIVAS RESPONSIVAS DO PAINEL
+   ========================================================================= */
+@media (max-width: 1024px) {
+  .eventos-grid-layout { grid-template-columns: repeat(2, 1fr) !important; }
+  .bloco-motivo-introducao, .bloco-motivo-introducao.projeto-inverted {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+    padding: 24px !important;
   }
-
-  #motivo_texto {
-    font-size: 1rem;
+  .bloco-motivo-introducao .motivo-media-box, .bloco-motivo-introducao .motivo-content-box {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
-@media (max-width: 600px) {
-  .titulos {
-    font-size: 20px;
-  }
-
-  #motivo {
-    padding: 15px;
-  }
-
-  #motivo_h3 {
-    font-size: 1.3rem;
-  }
-
-  ul,
-  li,
-  ol {
-    font-size: 16px;
-  }
-
-  .cardsEventos {
-    padding: 12px;
-  }
+@media (max-width: 768px) {
+  .eventos-grid-layout { grid-template-columns: 1fr !important; }
+  .eventos-container { margin: 140px auto 40px !important; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-canva-credits { text-align: center; }
 }

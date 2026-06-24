@@ -1,0 +1,43 @@
+/* Estilização do Botão de Voltar para o Tema Escuro Glass */
+.btn-voltar-formulario {
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  
+  /* Posicionamento cirúrgico para não quebrar as esferas de fundo */
+  position: absolute !important;
+  top: 30px !important;
+  left: 4% !important;
+  z-index: 10 !important;
+  
+  /* Efeito Vidro Fosco Translúcido */
+  padding: 10px 20px !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 30px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Micro-interação: ao passar o mouse, ele flutua e acende sutilmente */
+.btn-voltar-formulario:hover {
+  color: #ffffff !important;
+  background-color: rgba(142, 109, 181, 0.2) !important; /* Brilho no tom lilás da marca */
+  border-color: rgba(142, 109, 181, 0.4) !important;
+  transform: translateX(-3px) !important;
+  box-shadow: 0 8px 20px rgba(142, 109, 181, 0.15) !important;
+}
+
+.btn-voltar-formulario i {
+  font-size: 0.8rem !important;
+  transition: transform 0.2s ease;
+}
+
+.btn-voltar-formulario:hover i {
+  transform: translateX(-2px); /* A setinha dá um leve recuo */
+}

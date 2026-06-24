@@ -1,0 +1,213 @@
+/* ==========================================================================
+   SISTEMA DE DESIGN PREMIUM - DIRETÓRIO DE ORGÃOS AMBIENTAIS
+   ========================================================================= */
+
+:root {
+  --roxo-principal: #5b289e;
+  --roxo-secundario: #8f73b2;
+  --lilas: #f4f1f7;
+  --bg-white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #ffffff;
+  --red-emergency: #e53e3e;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 4px 6px -1px rgba(91, 40, 158, 0.04);
+  --shadow-md: 0 20px 25px -5px rgba(91, 40, 158, 0.08);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+.orgaos-page-container {
+  max-width: 1200px;
+  margin: 120px auto 60px !important;
+  padding: 0 4% !important;
+}
+
+.orgaos-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-top: -15px;
+  margin-bottom: 50px;
+  opacity: 0.85;
+}
+
+/* Procure por .btn-voltar-link no seu orgaos.css e substitua por este: */
+.btn-voltar-link {
+  text-decoration: none !important;
+  color: var(--roxo-principal) !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 20px !important; /* Afasta o botão para baixo do menu fixed */
+  margin-bottom: 30px !important; /* Dá um respiro antes do título Contatos Úteis */
+  padding: 8px 18px !important;
+  background-color: rgba(91, 40, 158, 0.05) !important; /* Fundo lilás bem suave e elegante */
+  border: 1px solid rgba(91, 40, 158, 0.1) !important;
+  border-radius: 20px !important; /* Formato pílula combinando com o resto do site */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Micro-interação: ao passar o mouse, o botão flutua suavemente para a esquerda */
+.btn-voltar-link:hover {
+  background-color: var(--roxo-principal) !important;
+  color: #ffffff !important;
+  transform: translateX(-4px) !important;
+  box-shadow: 0 4px 12px rgba(91, 40, 158, 0.15) !important;
+}
+
+
+.subtitulo-orgaos {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--roxo-principal);
+  padding-left: 12px;
+}
+.subtitulo-orgaos i { color: var(--roxo-principal); margin-right: 4px; }
+.subtitulo-orgaos:first-of-type { border-left-color: var(--red-emergency); }
+.subtitulo-orgaos:first-of-type i { color: var(--red-emergency); }
+
+/* Grid Estrutural */
+.orgaos-grid-layout {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: 30px !important;
+  margin-bottom: 30px;
+}
+
+/* Base Comum dos Cards */
+.card-orgao-item {
+  background: var(--bg-white) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 30px !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(142, 109, 181, 0.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: var(--transition) !important;
+}
+
+.card-orgao-item:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.orgao-header-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.orgao-header-box h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.orgao-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.card-orgao-item p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 24px;
+  text-align: justify;
+}
+
+/* Estilo 1: Emergências */
+.emergency-style { border-bottom: 4px solid var(--red-emergency) !important; }
+.emergency-style:hover { border-color: var(--red-emergency) !important; }
+.emergency-style .orgao-icon { background: #fff5f5; color: var(--red-emergency); }
+
+.orgao-phone-action {
+  margin-top: auto;
+  background: #fff5f5;
+  color: var(--red-emergency);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Estilo 2: Institucionais */
+.institution-style { border-bottom: 4px solid var(--roxo-principal) !important; }
+.institution-style:hover { border-color: var(--azul1) !important; }
+.institution-style .orgao-icon { background: #f7f4fc; color: var(--roxo-principal); }
+
+.meta-links-orgaos {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.meta-links-orgaos p { margin-bottom: 0; font-size: 0.9rem; }
+.meta-links-orgaos p strong { color: var(--roxo-principal); }
+
+.btn-orgao-site {
+  text-decoration: none !important;
+  text-align: center !important;
+  background-color: var(--roxo-principal) !important;
+  color: var(--text-light) !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  margin-top: auto !important;
+  transition: var(--transition) !important;
+}
+.btn-orgao-site:hover {
+  background-color: #441c78 !important;
+  box-shadow: 0 4px 12px rgba(91, 40, 158, 0.2);
+}
+/* ==========================================================================
+   TRAVA DE SEGURANÇA VISUAL PARA ÍCONES E VETORES (FONTAWESOME)
+   ========================================================================= */
+.orgao-icon i,
+.orgao-phone-action i,
+.meta-links-orgaos i,
+.subtitulo-orgaos i,
+.btn-voltar-link i {
+  display: inline-block !important;
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 900 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+/* Adicione isso no final do orgaos.css para os títulos dos cards ficarem perfeitos: */
+.orgao-header-box {
+  display: flex !important;
+  flex-direction: column !important; /* Empilha o ícone/emoji acima do título */
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  gap: 12px !important;
+}
+
+.orgao-header-box h4 {
+  margin: 0 !important;
+  font-size: 1.3rem !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .orgaos-page-container { margin: 140px auto 40px !important; }
+  .card-orgao-item { padding: 24px !important; }
+}
