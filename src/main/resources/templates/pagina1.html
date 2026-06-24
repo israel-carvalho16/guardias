@@ -1,0 +1,256 @@
+<!DOCTYPE html> 
+
+<html lang="pt-BR"> 
+
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Guardiãs das Águas</title> 
+ 
+  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script> 
+  
+  <script src="/src/main/resources/static/js/login.js"></script>
+  <script src="/src/main/resources/static/js/home.js"></script>
+
+  <link rel="stylesheet" href="https://cloudflare.com"> 
+  <link rel="stylesheet" href="/src/main/resources/static/css/Inicio.css">
+  <link rel="stylesheet" href="/src/main/resources/static/css/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
+
+  <style>
+    /* Container dos botões */
+.auth-buttons {
+  display: flex;
+  gap: 16px; /* Espaçamento entre os botões */
+  justify-content: center; /* Centraliza os botões na tela */
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilização geral de ambos os botões */
+.auth-buttons a {
+  text-decoration: none; /* Remove o sublinhado padrão do link */
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 8px; /* Cantos arredondados modernos */
+  transition: all 0.3s ease; /* Transição suave para os efeitos */
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Botão: Entrar como Admin (Estilo Sólido/Destaque) */
+.btn-auth-cadastrar {
+  background-color: #660982; 
+  color: #ffffff;
+  border: 2px solid #2b6cb0;
+  box-shadow: 0 4px 6px rgba(43, 108, 176, 0.1);
+  margin-right: -90px;
+  
+}
+
+.btn-auth-cadastrar:hover {
+  background-color: #1a436d; /* Tom mais escuro ao passar o mouse */
+  border-color: #1a436d;
+  transform: translateY(-2px); /* Efeito sutil de flutuar */
+}
+
+/* Botão: Entrar como Voluntário (Estilo Outline/Secundário) */
+.btn-auth-entrar {
+  background-color: #660982; 
+  color: #ffffff;
+  border: 2px solid #2b6cb0;
+  box-shadow: 0 4px 6px rgba(43, 108, 176, 0.1);
+  margin-right: -100px;
+  margin-left: 90px;
+}
+
+.btn-auth-entrar:hover {
+  background-color: #1a436d; /* Tom mais escuro ao passar o mouse */
+  border-color: #1a436d;
+  transform: translateY(-2px); /* Efeito sutil de flutuar */
+}
+
+
+/* Responsividade: Empilha os botões em telas pequenas (celulares) */
+@media (max-width: 480px) {
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .auth-buttons a {
+    width: 100%; /* Botões ocupam a largura total no mobile */
+  }
+}
+  </style>
+</head> 
+
+<body> 
+  <div vw class="enabled"> 
+    <div vw-access-button class="active"></div> 
+    <div vw-plugin-wrapper> 
+      <div class="vw-plugin-top-wrapper"></div> 
+    </div> 
+  </div> 
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script> 
+  <script> 
+    new window.VLibras.Widget('https://vlibras.gov.br/app'); 
+  </script> 
+
+  <header> 
+    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+    <h2>Guardiãs das Águas</h2> 
+    <nav> 
+      <ul> 
+        <li><a href="pagina1.html">Início</a></li> 
+        <li><a href="noticias.html">Notícias</a></li> 
+        <li><a href="Projeto.html">Projetos</a></li> 
+        <li><a href="Evento.html">Eventos</a></li> 
+        <li> 
+          <details> 
+            <summary id="Nucleos">Nossos Núcleos</summary> 
+            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html">MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="*"></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a> 
+          </details> 
+        </li> 
+        <li><a href="contatos.html">Contato</a></li> 
+
+        <div class="auth-buttons">
+        <a href="AdminForm.html" class="btn-auth-cadastrar">Entrar como Admin</a>
+        <a href="VolunForm.html" class="btn-auth-entrar">Entrar como Voluntário</a>
+      </div>
+      </ul>
+    </nav> 
+  </header> 
+
+  <section class="hero"> 
+    <video class="video-bg" autoplay muted loop playsinline> 
+      <source src="/src/main/resources/static/video/video2.mp4" type="video/mp4"> 
+    </video> 
+    <div class="hero-content"> 
+      <h1>Educação sobre saneamento e recursos hídricos para comunidades e escolas</h1> 
+    </div> 
+  </section> 
+
+  <section class="topicos-section"> 
+    <h3 class="titulo-centralizado">Tópicos</h3> 
+    <div id="escolhe" class="container"> 
+      <section> 
+        <img src="/src/main/resources/static/IMG/gota.png" alt="Gota rosa" height="200"> 
+        <p><strong>Saneamento e Água</strong></p> 
+      </section> 
+      <section> 
+        <img src="/src/main/resources/static/IMG/equipe.png" alt="Imagem de três mulheres" height="200"> 
+        <p><strong>Equipe</strong></p> 
+      </section> 
+      <section> 
+        <img src="/src/main/resources/static/IMG/Protagomismo feminino.png" alt="Imagem de uma mulher em rosa" height="200"> 
+        <p><strong>Protagonismo Feminino</strong></p> 
+      </section> 
+    </div> 
+  </section> 
+
+  <main id="toma"> 
+    <h1>Quem somos</h1> 
+    <section> 
+      <p>Durante o mês de janeiro, o Programa Futuras Cientistas reuniu alunas e professoras da educação básica da rede pública de Uberlândia para uma imersão científica nos laboratórios da UFU...</p> 
+      <p>O projeto Guardiãs das Águas (@guardias.aguas), da UFU, selecionado para integrar o programa nacional, permitiu que as participantes vivenciassem a experiência de uma pesquisa científica...</p> 
+    </section> 
+    <img src="/src/main/resources/static/IMG/logo.png" alt="Logo das Guardiãs das Águas"> 
+    <section> 
+      <div> 
+        <strong>Missão:</strong><br> 
+        Incentivar a participação feminina na ciência e na conservação ambiental, especificamente na área de recursos hídricos e saneamento... 
+      </div> 
+      <br> 
+      <div> 
+        <strong>Valores:</strong><br> 
+        Acreditar no potencial das mulheres como líderes e pesquisadoras na área ambiental.<br> 
+        <strong>Sustentabilidade:</strong> comprometimento com a preservação do meio ambiente...<br> 
+        <strong>Inovação e Ciência:</strong> utilizar a pesquisa, a tecnologia e a educação...<br> 
+        <strong>Responsabilidade Social:</strong> atuar em colaboração com comunidades... 
+      </div> 
+    </section> 
+  </main> 
+
+  <section id="saneamento"> 
+    <h1>Saneamento Básico</h1> 
+    <article class="saneamento-section"> 
+      <details class="san-item"> 
+        <summary>Explicação sobre saneamento</summary> 
+        <p>Saneamento básico é o conjunto de serviços que garantem que a água que utilizamos seja limpa e segura...</p> 
+      </details> 
+      <details class="san-item"> 
+        <summary>Benefícios</summary> 
+        <ul> 
+          <li>Reduz a propagação de doenças...</li> 
+          <li>Melhora a qualidade de vida da população.</li> 
+          <li>Protege o meio ambiente...</li> 
+        </ul> 
+      </details> 
+      <details class="san-item"> 
+        <summary>Malefícios quanto à ausência</summary> 
+        <p>A ausência de tratamento de esgoto contamina rios e solos, prejudicando o ecossistema...</p> 
+      </details> 
+    </article> 
+  </section> 
+
+  <main> 
+    <h1>Nossa equipe</h1> 
+    <img src="/src/main/resources/static/IMG/equipe.png" alt="Equipe"> 
+    <section> 
+      <h3>Coordenação Geral</h3> 
+      <img src="/src/main/resources/static/IMG/cord1.jfif" alt="Dra. Jeamylle Nilin"> 
+      <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
+    </section> 
+    <section> 
+      <h3>Coordenadora de Direitos Humanos</h3> 
+      <img src="/src/main/resources/static/IMG/cord2.jfif" alt="Dra. Claudiene Santos"> 
+      <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
+    </section> 
+  </main> 
+  
+  <main id="empoder"> 
+    <section> 
+      <h3>Protagonismo Feminino</h3> 
+      <img src="/src/main/resources/static/IMG/Protagomismo feminino.png" alt="Protagonismo"> 
+      <h4>Saiba mais</h4> 
+      <p>O protagonismo feminino refere-se à atuação activa das mulheres em diferentes espaços sociais...</p> 
+    </section> 
+  </main> 
+
+  <footer>
+    <p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
+
+    <div class="redes-sociais">
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+        <img src="/src/main/resources/static/IMG/youtube.png" alt="YouTube">
+      </a>
+
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+        <img src="/src/main/resources/static/IMG/insta.png" alt="Instagram">
+      </a>
+    </div>
+
+    <p>
+      Fonte da imagem da notícia:
+      <a style="color: white;" href="https://www.permution.com.br/pt-br/blog/terra-planeta-agua" target="_blank" rel="noopener noreferrer">
+        Permution
+      </a>
+    </p>
+    
+  </footer>
+
+  <section class="colaboradores-section">
+    <h4 class="titulo-centralizado">COLABORADORES</h4>
+    <div class="colaboradores">
+      <img src="/src/main/resources/static/IMG/Link do site PLEASE (1).png" alt="Nossos colaboradores">
+    </div>
+  </section>
+</body> 
+</html>
