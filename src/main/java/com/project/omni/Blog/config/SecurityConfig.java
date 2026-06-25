@@ -59,7 +59,8 @@ public class SecurityConfig {
                                 "/noticias",
                                 "/projeto",
                                 "/evento",
-                                "/error"
+                                "/error",
+                                "/contatos"
                         ).permitAll()
 
                         // 3. Regras de API controladas pelo Token JWT

@@ -39,21 +39,26 @@ public class PageController {
         return "post";
     }
 
-    // 🔴 ADICIONADO: Rota para a página de Notícias
+    
     @GetMapping("/noticias")
     public String noticias() {
         return "noticias"; 
     }
 
-    // 🔴 ADICIONADO: Rota para a página de Projetos
+    
     @GetMapping("/projeto")
     public String projeto() {
         return "Projeto"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Projeto.html
     }
 
-    // 🔴 ADICIONADO: Rota para a página de Eventos
+    
     @GetMapping("/evento")
     public String evento() {
         return "Evento"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Evento.html
     }
+        @GetMapping("/contatos")
+    public String contatos() {
+        return "contatos"; 
+    }
+
 }

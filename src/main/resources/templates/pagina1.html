@@ -37,18 +37,27 @@
 
     <nav class="header-nav"> 
       <ul class="nav-links"> 
-        <!-- Links limpos apontando para as rotas do Java Controller -->
+        
         <li><a th:href="@{/pagina1}">Início</a></li>
         <li><a th:href="@{/noticias}">Notícias</a></li>
         <li><a th:href="@{/projeto}">Projetos</a></li> 
         <li><a th:href="@{/evento}">Eventos</a></li> 
+        
+        
+        <li><a th:href="@{/contatos}">Contatos</a></li>
+
+        <!-- Item de menu Dropdown que você estava editando -->
         <li class="dropdown-item"> 
           <details>
-
-        </li> 
-        <li><a href="contatos.html">Contato</a></li> 
+            <summary>Mais Opções</summary>
+            <div class="dropdown-menu">
+              <!-- Seus links internos do dropdown continuam aqui -->
+            </div>
+          </details>
+        </li>
       </ul>
-    </nav> 
+    </nav>
+
 
     <!-- Botões de Ação Sem Margens Negativas -->
     <div class="auth-actions">
