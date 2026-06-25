@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+
+    <div class="container">
+        <div id="loading" class="loading">Carregando posts...</div>
+        <div id="alert" class="alert alert-error" style="display:none"></div>
+        <div id="posts"></div>
+    </div>
+
+    <script th:src="@{/js/api.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    <script>
+        function buildNav() {
+            const nav = document.getElementById('navLinks');
+            if (!auth.isLoggedIn()) {
+                nav.innerHTML = '<a href="/login">Entrar</a><a href="/register">Cadastrar</a>';
+                return;
+            }
+            const user = auth.getUser();
+            let links = '<span style="color:white;font-size:0.9rem">Olá, ' + user.name + '</span>';
+            if (auth.isAdmin()) links += '<a href="/admin">Painel Admin</a>';
+            links += '<button onclick="auth.logout()">Sair</button>';
+            nav.innerHTML = links;
+        }
+
+        async function loadPosts() {
+            const loading = document.getElementById('loading');
+            const alertEl = document.getElementById('alert');
+            const postsEl = document.getElementById('posts');
+            try {
+                const posts = await api.getPosts();
+                loading.style.display = 'none';
+                if (posts.length === 0) {
+                    postsEl.innerHTML = '<p style="text-align:center;color:#888;margin-top:2rem">Nenhum post publicado ainda.</p>';
+                    return;
+                }
+                postsEl.innerHTML = posts.map(function(post) {
+                    return '<div class="post-card" onclick="window.location.href=\'/post?id=' + post.id + '\'">' +
+                        '<h2>' + post.title + '</h2>' +
+                        '<div class="meta">Por ' + post.authorName + ' &mdash; ' + new Date(post.createdAt).toLocaleDateString('pt-BR') + ' &mdash; ' + post.comments.length + ' comentário(s)</div>' +
+                        '<p>' + post.content.substring(0, 200) + (post.content.length > 200 ? '...' : '') + '</p>' +
+                        '</div>';
+                }).join('');
+            } catch (e) {
+                loading.style.display = 'none';
+                alertEl.textContent = e.message;
+                alertEl.style.display = 'block';
+            }
+        }
+
+        buildNav();
+        loadPosts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head><meta charset="utf-8"></head><head></head><body>
+    <!-- Navbar fragment -->
+    <nav th:fragment="navbar">
+        <a href="/">Blog</a>
+        <div class="nav-links" id="navLinks"></div>
+    </nav>
+
+    <!-- Auth init script (must be included before other scripts) -->
+    <script th:fragment="auth-init" th:src="@{/js/auth.js}"></script>
+    <script th:fragment="api-init" th:src="@{/js/api.js}"></script>
+
+
+</body></html>
