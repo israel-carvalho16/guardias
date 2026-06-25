@@ -69,10 +69,10 @@
     </div>
   </header>
 
-
-  <!-- CONTEÚDO PRINCIPAL COM HUB DE BUSCA E FILTROS -->
-  <main class="noticias-container" id="conteudo-principal" role="main">
+<!-- CONTEÚDO PRINCIPAL COM HUB DE BUSCA E FILTROS -->
+<main class="noticias-container" id="conteudo-principal" role="main">
     
+    <!-- 1. BLOCO DE FILTROS E BUSCA HIGIENIZADO -->
     <div class="news-hub-header">
       <div class="header-title-search">
         <h1 class="titulo-centralizado">Notícias</h1>
@@ -80,37 +80,43 @@
         <!-- Barra de Pesquisa em Tempo Real -->
         <div class="search-box-wrapper">
           <i class="fas fa-search search-icon"></i>
-          <input type="text" placeholder="Buscar notícias ou biomas..." aria-label="Buscar artigos">
+          <input type="text" id="search-input" placeholder="Buscar notícias ou biomas..." aria-label="Buscar artigos">
         </div>
       </div>
 
-      <!-- Grade de Tags de Categoria Interativa -->
+      <!-- Grade de Tags de Categoria Interativa (Garante leitura idêntica com o JS) -->
       <div class="categories-filter-bar" role="tablist" aria-label="Filtrar notícias por assunto">
-        <button class="filter-tag active" role="tab" aria-selected="true">Todas</button>
-        <button class="filter-tag" role="tab" aria-selected="false">Clima</button>
-        <button class="filter-tag" role="tab" aria-selected="false">Recursos Hídricos</button>
-        <button class="filter-tag" role="tab" aria-selected="false">Sustentabilidade</button>
-        <button class="filter-tag" role="tab" aria-selected="false">Saneamento</button>
+        <button class="filter-tag active" data-filter="all">Todas</button>
+        <button class="filter-tag" data-filter="clima">Clima</button>
+        <button class="filter-tag" data-filter="recursos hidricos">Recursos Hídricos</button>
+        <button class="filter-tag" data-filter="sustentabilidade">Sustentabilidade</button>
+        <button class="filter-tag" data-filter="saneamento">Saneamento</button>
       </div>
+    </div> <!-- CORREÇÃO CRÍTICA: Tag fechada corretamente aqui! -->
+
+    <!-- Mensagem de carregamento dinâmico -->
+    <div id="loading-news" style="text-align: center; color: var(--roxo-principal); font-weight: bold; margin: 20px 0;">
+        <i class="fas fa-spinner fa-spin"></i> Sincronizando notícias com o banco de dados...
     </div>
-    <!-- Grid Simétrica com Filtros de Atributo Inseridos -->
-    <div class="noticias-grid">
+
+    <!-- 2. GRID TOTALMENTE INDEPENDENTE PARA REORGANIZAÇÃO AUTOMÁTICA -->
+    <div class="noticias-grid" id="noticias-dinamicas">
       
-      <!-- Card 1 -->
-      <article class="card-noticia" data-category="clima sustentabilidade todas">
+      <!-- CARD 1 ESTÁTICO -->
+      <article class="card-noticia" data-category="clima sustentabilidade">
         <div class="card-thumb">
           <img th:src="@{/img/primeira.png}" alt="Área de floresta preservada">
         </div>
         <div class="card-body">
-          <h2>O governo anunciou novas áreas de proteção ambiental com foco em biomas ameaçados</h2>
+          <h2>O governo anunciou novas áreas de proteção ambientais com foco em biomas ameaçados</h2>
           <p>As florestas regulam o clima, protegem a biodiversidade e mantêm a vida na Terra. Sem elas, os impactos ambientais se tornam ainda mais graves.</p>
           <span class="card-date">10/02/2025</span>
           <a th:href="@{/primeiranoticia}" class="btn-ler-mais">Ler mais</a>
         </div>
       </article>
 
-      <!-- Card 2 -->
-      <article class="card-noticia" data-category="clima todas">
+      <!-- CARD 2 ESTÁTICO -->
+      <article class="card-noticia" data-category="clima">
         <div class="card-thumb">
           <img th:src="@{/img/lula.webp}" alt="Imagem sobre a COP30 em Belém">
         </div>
@@ -122,8 +128,8 @@
         </div>
       </article>
 
-      <!-- Card 3 -->
-      <article class="card-noticia" data-category="recursos hidricos saneamento todas">
+      <!-- CARD 3 ESTÁTICO -->
+      <article class="card-noticia" data-category="recursos hidricos saneamento">
         <div class="card-thumb">
           <img th:src="@{/img/AGUA 03.jpg}" alt="Imagem relacionada à escassez de água">
         </div>
@@ -135,8 +141,8 @@
         </div>
       </article>
 
-      <!-- Card 4 -->
-      <article class="card-noticia" data-category="sustentabilidade todas">
+      <!-- CARD 4 ESTÁTICO -->
+      <article class="card-noticia" data-category="sustentabilidade">
         <div class="card-thumb">
           <img th:src="@{/img/co2.webp}" alt="Imagem ilustrativa sobre créditos de carbono">
         </div>
@@ -148,7 +154,7 @@
         </div>
       </article>
 
-      <!-- Card 5 -->
+      <!-- CARD 5 ESTÁTICO -->
       <article class="card-noticia" data-category="recursos hidricos sustentabilidade saneamento">
         <div class="card-thumb">
           <img th:src="@{/img/peixe com plastico.jpg}" alt="Peixe em ambiente com poluição plástica">
@@ -161,7 +167,7 @@
         </div>
       </article>
 
-      <!-- Card 6 -->
+      <!-- CARD 6 ESTÁTICO -->
       <article class="card-noticia" data-category="saneamento recursos hidricos">
         <div class="card-thumb">
           <img th:src="@{/img/alagoa.webp}" alt="Paisagem de Alagoas relacionada à questão do esgoto">
@@ -175,7 +181,90 @@
       </article>
 
     </div> <!-- Fechamento da noticias-grid -->
-  </main>
+</main>
+
+<!-- SCRIPT DE INTEGRAÇÃO COM O BACKEND -->
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const grid = document.getElementById("noticias-dinamicas");
+        const loading = document.getElementById("loading-news");
+
+        try {
+            // Chamada ajax para buscar os posts reais que o Admin salvou no banco
+            const response = await fetch('/api/posts');
+            if (!response.ok) throw new Error("Erro na requisição");
+            
+            const posts = await response.json();
+            loading.style.display = 'none';
+
+            // Injeta cada post novo criado vindo direto do banco de dados no início da grade
+            posts.forEach(post => {
+                const article = document.createElement("article");
+                article.className = "card-noticia";
+                // Vincula dinamicamente os posts criados à categoria "saneamento" e "recursos hidricos" por padrão
+                article.setAttribute("data-category", "saneamento recursos hidricos");
+
+                article.innerHTML = `
+                    <div class="card-thumb">
+                        <img src="/img/logo.png" alt="Capa da notícia">
+                    </div>
+                    <div class="card-body">
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>
+                        <span class="card-date">${new Date(post.createdAt || new Date()).toLocaleDateString('pt-BR')}</span>
+                        <a href="/post?id=${post.id}" class="btn-ler-mais">Ler mais</a>
+                    </div>
+                `;
+                // Insere no topo do grid
+                grid.insertBefore(article, grid.firstChild);
+            });
+
+        } catch (error) {
+            console.log("Modo de desenvolvimento: Sem novos posts na API local.", error);
+            loading.style.display = 'none';
+        }
+
+        // LÓGICA DE FILTRAGEM REFEITA (Barra de pesquisa + Tags de Categoria combinadas)
+        const searchInput = document.getElementById("search-input");
+        const filterTags = document.querySelectorAll(".filter-tag");
+        const cards = document.querySelectorAll(".card-noticia");
+
+        function filtrarArtigos() {
+            const termo = searchInput.value.toLowerCase().trim();
+            const tagAtiva = document.querySelector(".filter-tag.active").getAttribute("data-filter");
+
+            cards.forEach(card => {
+                const titulo = card.querySelector("h2").textContent.toLowerCase();
+                const resumo = card.querySelector("p").textContent.toLowerCase();
+                const categorias = card.getAttribute("data-category") || "";
+
+                const bateTexto = titulo.includes(termo) || resumo.includes(termo);
+                const bateTag = tagAtiva === "all" || categorias.includes(tagAtiva);
+
+                if (bateTexto && bateTag) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        searchInput.addEventListener("input", filtrarArtigos);
+
+        filterTags.forEach(tag => {
+            tag.addEventListener("click", () => {
+                filterTags.forEach(t => {
+                    t.classList.remove("active");
+                    t.setAttribute("aria-selected", "false");
+                });
+                tag.classList.add("active");
+                tag.setAttribute("aria-selected", "true");
+                filtrarArtigos();
+            });
+        });
+    });
+</script>
+
 
   <!-- SEÇÃO DE COLABORADORES -->
   <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
