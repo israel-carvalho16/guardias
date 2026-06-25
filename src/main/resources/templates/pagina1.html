@@ -28,44 +28,39 @@
   </script>
 
   <!-- CABEÇALHO GLOBAL (HEADER) -->
+    <!-- CABEÇALHO GLOBAL (HEADER) -->
   <header class="site-header"> 
     <div class="header-brand">
-      <!-- Logo que já funcionou -->
       <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
       <h2>Guardiãs das Águas</h2> 
     </div>
 
     <nav class="header-nav"> 
       <ul class="nav-links"> 
-        
         <li><a th:href="@{/pagina1}">Início</a></li>
         <li><a th:href="@{/noticias}">Notícias</a></li>
         <li><a th:href="@{/projeto}">Projetos</a></li> 
         <li><a th:href="@{/evento}">Eventos</a></li> 
-        
-        
+        <li class="dropdown-item"> 
+          <details> 
+            <summary id="Nucleos">Nossos Núcleos</summary> 
+            <div class="dropdown-content" role="menu">
+              <a th:href="@{/mg}" role="menuitem">MG</a> 
+              <a th:href="@{/ce}" role="menuitem">CE</a> 
+            </div>
+          </details> 
+        </li>
         <li><a th:href="@{/contatos}">Contatos</a></li>
-
-        <!-- Item de menu Dropdown que você estava editando -->
-       
-      
-        
       </ul>
     </nav>
 
-<!-- Botões de Ação Sem Margens Negativas -->
-<!-- BOTOES ALINHADOS COM AS ROTAS REAIS DO JAVA CONTROLLER -->
-<div class="auth-actions">
-  <!-- 1. Ajustado para chamar a rota /register que está liberada na segurança -->
-  <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
-  
-  <!-- 2. Mantida a rota do voluntário que o seu grupo já configurou -->
-  <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
-</div>
+    <!-- Botões alinhados perfeitamente com o PageController e o SecurityConfig -->
+    <div class="auth-actions">
+      <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header>
 
-
-
-  </header> 
 
   <!-- CONTEÚDO PRINCIPAL DO SITE -->
   <main class="main-content">

@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guardiãs das Águas</title>
+  <title>Núcleo CE - Guardiãs das Águas</title>
 
   <!-- Widgets de Acessibilidade -->
   <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
-  <link rel="stylesheet" href="/src/main/resources/static/css/CE.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
-  <style>
-    
-  /* Importante para que as letras aceitem a animação de rotação e pulo */
-  .animar-texto span {
-    display: inline-block;
-    white-space: pre; /* Mantém os espaços vazios entre as palavras */
-  }
+  
+  <!-- Arquivo JavaScript Unificado -->
+  <script th:src="@{/js/home.js}" defer></script>
 
+  <!-- Biblioteca FontAwesome obrigatória para os ícones -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+
+  <!-- Links de Folhas de Estilo Ajustados e Integrados -->
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  <link rel="stylesheet" th:href="@{/css/CE.css}">
+  <style>
+    .animar-texto span {
+      display: inline-block;
+      white-space: pre;
+    }
   </style>
 </head>
 
 <body>
-  <!-- VLibras -->
+  <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -33,105 +38,172 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-  <header>
-    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas">
-    <h2>Guardiãs das Águas</h2>
-    <nav>
-      <ul>
-        <li><a href="pagina1.html">Início</a></li>
-        <li><a href="noticias.html">Notícias</a></li>
-        <li><a href="Projeto.html">Projetos</a></li>
-        <li><a href="Evento.html">Eventos</a></li>
-        <li>
-          <details>
-            <summary id="Nucleos">Nossos Núcleos</summary>
-            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html" >MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="*"></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a>
-          </details>
-        </li>
-        <li><a href="contatos.html">Contato</a></li>
-        
-    </nav>
-    
-  </header>
   
-  <main class="container">
-    <header class="hero">
-      <h1>Bem-vindo ao núcleo Juazeiro do Norte - CE</h1>
-      <p>
-        O projeto <strong>Guardiãs das Águas</strong> promove a preservação dos recursos hídricos,
-        formando jovens — especialmente mulheres — como agentes multiplicadoras de conhecimento ambiental.
-      </p>
-    </header>
-
-    <section class="intro">
-      <img src="/src/main/resources/static/Núcleo - Juazeiro do Norte-CE/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg" alt="Núcleo Juazeiro do Norte">
-
-      <p>
-        Por meio da educação e da prática, incentivamos o uso consciente da água e o engajamento da comunidade
-        na proteção desse recurso essencial.
-      </p>
-    </section>
-
-    <section class="acoes">
-      <h2>O que fazemos</h2>
-
-      <ul>
-        <li>
-          <strong>Saneamento básico:</strong> análise de impactos ambientais e sociais da falta de saneamento.
-        </li>
-
-        <li>
-          <strong>Ecotoxicologia:</strong> testes com sementes para avaliar a qualidade da água do Riacho das Timbaúbas.
-        </li>
-
-        <li>
-          <strong>Análise de dados:</strong> criação de gráficos e visualizações acessíveis.
-        </li>
-
-        <li>
-          <strong>Divulgação científica:</strong> comunicação clara e acessível para a comunidade.
-        </li>
-      </ul>
-    </section>
-
-    <section class="impacto">
-      <h2>Nosso Impacto</h2>
-
-      <p>
-        Atuamos na preservação da água, na educação ambiental e no fortalecimento do protagonismo feminino na ciência,
-        promovendo saúde, sustentabilidade e qualidade de vida.
-      </p>
-    </section>
-  </main>
-  <footer>
-    <p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
-
-    <div class="redes-sociais">
-      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/IMG/youtube.png" alt="YouTube">
-      </a>
-
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/IMG/insta.png" alt="Instagram">
-      </a>
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER COMPARTILHADO) -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
     </div>
 
-    <p>
-      Fonte da imagem da notícia:
-      <a style="color: white;" href="https://www.permution.com.br/pt-br/blog/terra-planeta-agua" target="_blank" rel="noopener noreferrer">
-        Permution
-      </a>
-    </p>
-  </footer>
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
+      <ul class="nav-links"> 
+        <li><a th:href="@{/pagina1}">Início</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/projeto}">Projetos</a></li> 
+        <li><a th:href="@{/evento}">Eventos</a></li> 
+        <li class="dropdown-item"> 
+          <details> 
+            <summary id="Nucleos">Nossos Núcleos</summary> 
+            <div class="dropdown-content" role="menu">
+              <a th:href="@{/mg}" role="menuitem">MG</a> 
+              <a th:href="@{/ce}" role="menuitem">CE</a> 
+            </div>
+          </details> 
+        </li> 
+        <li><a th:href="@{/contatos}">Contato</a></li> 
+      </ul>
+    </nav> 
 
-  <section class="colaboradores-section">
-    <h4 class="titulo-centralizado">COLABORADORES</h4>
+    <!-- Botões unificados com as rotas permitidas do SecurityConfig -->
+    <div class="auth-actions">
+      <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header>
+
+  <!-- ESPAÇADOR DE SEGURANÇA CONTRA OBSTRUÇÃO DO HEADER -->
+  <div style="margin-top: 110px;"></div>
+
+  <main class="team-container-block">
+    
+    <!-- TÍTULO PRINCIPAL DE ACORDO COM AS DIRETRIZES DO ROOT -->
+    <h1 class="titulo-centralizado">Núcleo Juazeiro do Norte — CE</h1>
+
+    <!-- CARD INTRODUTÓRIO INTEGRADO AO LAYOUT DE CARD CORPORATIVO -->
+    <section class="team-card-item" style="text-align: left; margin-bottom: 40px !important;">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <p style="font-size: 1.1rem; line-height: 1.7; margin: 0;">
+          O projeto <strong>Guardiãs das Águas</strong> promove a preservação dos recursos hídricos, formando jovens — especialmente mulheres — como agentes multiplicadoras de conhecimento ambiental no Ceará. Por meio da educação e da prática laboratorial, incentivamos o uso consciente da água e o engajamento da comunidade na proteção desse recurso essencial.
+        </p>
+        <img th:src="@{/Núcleo - Juazeiro do Norte-CE/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg}" alt="Núcleo Juazeiro do Norte" style="width: 100% !important; max-height: 480px !important; border-radius: 16px; object-fit: cover; margin-top: 10px;">
+      </div>
+    </section>
+    <!-- SEÇÃO "O QUE FAZEMOS" REESTRUTURADA PARA ACCORDIONS INTERATIVOS PREMIUM -->
+    <section id="saneamento" style="margin: 40px auto;">
+      <h2 class="section-title" style="font-size: 1.8rem; text-align: left; margin-bottom: 20px;">O que fazemos</h2>
+      
+      <div class="saneamento-section">
+        
+        <!-- Item 1: Saneamento Básico -->
+        <details class="san-item">
+          <summary>Saneamento básico</summary>
+          <p>Análise aprofundada dos impactos ambientais e sociais causados pela falta de infraestrutura e saneamento na região.</p>
+        </details>
+
+        <!-- Item 2: Ecotoxicologia -->
+        <details class="san-item">
+          <summary>Ecotoxicologia</summary>
+          <p>Realização de testes práticos com germinação de sementes para avaliar e monitorar biologicamente a qualidade da água do Riacho das Timbaúbas.</p>
+        </details>
+
+        <!-- Item 3: Análise de Dados -->
+        <details class="san-item">
+          <summary>Análise de dados</summary>
+          <p>Processamento e criação de gráficos estatísticos e visualizações dinâmicas e acessíveis para catalogar as condições dos recursos hídricos.</p>
+        </details>
+
+        <!-- Item 4: Divulgação Científica -->
+        <details class="san-item">
+          <summary>Divulgação científica</summary>
+          <p>Tradução do conhecimento acadêmico em uma comunicação clara, didática e de livre acesso para conscientizar toda a comunidade local.</p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO IMPACTO ADAPTADA AO DESIGN DE CARTÃO FLUTUANTE DE ALTA UI -->
+    <section class="team-card-item" style="text-align: left; margin-top: 40px !important; border-left: 4px solid var(--roxo-principal) !important; background: #f8f6fc !important;">
+      <h3 style="font-size: 1.5rem; margin-top: 0; color: var(--roxo-principal);"><i class="fas fa-chart-line"></i> Nosso Impacto</h3>
+      <p style="font-size: 1.05rem; line-height: 1.7; margin: 0;">
+        Atuamos ativamente na preservação direta da água, na disseminação da educação ambiental de base e no fortalecimento estratégico do protagonismo feminino dentro do ecossistema científico, promovendo saúde coletiva, sustentabilidade real e qualidade de vida para Juazeiro do Norte.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- SEÇÃO DE COLABORADORES UNIFICADA -->
+  <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
+    <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Nossos colaboradores">
+      <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
 
-</body>
-</html>
+  <!-- RODAPÉ CORPORATIVO PREMIUM GRADIENTE INTEGRAÇÃO THYMELEAF -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- Coluna 1: Sobre -->
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img th:src="@{/img/logo.png}" alt="Logotipo do projeto Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+
+      <!-- Coluna 2: Navegação Sincronizada -->
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul role="menu">
+          <li><a th:href="@{/pagina1}" role="menuitem">Início</a></li>
+          <li><a th:href="@{/noticias}" role="menuitem">Notícias</a></li>
+          <li><a th:href="@{/projeto}" role="menuitem">Projetos</a></li>
+          <li><a th:href="@{/evento}" role="menuitem">Eventos</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Redes Sociais Esferas -->
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <p class="footer-credits">
+        Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer">Permution</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ESTILOS INTEGRADOS DE ACESSIBILIDADE ENVIADOS -->
+  <style>
+    #userwayAccessibilityWidget, .uwy {
+      z-index: 999999 !important;
+      top: 95px !important;
+      right: 24px !important;
+      left: auto !important;
+    }
+    div[vw], [vw], .enabled[vw] {
+      z-index: 999999 !important;
+      position: fixed !important;
+      top: auto !important;
+      bottom: 120px !important;
+      left: 24px !important;
+      right: auto !important;
+      transform: none !important;
+    }
+  </style>
+
 </body>
 </html>

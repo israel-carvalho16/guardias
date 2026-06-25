@@ -36,25 +36,23 @@
   </script>
 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
+   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
-      <!-- 4. Caminho da logo unificado -->
       <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
       <h2>Guardiãs das Águas</h2> 
     </div>
 
-    <nav class="header-nav"> 
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
       <ul class="nav-links"> 
-        <!-- 5. Links convertidos para as rotas funcionais do Java PageController -->
         <li><a th:href="@{/pagina1}">Início</a></li> 
-        <li><a th:href="@{/noticias}" aria-current="page">Notícias</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
         <li><a th:href="@{/projeto}">Projetos</a></li> 
         <li><a th:href="@{/evento}">Eventos</a></li> 
         <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
             <div class="dropdown-content" role="menu">
-              <!-- Rotas preparadas em minúsculo -->
               <a th:href="@{/mg}" role="menuitem">MG</a> 
               <a th:href="@{/ce}" role="menuitem">CE</a> 
             </div>
@@ -64,12 +62,13 @@
       </ul>
     </nav> 
 
-    <!-- Botões de Ação Padronizados e Alinhados com o Servidor -->
+    <!-- Botões de ação alinhados com as rotas do SecurityConfig -->
     <div class="auth-actions">
-      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
-  </header> 
+  </header>
+
 
   <!-- CONTEÚDO PRINCIPAL COM HUB DE BUSCA E FILTROS -->
   <main class="noticias-container" id="conteudo-principal" role="main">
