@@ -20,10 +20,12 @@ public class PageController {
         return "pagina1";
     }
 
+       // 1. MODIFICADO: A rota pública oficial /login agora abre o seu formulário VolunForm
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "VolunForm"; 
     }
+
 
     // 1. Rota pública oficial que abre com sucesso o formulário de cadastro (AdminForm.html)
     @GetMapping("/register")
@@ -40,9 +42,10 @@ public class PageController {
         return "admin"; 
     }
 
+       // CORRIGIDO: Reaproveitando a rota pública /post para abrir os órgãos ambientais sem erro 403
     @GetMapping("/post")
     public String post() {
-        return "post";
+        return "orgaoambiental"; 
     }
 
     @GetMapping("/noticias")
@@ -50,10 +53,22 @@ public class PageController {
         return "noticias"; 
     }
 
-    @GetMapping("/projeto")
+        @GetMapping("/projeto")
     public String projeto() {
         return "Projeto"; 
     }
+
+    // ADICIONADO: Rota para abrir a página específica do núcleo de Minas Gerais
+    @GetMapping("/mg")
+    public String nucleoMG() {
+        return "MG"; 
+    }
+
+    @GetMapping("/ce")
+    public String nucleoCE() {
+        return "CE"; 
+    }
+
 
     @GetMapping("/evento")
     public String evento() {

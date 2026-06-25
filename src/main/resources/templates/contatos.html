@@ -40,7 +40,7 @@
     }
   </script>
 
-  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
       <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
@@ -49,7 +49,6 @@
 
     <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
       <ul class="nav-links"> 
-        <!-- 4. Links de navegação alinhados com o PageController do Java -->
         <li><a th:href="@{/pagina1}">Início</a></li> 
         <li><a th:href="@{/noticias}">Notícias</a></li> 
         <li><a th:href="@{/projeto}">Projetos</a></li> 
@@ -63,16 +62,17 @@
             </div>
           </details> 
         </li> 
-        <li><a th:href="@{/contatos}" aria-current="page">Contato</a></li> 
+        <li><a th:href="@{/contatos}">Contato</a></li> 
       </ul>
     </nav> 
 
-    <!-- Botões de Ação Unificados e Rotas do Java -->
+    <!-- BOTÕES DE AÇÃO UNIFICADOS E SINCRONIZADOS COM A SEGURANÇA -->
     <div class="auth-actions">
-      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
-  </header> 
+  </header>
+
 
   <!-- CONTEÚDO PRINCIPAL (PORTAL DE ATENDIMENTO CENTRALIZADO) -->
   <main class="contatos-page-container" id="conteudo-principal" role="main">
@@ -173,14 +173,16 @@
     </section>
 
     <!-- SEÇÃO ÓRGÃOS AMBIENTAIS (REPOSICIONADA E TRAVADA DENTRO DO MAIN) -->
+        <!-- SEÇÃO ÓRGÃOS AMBIENTAIS CORRIGIDA -->
     <section id="contatos" class="secao-orgaos-ambientais">
       <h2>Órgãos Ambientais</h2>
       <p>Conheça as principais instituições e secretarias voltadas à fiscalização e conservação hídrica.</p>
-      <!-- 1. Rota corrigida com a tag Thymeleaf -->
-      <a id="link_D" th:href="@{/orgao-ambiental}" class="btn-orgaos-saiba-mais">
+      <!-- Aponta para a rota pública liberada -->
+      <a id="link_D" th:href="@{/post}" class="btn-orgaos-saiba-mais">
         <i class="fas fa-external-link-alt"></i> Saiba mais
       </a>
     </section>
+
 
   </main> <!-- Fechamento correto do main antes do footer -->
 

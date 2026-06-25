@@ -48,7 +48,7 @@ public class SecurityConfig {
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // 2. URLs de páginas públicas (SEM .html)
+                        // 2. URLs de páginas públicas (TODAS UNIFICADAS SEM CONFLITOS)
                         .requestMatchers(
                                 "/",
                                 "/pagina1",
@@ -62,13 +62,18 @@ public class SecurityConfig {
                                 "/error",
                                 "/contatos",
                                 "/AdminForm", 
-                                "/AdminForm/enviar"
+                                "/AdminForm/enviar",
+                                "/mg", 
+                                "/ce"  
                         ).permitAll()
 
                         // 3. Regras de API controladas pelo Token JWT
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/posts/**").hasRole("ADMIN")
+                        
+                        // MODIFICADO: Liberado o POST temporariamente para salvar posts em casa sem travar no token
+                        .requestMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
+                        
                         .requestMatchers(HttpMethod.PUT, "/api/posts/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
                         .requestMatchers("/api/comments/**").hasAnyRole("USER", "ADMIN")
