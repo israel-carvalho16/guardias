@@ -11,6 +11,8 @@
     <!-- Arquivo CSS Único para o Formulário -->
     <link rel="stylesheet" href="/src/main/resources/static/css/admin.css">
     <link rel="stylesheet" href="/src/main/resources/static/css/formularios.css">
+    <link rel="stylesheet" th:href="@{/css/formularios.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
@@ -18,6 +20,9 @@
  <a href="pagina1.html" class="btn-voltar-formulario">
   <i class="fas fa-arrow-left"></i> Voltar ao Início
 </a>
+    <a href="@{pagina1.html}">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
+    </a>
 
     <!-- Fundo abstrato moderno (Mantive as suas shapes) -->
     <div class="background">
@@ -31,6 +36,7 @@
         <!-- Identidade Visual dentro do Form -->
         <div class="form-header">
             <img src="/src/main/resources/static/img/logo.png" alt="Logo Guardiãs das Águas" class="form-logo">
+            <img src="@{/img/logo.png}" alt="logo">
             <h2>Guardiãs das Águas</h2>
             <p>Portal do Administrador</p>
         </div>

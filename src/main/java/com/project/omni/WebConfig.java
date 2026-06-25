@@ -8,7 +8,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // Redireciona a rota raiz "/" explicitamente para o index.html principal
-        registry.addViewController("/").setViewName("forward:/pagina1.html");
+        
     }
 }

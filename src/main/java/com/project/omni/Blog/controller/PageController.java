@@ -6,9 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    @GetMapping({"/", "/pagina1", "/pagina1.html"})
-    public String index() {
-        return "index";
+    // Rota raiz (/) — Corrigido: Removido o .html
+    @GetMapping("/")
+    public String home(){
+        return "pagina1"; 
+    }
+
+    // Rota secundária para o link "Início" do menu apontar para o mesmo lugar
+    @GetMapping("/pagina1")
+    public String pagina1(){
+        return "pagina1";
     }
 
     @GetMapping("/login")
@@ -21,13 +28,32 @@ public class PageController {
         return "register";
     }
 
+    // Corrigido: Removido o .html
     @GetMapping("/admin")
     public String admin() {
-        return "admin";
+        return "admin"; 
     }
 
     @GetMapping("/post")
     public String post() {
         return "post";
+    }
+
+    // 🔴 ADICIONADO: Rota para a página de Notícias
+    @GetMapping("/noticias")
+    public String noticias() {
+        return "noticias"; 
+    }
+
+    // 🔴 ADICIONADO: Rota para a página de Projetos
+    @GetMapping("/projeto")
+    public String projeto() {
+        return "Projeto"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Projeto.html
+    }
+
+    // 🔴 ADICIONADO: Rota para a página de Eventos
+    @GetMapping("/evento")
+    public String evento() {
+        return "Evento"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Evento.html
     }
 }

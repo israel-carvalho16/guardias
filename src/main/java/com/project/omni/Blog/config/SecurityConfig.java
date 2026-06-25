@@ -1,13 +1,7 @@
 package com.project.omni.Blog.config;
 
-// 1. O import correto já está aqui
 import com.project.omni.Blog.security.JwtFilter; 
-
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
-
-// REMOVIDO: import org.apache.tomcat.JarScanFilter; <-- O erro estava aqui
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    
     private final JwtFilter jwtFilter; 
 
     @Bean
@@ -35,74 +28,50 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config)
-            throws Exception {
-
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
-
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
 
-                        // Static resources — HTML, CSS, JS
+                        // 1. Recursos estáticos físicos (CSS, JS, Imagens, Ícones)
                         .requestMatchers(
-                                "/",
-                                "/index.html",
-                                "/login.html",
-                                "/register.html",
-                                "/admin.html",
-                                "/post.html",
                                 "/css/**",
                                 "/js/**",
-                                "/favicon.ico")
-                        .permitAll()
+                                "/img/**",
+                                "/favicon.ico"
+                        ).permitAll()
 
-                        .requestMatchers("/api/auth/**")
-                        .permitAll()
-
+                        // 2. URLs de páginas públicas (SEM .html)
                         .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/posts/**")
-                        .permitAll()
+                                "/",
+                                "/pagina1",
+                                "/login",
+                                "/register",
+                                "/admin",
+                                "/post",
+                                "/noticias",
+                                "/projeto",
+                                "/evento",
+                                "/error"
+                        ).permitAll()
 
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/posts/**")
-                        .hasRole("ADMIN")
-
-                        .requestMatchers(
-                                HttpMethod.PUT,
-                                "/api/posts/**")
-                        .hasRole("ADMIN")
-
-                        .requestMatchers(
-                                HttpMethod.DELETE,
-                                "/api/posts/**")
-                        .hasRole("ADMIN")
-
-                        .requestMatchers("/api/comments/**")
-                        .hasAnyRole("USER", "ADMIN")
-
-                        .anyRequest()
-                        .authenticated()
+                        // 3. Regras de API controladas pelo Token JWT
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/posts/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/posts/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
+                        .requestMatchers("/api/comments/**").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
                 )
-
-                .addFilterBefore(
-                        // CORRIGIDO: Removido o cast manual (Filter), agora vai direto
-                        jwtFilter, 
-                        UsernamePasswordAuthenticationFilter.class
-                );
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
