@@ -6,14 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contato - Guardiãs das Águas</title>
 
-  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
-
-  <link rel="stylesheet" href="/src/main/resources/static/css/contatos.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
+  <!-- Widgets de Acessibilidade Estáveis -->
+  <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
+  
+  <!-- Arquivo JavaScript Unificado do Projeto -->
+  <script src="/src/main/resources/static/js/home.js" defer></script>
   <script src="/src/main/resources/static/js/contato.js" defer></script>
+
+  <!-- Biblioteca FontAwesome obrigatória para ícones -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+
+  <!-- Links de Folha de Estilo Padronizados -->
+  <link rel="stylesheet" href="/src/main/resources/static/css/Inicio.css">
+  <link rel="stylesheet" href="/src/main/resources/static/css/contatos.css">
 </head>
 
 <body>
+  <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -21,138 +30,212 @@
     </div>
   </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://vlibras.gov.br" onload="initVLibras()"></script>
   <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    function initVLibras() {
+      if (window.VLibras && window.VLibras.Widget) {
+        new window.VLibras.Widget('https://vlibras.gov.br');
+      }
+    }
   </script>
 
-  <header>
-    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas">
-    <h2>Guardiãs das Águas</h2>
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
+    </div>
 
-    <nav> 
-      <ul> 
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
+      <ul class="nav-links"> 
         <li><a href="pagina1.html">Início</a></li> 
         <li><a href="noticias.html">Notícias</a></li> 
         <li><a href="Projeto.html">Projetos</a></li> 
         <li><a href="Evento.html">Eventos</a></li> 
-        <li> 
+        <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
-            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html">MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="*"></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a> 
+            <div class="dropdown-content" role="menu">
+              <a href="MG.html" role="menuitem">MG</a> 
+              <a href="CE.html" role="menuitem">CE</a> 
+            </div>
           </details> 
         </li> 
-        <li><a href="contatos.html">Contato</a></li> 
+        <li><a href="contatos.html" aria-current="page">Contato</a></li> 
       </ul>
     </nav> 
-  </header>
 
-  <section class="contact-section">
-    <h2>Entre em Contato</h2>
-    <p class="subtitle">Ficaremos felizes em ouvir você! Escolha um dos canais abaixo.</p>
+    <!-- Botões de Ação Unificados -->
+    <div class="auth-actions">
+      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header> 
 
-    <div class="contact-container">
-      <div class="contact-info">
-        <div class="info-item">
-          <div>
-            <h4>Instagram</h4>
-            <p>@guardias.aguas</p>
-          </div>
-        </div>
+  <!-- CONTEÚDO PRINCIPAL (PORTAL DE ATENDIMENTO CENTRALIZADO) -->
+  <main class="contatos-page-container" id="conteudo-principal" role="main">
+    
+    <section class="contact-section">
+      <h1 class="titulo-centralizado">Entre em Contato</h1>
+      <p class="contact-subtitle">Ficaremos felizes em ouvir você! Preencha os campos abaixo para falar conosco.</p>
 
-        <div class="info-item">
-          <div>
-            <h4>YouTube</h4>
-            <p>Leatox</p>
-          </div>
-        </div>
-
+      <!-- Container Centralizado Estilo Pílula de Leitura -->
+      <div class="contact-form-center-panel">
         <form class="contact-form" id="formContato" action="#" method="POST">
-          <div class="form-group">
+          
+          <div class="form-group-box">
             <label for="nome">Seu nome</label>
             <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
           </div>
 
-          <div class="form-group">
+          <div class="form-group-box">
             <label for="email">Seu e-mail</label>
             <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
           </div>
 
-          <div class="form-group">
+          <div class="form-group-box">
             <label for="mensagem">Mensagem</label>
             <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem..." rows="5" required></textarea>
           </div>
 
-          <div class="form-group">
-            <label>Avaliação</label>
+          <!-- Seção de Avaliação por Pastilhas Numéricas Premium -->
+          <div class="form-group-box">
+            <label class="label-rating-title">O quanto você recomendaria nosso projeto? (Avaliação de 0 a 10)</label>
 
-            <div class="rating">
-              <input type="radio" name="avaliacao" value="0" id="r0">
-              <label for="r0">0</label>
+            <div class="rating-pastilles-wrapper" role="radiogroup" aria-label="Nota de avaliação de 0 a 10">
+              
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="0" id="r0" required>
+                <label for="r0">0</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="1" id="r1">
-              <label for="r1">1</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="1" id="r1">
+                <label for="r1">1</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="2" id="r2">
-              <label for="r2">2</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="2" id="r2">
+                <label for="r2">2</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="3" id="r3">
-              <label for="r3">3</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="3" id="r3">
+                <label for="r3">3</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="4" id="r4">
-              <label for="r4">4</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="4" id="r4">
+                <label for="r4">4</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="5" id="r5">
-              <label for="r5">5</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="5" id="r5">
+                <label for="r5">5</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="6" id="r6">
-              <label for="r6">6</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="6" id="r6">
+                <label for="r6">6</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="7" id="r7">
-              <label for="r7">7</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="7" id="r7">
+                <label for="r7">7</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="8" id="r8">
-              <label for="r8">8</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="8" id="r8">
+                <label for="r8">8</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="9" id="r9">
-              <label for="r9">9</label>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="9" id="r9">
+                <label for="r9">9</label>
+              </div>
 
-              <input type="radio" name="avaliacao" value="10" id="r10">
-              <label for="r10">10</label>
-            </div>
-          </div>
-  
-          <button type="submit">Enviar mensagem</button>
+              <div class="rating-cell">
+                <input type="radio" name="avaliacao" value="10" id="r10">
+                <label for="r10">10</label>
+              </div>
+
+            </div> <!-- Fechamento da rating-pastilles-wrapper -->
+          </div> <!-- Fechamento da form-group-box de avaliação -->
+
+          <!-- Botão de Envio Central do Formulário -->
+          <button type="submit" class="btn-enviar-contato">
+            <i class="far fa-paper-plane"></i> Enviar mensagem
+          </button>
         </form>
-      </div>
+      </div> <!-- Fechamento da contact-form-center-panel -->
+    </section>
+
+    <!-- SEÇÃO ÓRGÃOS AMBIENTAIS (REPOSICIONADA E TRAVADA DENTRO DO MAIN) -->
+    <section id="contatos" class="secao-orgaos-ambientais">
+      <h2>Órgãos Ambientais</h2>
+      <p>Conheça as principais instituições e secretarias voltadas à fiscalização e conservação hídrica.</p>
+      <a id="link_D" href="orgaoambiental.html" class="btn-orgaos-saiba-mais">
+        <i class="fas fa-external-link-alt"></i> Saiba mais
+      </a>
+    </section>
+
+  </main> <!-- Fechamento correto do main antes do footer -->
+
+  <!-- SEÇÃO DE COLABORADORES (ALINHADA PERFEITAMENTE ANTES DO FOOTER) -->
+  <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
+    <h4 id="titulo-colaboradores">COLABORADORES</h4>
+    <div class="colaboradores">
+      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
-  
-  <section id="contatos">
-    <h2>Orgãos Ambientais</h2>
-    <a id="link_D" href="orgaoambiental.html">saiba mais</a>
-  </section>
 
-  <footer class="footer-site">
-    <p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
+  <!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- Coluna 1: Sobre o Projeto -->
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img src="/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
 
-    <div class="redes-sociais">
-      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/youtube.png" alt="YouTube">
-      </a>
+      <!-- Coluna 2: Links de Navegação -->
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul role="menu" aria-label="Links rápidos do rodapé">
+          <li><a href="pagina1.html" role="menuitem">Início</a></li>
+          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
+          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
+          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+        </ul>
+      </div>
 
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/insta.png" alt="Instagram">
-      </a>
+      <!-- Coluna 3: Institucional e Contato -->
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="Acesse nosso canal no YouTube" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Siga nosso perfil no Instagram" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha Divisória de Acabamento -->
+    <hr class="footer-divider">
+
+    <!-- Base do Footer com Créditos -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <p class="footer-credits">
+        Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer" aria-label="Acesse o site da Permution (abre em nova aba)">Permution</a>
+      </p>
     </div>
   </footer>
-
-  <section class="colaboradores-section">
-    <h4 class="titulo-centralizado">COLABORADORES</h4>
-    <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Nossos colaboradores">
-    </div>
-  </section>
 </body>
 
 </html>

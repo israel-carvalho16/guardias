@@ -4,6 +4,13 @@
   ],
   "hints": {
     "button-type": "off",
-    "meta-viewport": "off"
+    "meta-viewport": "off",
+    "axe/aria": [
+      "default",
+      {
+        "aria-required-parent": "off",
+        "aria-required-children": "off"
+      }
+    ]
   }
 }

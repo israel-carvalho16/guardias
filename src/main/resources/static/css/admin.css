@@ -1,0 +1,282 @@
+/* ==========================================================================
+   FORMULÁRIO PREMIUM - GUARDIÃS DAS ÁGUAS (PARTE 1 DE 2)
+   ========================================================================= */
+
+:root {
+  --roxo-deep: #1a0636;
+  --roxo-bright: #5b289e;
+  --azul-neon: #91b0d4;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-white: #ffffff;
+  --text-muted: #b3a5c7;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@font-face {
+  font-family: "arabic";
+  src: url("../Font/GlacialIndifference-Regular.otf");
+}
+
+/* Reset e Base */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "arabic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--roxo-deep);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* ==========================================================================
+   FUNDO ABSTRATO (SUAS SHAPES EVOLUÍDAS)
+ /* ==========================================================================
+   CONTEINER DE ELEMENTOS FLUTUANTES (ESFERAS INTERATIVAS)
+   ========================================================================= */
+.background {
+  position: absolute;
+  width: 430px;
+  height: 520px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.background .shape {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+/* Esfera Superior Esquerda (Tema Roxo) */
+.background .shape:first-child {
+  background: linear-gradient(135deg, #a855f7, #8e6db5);
+  left: -80px;
+  top: -80px;
+  /* CORREÇÃO: Nome corrigido para orbit1 e tag 'alternate' escrita por extenso */
+  animation: orbit1 8s ease-in-out infinite alternate;
+}
+
+/* Esfera Inferior Direita (Tema Água) */
+.background .shape:last-child {
+  background: linear-gradient(135deg, #00f2fe, #3182ce);
+  right: -100px;
+  bottom: -80px;
+  /* CORREÇÃO: Nome corrigido para orbit2 e tag 'alternate' escrita por extenso */
+  animation: orbit2 10s ease-in-out infinite alternate;
+}
+
+/* ==========================================================================
+   ANIMAÇÕES ORGÂNICAS SINCRONIZADAS (FLUTUAÇÃO ULTRA-SUAVE)
+   ========================================================================= */
+
+/* Movimento flutuante em elipse para a bola roxa */
+@keyframes orbit1 {
+  0% { 
+    transform: translate(0, 0) scale(1); 
+  }
+  50% { 
+    transform: translate(-30px, 25px) scale(1.06); /* Flutua para baixo e cresce sutilmente */
+  }
+  100% { 
+    transform: translate(0, 0) scale(1); /* Retorna suavemente para o ponto zero */
+  }
+}
+
+/* Movimento flutuante cruzado para a bola azul de água */
+@keyframes orbit2 {
+  0% { 
+    transform: translate(0, 0) scale(1); 
+  }
+  50% { 
+    transform: translate(35px, -30px) scale(0.94); /* Flutua para cima e encolhe sutilmente */
+  }
+  100% { 
+    transform: translate(0, 0) scale(1); /* Retorna suavemente para o ponto zero */
+  }
+}
+
+/* Botão Flutuante Voltar para a Home */
+.btn-back-home {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  z-index: 10;
+  padding: 10px 22px !important; 
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-back-home:hover {
+  color: var(--text-white);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 768px) {
+  .btn-back-home {
+    left: 40px;
+    transform: none;
+  }
+}
+/* ==========================================================================
+   FORMULÁRIO PREMIUM - GUARDIÃS DAS ÁGUAS (PARTE 2 DE 2)
+   ========================================================================= */
+
+/* Container Principal do Formulário (Efeito Vidro Inteligente) */
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 16px;
+  padding: 40px 35px 45px 35px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  position: relative;
+}
+
+/* Cabeçalho Interno do Formulário */
+.form-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--text-white);
+  padding: 3px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.form-header h2 {
+  color: var(--text-white);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.form-header p {
+  color: var(--azul-neon);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+/* Estilização do Formulário Intrinseco */
+form h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  color: var(--text-white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Inputs Premium Translúcidos */
+form input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--text-white) !important;
+  outline: none;
+  transition: var(--transition);
+}
+
+/* Cor do texto do placeholder */
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.9rem;
+}
+
+/* Foco no Input (A borda acende suavemente) */
+form input:focus {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--azul-neon) !important;
+  box-shadow: 0 0 10px rgba(145, 176, 212, 0.15);
+}
+
+/* Botão de Envio Sólido e Elegante */
+.btn-submit {
+  width: 100%;
+  background-color: var(--text-white) !important;
+  color: var(--roxo-deep) !important;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-submit:hover {
+  background-color: var(--azul-neon) !important;
+  color: var(--roxo-deep) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(145, 176, 212, 0.3);
+}
+
+/* Remove efeitos automáticos de preenchimento do navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-white) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(26, 6, 54, 0.5) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* RESPONSIVIDADE PARA CELULARES PEQUENOS */
+@media (max-width: 400px) {
+  .form-container {
+    padding: 30px 20px;
+  }
+}

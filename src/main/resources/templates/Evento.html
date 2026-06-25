@@ -6,13 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventos - Guardiãs das Águas</title>
 
-  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
+  <!-- Widgets de Acessibilidade Estáveis -->
+  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
+  
+  <!-- Arquivo JavaScript Unificado do Projeto -->
+  <script src="/src/main/resources/static/js/home.js" defer></script>
 
-  <link rel="stylesheet" href="/src/main/resources/static/css/css padrão.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/Eventos.css">
+  <!-- Biblioteca FontAwesome obrigatória para ícones -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+
+  <!-- Links de Folha de Estilo Padronizados -->
+  <link rel="stylesheet" href="/src/main/resources/static/css/Inicio.css">
+  <link rel="stylesheet" href="/src/main/resources/static/css/eventos.css">
 </head>
 
 <body>
+  <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -20,89 +29,101 @@
     </div>
   </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js" onload="initVLibras()"></script>
   <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    function initVLibras() {
+      if (window.VLibras && window.VLibras.Widget) {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      }
+    }
   </script>
 
-  <header>
-    <img style="margin-top: -15px;" src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas">
-    <h2>Guardiãs das Águas</h2>
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
+    </div>
 
-    <nav> 
-      <ul> 
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
+      <ul class="nav-links"> 
         <li><a href="pagina1.html">Início</a></li> 
         <li><a href="noticias.html">Notícias</a></li> 
         <li><a href="Projeto.html">Projetos</a></li> 
-        <li><a href="Evento.html">Eventos</a></li> 
-        <li> 
+        <li><a href="Evento.html" aria-current="page">Eventos</a></li> 
+        <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
-            <a style="margin: -10px; padding: 5px 5px 5px;" href="MG.html">MG</a> - <a style="margin: -10px;padding: 5px 5px 5px;" href=""></a> - <a style="margin: -10px;padding: 5px 5px 5px;" href="CE.html">CE</a> 
+            <div class="dropdown-content" role="menu">
+              <a href="MG.html" role="menuitem">MG</a> 
+              <a href="CE.html" role="menuitem">CE</a> 
+            </div>
           </details> 
         </li> 
         <li><a href="contatos.html">Contato</a></li> 
       </ul>
     </nav> 
-  </header>
 
-  <h3 class="titulos">Seja bem-vindo à página de Eventos</h3>
+    <!-- Botões de Ação Unificados -->
+    <div class="auth-actions">
+      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
+  </header> 
 
-  <section id="motivo">
-    <section>
-      <img src="/src/main/resources/static/img/ambiente.png" alt="Ilustração sobre evento ambiental" id="ambiente">
+  <!-- CONTEÚDO PRINCIPAL (PORTAL DE EVENTOS INSTITUCIONAIS) -->
+  <main class="eventos-container" id="conteudo-principal" role="main">
+    
+    <!-- Bloco de Introdução / Engajamento -->
+    <section id="motivo" class="bloco-motivo-introducao">
+      <div class="motivo-media-box">
+        <img src="/omni_BACK-geraldo/src/main/resources/static/img/ambiente.png" alt="Ilustração estilizada em tons pastéis representando o engajamento e a união comunitária em eventos ecológicos">
+      </div>
+
+      <div class="motivo-content-box">
+        <h2 class="titulo-introducao">Por que eu devo participar?</h2>
+        <p>
+          Eventos ambientais proporcionam acesso a novas informações, pesquisas e práticas sustentáveis, ajudando
+          a formar cidadãos mais críticos e engajados. Você pode aprender sobre temas atuais como mudanças climáticas,
+          conservação de recursos naturais e tratamento adequado de resíduos.
+        </p>
+        <p>
+          Também é uma excelente oportunidade para ampliar sua rede de contatos, conectar-se com profissionais,
+          especialistas, ativistas e empresas do setor. Essas conexões podem levar a novas oportunidades de trabalho,
+          parcerias em projetos ou troca de ideias valiosas.
+        </p>
+        <p>
+          As discussões e apresentações podem despertar novos insights e renovar o entusiasmo pelo trabalho e pelas
+          ações em prol do meio ambiente. Em resumo, a participação em eventos é um investimento que pode trazer
+          retornos significativos tanto para indivíduos quanto para organizações.
+        </p>
+      </div>
     </section>
-
-    <section>
-      <h3 id="motivo_h3">Por que eu devo participar?</h3>
-      <p id="motivo_texto">
-        Eventos ambientais proporcionam acesso a novas informações, pesquisas e práticas sustentáveis, ajudando
-        a formar cidadãos mais críticos e engajados. Você pode aprender sobre temas atuais como mudanças climáticas,
-        conservação de recursos naturais e tratamento adequado de resíduos.
-      </p>
-
-      <p id="motivo_texto">
-        Também é uma excelente oportunidade para ampliar sua rede de contatos, conectar-se com profissionais,
-        especialistas, ativistas e empresas do setor. Essas conexões podem levar a novas oportunidades de trabalho,
-        parcerias em projetos ou troca de ideias valiosas.
-      </p>
-
-      <p id="motivo_texto">
-        As discussões e apresentações podem despertar novos insights e renovar o entusiasmo pelo trabalho e pelas
-        ações em prol do meio ambiente. Em resumo, a participação em eventos é um investimento que pode trazer
-        retornos significativos tanto para indivíduos quanto para organizações.
-      </p>
-    </section>
-  </section>
-
-  <section id="motivo">
-    <section>
-      <h3 id="motivo_h3">O que eu vou aprender?</h3>
-      <div id="motivo_texto">
+    <!-- Bloco de Aprendizado (Layout Invertido: Texto na Esquerda, Imagem na Direita) -->
+    <section class="bloco-motivo-introducao projeto-inverted">
+      <div class="motivo-content-box">
+        <h2 class="titulo-introducao">O que eu vou aprender?</h2>
         <p>
           Participar de eventos sobre meio ambiente proporciona uma série de aprendizados essenciais, que vão desde a
           conscientização sobre problemas globais e locais até o desenvolvimento de habilidades e atitudes práticas
           para um futuro mais sustentável.
         </p>
 
-        <ol>
+        <ol class="lista-aprendizado">
           <li>
             <strong>Conscientização e reflexão:</strong> esses eventos incentivam a reflexão sobre o impacto das ações
             humanas no planeta e a responsabilidade individual e coletiva na preservação ambiental.
           </li>
-
           <li>
             <strong>Conhecimento de questões atuais e urgentes:</strong> os participantes aprendem sobre desafios
             ambientais críticos, como mudanças climáticas, desmatamento, poluição plástica e uso não sustentável
             de recursos naturais.
           </li>
-
           <li>
             <strong>Desenvolvimento de soluções práticas:</strong> são apresentadas e discutidas estratégias e ações
             capazes de mitigar danos ambientais, como gestão eficiente de energia, reciclagem e adoção de práticas
             sustentáveis no dia a dia.
           </li>
-
           <li>
             <strong>Inovação e tecnologia:</strong> eventos frequentemente destacam inovações e tecnologias voltadas
             para a sustentabilidade, como fontes de energia renovável, que podem otimizar o uso de recursos e reduzir
@@ -110,144 +131,217 @@
           </li>
         </ol>
       </div>
+
+      <div class="motivo-media-box">
+        <img src="/omni_BACK-geraldo/src/main/resources/static/img/aprenderCanvas.png" alt="Ilustração de estudantes e cientistas compartilhando conhecimentos sobre sustentabilidade hídrica">
+      </div>
     </section>
 
-    <section>
-      <img src="/src/main/resources/static/img/aprenderCanvas.png" alt="Ilustração sobre aprendizado em eventos" id="aprender">
+    <!-- Bloco de Como Participar (Layout Normal: Imagem na Esquerda, Texto na Direita) -->
+    <section class="bloco-motivo-introducao">
+      <div class="motivo-media-box">
+        <img src="/omni_BACK-geraldo/src/main/resources/static/img/trlha.png" alt="Ilustração de uma trilha ecológica guiada e o caminho para o engajamento socioambiental sustentável">
+      </div>
+
+      <div class="motivo-content-box">
+        <h2 class="titulo-introducao">Como eu posso participar?</h2>
+        <p>
+          Para participar de um evento ambiental, você pode ingressar iniciativas de voluntariado, adotar práticas
+          sustentáveis durante o evento e promover a conscientização ambiental para ampliar o impacto positivo.
+          Confira os nossos eventos abaixo e garanta a sua vaga.
+        </p>
+      </div>
     </section>
+    <!-- SEÇÃO DA GRADE DE EVENTOS REAIS -->
+    <section class="secao-lista-eventos" aria-labelledby="titulo-lista-eventos">
+      <h2 id="titulo-lista-eventos" class="titulo-centralizado">Confira os nossos eventos!</h2>
 
-    <section>
-      <img src="/src/main/resources/static/img/trlha.png" alt="Ilustração de trilha ecológica" id="trilha">
-    </section>
+      <div class="eventos-grid-layout">
+        
+        <!-- Card de Evento 1: Uberlândia -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do evento ambiental em Uberlândia">
+            <span class="evento-tag-status">Inscrições Abertas</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 22/12/2025</li>
+              <li><i class="fas fa-map-marker-alt"></i> Praça Paris - Uberlândia/MG</li>
+              <li><i class="far fa-clock"></i> 17:00h</li>
+            </ul>
+            <p class="evento-descricao">Evento voltado à conscientização ambiental e à importância da preservação dos recursos hídricos.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScqdR8-bPjQXYQCmaQUeao8fMuG6BVHWWOFRYJlkeLeMfBCjg/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+              Garantir Vaga
+            </a>
+          </div>
+        </article>
 
-    <section>
-      <h3 id="motivo_h3">Como eu posso participar?</h3>
-      <p id="motivo_texto">
-        Para participar de um evento ambiental, você pode ingressar iniciativas de voluntariado, adotar práticas
-        sustentáveis durante o evento e promover a conscientização ambiental para ampliar o impacto positivo.
-        Confira os nossos eventos abaixo e garanta a sua vaga.
-      </p>
-    </section>
-  </section>
+        <!-- Card de Evento 2: Cuiabá -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do encontro educativo em Cuiabá">
+            <span class="evento-tag-status">Em Breve</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 02/02/2026</li>
+              <li><i class="fas fa-map-marker-alt"></i> Teatro Municipal - Cuiabá/MT</li>
+              <li><i class="far fa-clock"></i> 07:00h</li>
+            </ul>
+            <p class="evento-descricao">Encontro educativo sobre meio ambiente, sustentabilidade e participação feminina na ciência.</p>
+            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+              Garantir Vaga
+            </a>
+          </div>
+        </article>
 
-  <h3 class="titulos">Confira os nossos eventos!</h3>
+        <!-- Card de Evento 3: Uberaba -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da atividade prática em Uberaba">
+            <span class="evento-tag-status">Em Breve</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 13/01/2026</li>
+              <li><i class="fas fa-map-marker-alt"></i> DMAE - Uberaba/MG</li>
+              <li><i class="far fa-clock"></i> 08:00h</li>
+            </ul>
+            <p class="evento-descricao">Atividade com foco em saneamento básico, preservação da água e educação ambiental.</p>
+            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+              Garantir Vaga
+            </a>
+          </div>
+        </article>
 
-  <main>
-    <section id="CARDS">
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Uberlândia" width="220" height="220">
-        <ul>
-          <li>Dia: 22/12/2025</li>
-          <li>Local: Uberlândia/MG - Praça Paris</li>
-          <li>Horário: 17h</li>
-        </ul>
-        <p>Evento voltado à conscientização ambiental e à importância da preservação dos recursos hídricos.</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScqdR8-bPjQXYQCmaQUeao8fMuG6BVHWWOFRYJlkeLeMfBCjg/viewform?usp=header" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
+        <!-- Card de Evento 4: Aracaju -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da mobilização social em Aracaju">
+            <span class="evento-tag-status">Em Breve</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 09/04/2026</li>
+              <li><i class="fas fa-map-marker-alt"></i> Praia de Atalaia - Aracaju/SE</li>
+              <li><i class="far fa-clock"></i> 19:00h</li>
+            </ul>
+            <p class="evento-descricao">Evento de mobilização social para discutir turismo, preservação ambiental e poluição hídrica.</p>
+            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+              Garantir Vaga
+            </a>
+          </div>
+        </article>
 
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Cuiabá" width="220" height="220">
-        <ul>
-          <li>Dia: 02/02/2026</li>
-          <li>Local: Cuiabá/MT - Teatro Municipal</li>
-          <li>Horário: 7h</li>
-        </ul>
-        <p>Encontro educativo sobre meio ambiente, sustentabilidade e participação feminina na ciência.</p>
-        <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
+               <!-- Card de Evento 5: Uberlândia Teatro -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da apresentação aberta no teatro de Uberlândia">
+            <span class="evento-tag-status">Encerrado</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 27/01/2025</li>
+              <li><i class="fas fa-map-marker-alt"></i> Teatro Municipal - Uberlândia/MG</li>
+              <li><i class="far fa-clock"></i> 18:00h</li>
+            </ul>
+            <p class="evento-descricao">Apresentação aberta ao público sobre projetos ambientais e participação cidadã.</p>
+            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro btn-evento-encerrado">
+              Ver Detalhes
+            </a>
+          </div>
+        </article>
 
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Uberaba" width="220" height="220">
-        <ul>
-          <li>Dia: 13/01/2026</li>
-          <li>Local: Uberaba/MG - DMAE</li>
-          <li>Horário: 8h</li>
-        </ul>
-        <p>Atividade com foco em saneamento básico, preservação da água e educação ambiental.</p>
-        <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
+        <!-- Card de Evento 6: Uberlândia Educação Ambiental (AGORA ENCAIXADO NO LUGAR CERTO) -->
+        <article class="card-evento-item">
+          <div class="evento-thumb-box">
+            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do encontro de divulgação de conhecimento em Uberlândia">
+            <span class="evento-tag-status">Em Breve</span>
+          </div>
+          <div class="evento-card-body">
+            <ul class="evento-meta-list" role="list">
+              <li><i class="far fa-calendar-alt"></i> 05/04/2026</li>
+              <li><i class="fas fa-map-marker-alt"></i> Teatro Municipal - Uberlândia/MG</li>
+              <li><i class="far fa-clock"></i> 15:00h</li>
+            </ul>
+            <p class="evento-descricao">Encontro para divulgação de conhecimento sobre água, saneamento e sustentabilidade.</p>
+            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+              Garantir Vaga
+            </a>
+          </div>
+        </article>
 
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Aracaju" width="220" height="220">
-        <ul>
-          <li>Dia: 09/04/2026</li>
-          <li>Local: Aracaju/SE - Praia de Atalaia</li>
-          <li>Horário: 19h</li>
-        </ul>
-        <p>Evento de mobilização social para discutir turismo, preservação ambiental e poluição hídrica.</p>
-        <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
+      </div> <!-- FECHAMENTO ÚNICO DA EVENTOS-GRID-LAYOUT (AQUI JUNA TODOS OS CARDS) -->
+    </section> <!-- FECHAMENTO ÚNICO DA SEÇÃO -->
 
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Uberlândia no teatro municipal" width="220" height="220">
-        <ul>
-          <li>Dia: 27/01/2025</li>
-          <li>Local: Uberlândia/MG - Teatro Municipal</li>
-          <li>Horário: 18h</li>
-        </ul>
-        <p>Apresentação aberta ao público sobre projetos ambientais e participação cidadã.</p>
-        <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
-
-      <section class="cardsEventos">
-        <img class="Exemplo_Evento" src="/src/main/resources/static/img/logo.png" alt="Evento em Uberlândia sobre educação ambiental" width="220" height="220">
-        <ul>
-          <li>Dia: 05/04/2026</li>
-          <li>Local: Uberlândia/MG - Teatro Municipal</li>
-          <li>Horário: 15h</li>
-        </ul>
-        <p>Encontro para divulgação de conhecimento sobre água, saneamento e sustentabilidade.</p>
-        <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer">
-          <button>Cadastro</button>
-        </a>
-      </section>
-    </section>
-
-    <article>
-      <img src="/src/main/resources/static/img/Canvas1.png" alt="Imagem ilustrativa ambiental" id="imgIlu">
+    <!-- BANNER ILUSTRATIVO DE ENCERRAMENTO -->
+    <article class="evento-banner-decorativo">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Canvas1.png" alt="Painel artístico e ilustrativo unindo conceitos de ecologia, educação, recursos hídricos e preservação do meio ambiente">
     </article>
-  </main>
 
-  <h3 class="titulos">Agradecemos a sua presença!</h3>
+    <h2 class="titulo-centralizado msg-agradecimento">Agradecemos a sua presença!</h2>
 
-  <footer class="footer-site">
-    <p>© 2025 Guardiãs das Águas. Todos os direitos reservados.</p>
+  </main> <!-- FECHAMENTO EXCLUSIVO DO MAIN ANTES DO FOOTER -->
 
-    <div class="redes-sociais">
-      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/youtube.png" alt="YouTube">
-      </a>
+  <!-- Fechamento correto da main -->
 
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <img src="/src/main/resources/static/img/insta.png" alt="Instagram">
-      </a>
-    </div>
-
-    <p>
-      Autores das imagens do Canva:<br>
-      @gettyimages: Terra<br>
-      @grappict: Mulher caminhando<br>
-      @aryanwarsi: Rosto com livro<br>
-      @hl12studio: Evento
-    </p>
-  </footer>
-
-  <section class="colaboradores-section">
-    <h4 class="titulo-centralizado">COLABORADORES</h4>
+  <!-- SEÇÃO DE COLABORADORES (CORRIGIDA: ALINHADA EXATAMENTE ANTES DO FOOTER) -->
+  <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
+    <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Nossos colaboradores">
+      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
+
+  <!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- Coluna 1: Sobre o Projeto -->
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+
+      <!-- Coluna 2: Links de Navegação -->
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul role="menu" aria-label="Links rápidos do rodapé">
+          <li><a href="pagina1.html" role="menuitem">Início</a></li>
+          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
+          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
+          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Institucional, Contato e Autores Canva -->
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="Acesse nosso canal no YouTube" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Siga nosso perfil no Instagram" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha Divisória de Acabamento -->
+    <hr class="footer-divider">
+
+    <!-- Base do Footer com Créditos e Atribuições Fixas -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <div class="footer-canva-credits">
+        <p>Autores das imagens do Canva: <span>@gettyimages (Terra)</span> • <span>@grappict (Mulher caminhando)</span> • <span>@aryanwarsi (Rosto com livro)</span> • <span>@hl12studio (Evento)</span></p>
+        <p class="footer-credits-source">Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer" aria-label="Acesse o site da Permution (abre em nova aba)">Permution</a></p>
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>

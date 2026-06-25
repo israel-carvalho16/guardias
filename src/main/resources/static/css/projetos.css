@@ -1,0 +1,228 @@
+/* ==========================================================================
+   SISTEMA DE DESIGN PREMIUM - PÁGINA DE PROJETOS E NÚCLEOS
+   ========================================================================= */
+
+:root {
+  /* Variáveis Correspondentes com a Identidade Visual */
+  --roxo-logo: #8e6db5;
+  --azul1: #91a4ce;
+  --azul2: #91b0d4;
+  --roxo-principal: #5b289e;
+  --roxo-secundario: #8f73b2;
+  --lilas: #f4f1f7;
+  --bg-white: #ffffff;
+  --text-dark: #2d3748;
+  --text-light: #ffffff;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 4px 6px -1px rgba(91, 40, 158, 0.04);
+  --shadow-md: 0 20px 25px -5px rgba(91, 40, 158, 0.06);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+/* Container de Alinhamento Global */
+.projetos-container {
+  max-width: 1200px;
+  margin: 120px auto 60px !important; /* Espaço para o menu fixed transparente */
+  padding: 0 4% !important;
+}
+
+/* Estrutura de Linha de Projetos (Layout Asimétrico) */
+/* ==========================================================================
+   UPGRADE AVANÇADO DE UI/UX - VITRINE DE PROJETOS PREMIUM
+   ========================================================================= */
+
+/* Estrutura Base com Glassmorphism sutil nas bordas e Sombra Avançada */
+.bloco-projeto {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 60px !important;
+  background: var(--bg-white) !important;
+  padding: 45px !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 4px 6px -1px rgba(91, 40, 158, 0.02), 0 2px 4px -1px rgba(91, 40, 158, 0.01) !important;
+  border: 1px solid rgba(142, 109, 181, 0.08) !important;
+  margin-bottom: 50px !important;
+  align-items: center !important;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important; /* Transição ultra-suave estilo Apple */
+}
+
+/* Hover Cirúrgico: Elevação tridimensional realista e acendimento da borda */
+.bloco-projeto:hover {
+  transform: translateY(-6px) scale(1.005) !important;
+  border-color: var(--azul1) !important;
+  box-shadow: 0 20px 25px -5px rgba(91, 40, 158, 0.06), 0 10px 10px -5px rgba(91, 40, 158, 0.03) !important;
+}
+
+/* Inversão Alternada */
+.bloco-projeto.projeto-inverted {
+  flex-direction: row-reverse !important;
+}
+
+/* Divisão exata das duas colunas (50% / 50%) */
+.bloco-projeto .projeto-media-box,
+.bloco-projeto .projeto-content-box {
+  flex: 1 !important;
+  width: 50% !important;
+  max-width: 50% !important;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Efeito Slide no Bloco de Texto ao passar o mouse */
+.bloco-projeto:hover .projeto-content-box {
+  transform: translateX(4px);
+}
+.bloco-projeto.projeto-inverted:hover .projeto-content-box {
+  transform: translateX(-4px);
+}
+
+/* Moldura Proporcional da Imagem (Corte Inteligente 1:1) */
+.projeto-img-wrapper {
+  width: 100% !important;
+  height: 340px !important;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.projeto-img-wrapper img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: brightness(0.97) contrast(1.01);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Efeito Parallax Cinematográfico na foto ao passar o mouse */
+.bloco-projeto:hover .projeto-img-wrapper img {
+  transform: scale(1.05) !important;
+  filter: brightness(1.02) contrast(1.02);
+}
+
+/* Botão Link do Instagram Premium */
+.btn-projeto-link {
+  text-decoration: none !important;
+  color: var(--roxo-secundario) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: max-content !important;
+  margin: 0 auto !important;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background-color: transparent;
+  transition: all 0.3s ease !important;
+}
+
+.btn-projeto-link i {
+  transition: transform 0.3s ease;
+}
+
+/* O ícone do Instagram ganha um micro-giro no hover */
+.btn-projeto-link:hover {
+  color: #e1306c !important; /* Muda para o rosa oficial do Instagram */
+  background-color: #fff0f5;
+  transform: translateY(-1px);
+}
+
+.btn-projeto-link:hover i {
+  transform: scale(1.15) rotate(12deg);
+}
+
+/* Estilização Interna dos Títulos dos Núcleos */
+.projeto-content-box h2 {
+  font-size: 1.9rem !important;
+  color: var(--roxo-principal) !important;
+  margin-bottom: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+/* O título acende sutilmente no hover do card */
+.bloco-projeto:hover .projeto-content-box h2 {
+  color: #3182ce !important; /* Tom azul de destaque */
+}
+
+
+/* Caixa de Conteúdo Textual */
+.projeto-content-box h2 {
+  font-size: 1.8rem !important;
+  color: var(--roxo-principal) !important;
+  margin-bottom: 16px !important;
+  font-weight: 700 !important;
+}
+
+.projeto-content-box p {
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  color: var(--text-dark) !important;
+  margin-bottom: 14px !important;
+  text-align: justify !important;
+  opacity: 0.9;
+}
+
+.projeto-content-box p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Botão de Saiba Mais Geral da Base */
+.saiba-mais-wrapper {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.btn-saiba-mais-global {
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background-color: var(--roxo-principal) !important;
+  color: var(--text-light) !important;
+  padding: 14px 30px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  box-shadow: 0 4px 15px rgba(91, 40, 158, 0.15) !important;
+  transition: var(--transition) !important;
+}
+
+.btn-saiba-mais-global:hover {
+  background-color: #441c78 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(91, 40, 158, 0.25) !important;
+}
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE COMPLETA DO DESIGN)
+   ========================================================================= */
+@media (max-width: 900px) {
+  .bloco-projeto, .bloco-projeto.projeto-inverted {
+    grid-template-columns: 1fr !important; /* Vira coluna única em tablets/celulares */
+    gap: 30px !important;
+    padding: 24px !important;
+  }
+  
+  .bloco-projeto.projeto-inverted .projeto-media-box {
+    order: 0 !important; /* Restaura a ordem da imagem no mobile para ficar sempre no topo */
+  }
+
+  .projeto-img-wrapper {
+    height: 260px;
+  }
+
+  .projeto-content-box h2 {
+    font-size: 1.5rem !important;
+    text-align: center;
+  }
+  
+  .btn-saiba-mais-global {
+    width: 100%;
+    justify-content: center;
+  }
+}
