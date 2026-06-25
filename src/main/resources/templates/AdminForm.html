@@ -4,44 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro do Administrador - Guardiãs das Águas</title>
-    
-    <!-- Biblioteca FontAwesome obrigatória para ícones -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    
-    <!-- Links de estilo higienizados partindo da raiz conceitual / -->
     <link rel="stylesheet" th:href="@{/css/formularios.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <!-- Botão flutuante unificado apontando para a rota real do Controller Java -->
     <a th:href="@{/pagina1}" class="btn-voltar-formulario">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
     </a>
 
-    <!-- Fundo abstrato moderno -->
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
 
-    <!-- Container do Formulário -->
     <div class="form-container">
         
-        <!-- Identidade Visual dentro do Form -->
         <div class="form-header">
             <img th:src="@{/img/logo.png}" alt="Logo Guardiãs das Águas" class="form-logo">
             <h2>Guardiãs das Águas</h2>
             <p>Portal do Administrador</p>
         </div>
 
-        <!-- 1. CORREÇÃO AQUI: th:action alterado para a URL pública do seu grupo (/api/auth/cadastrar) -->
-        <form th:action="@{/api/auth/cadastrar}" method="POST">
+        <!-- ✅ Sem o "> extra -->
+        <form action="/AdminForm/enviar" method="post">
             <h3>Criar Conta</h3>
             
             <div class="input-group">
-                <label for="username">Nome Completo</label>
-                <input type="text" placeholder="Digite seu nome" id="username" name="username" required>
+                <label for="nome">Nome Completo</label>
+                <!-- ✅ name="nome" -->
+                <input type="text" placeholder="Digite seu nome" id="nome" name="nome" required>
             </div>
 
             <div class="input-group">
@@ -50,13 +43,15 @@
             </div>
 
             <div class="input-group">
-                <label for="cpf">CPF</label>
-                <input type="text" placeholder="000.000.000-00" id="cpf" name="cpf" maxlength="14" required>
+                <label for="CPF">CPF</label>
+                <!-- ✅ name="CPF" -->
+                <input type="text" placeholder="000.000.000-00" id="CPF" name="CPF" maxlength="14" required>
             </div>
 
             <div class="input-group">
-                <label for="password">Senha de Acesso</label>
-                <input type="password" placeholder="Crie uma senha segura" id="password" name="password" required>
+                <label for="senha">Senha de Acesso</label>
+                <!-- ✅ name="senha" -->
+                <input type="password" placeholder="Crie uma senha segura" id="senha" name="senha" required>
             </div>
 
             <button type="submit" class="btn-submit">Cadastrar Administrador</button>

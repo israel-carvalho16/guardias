@@ -3,6 +3,9 @@ package com.project.omni.Blog.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.project.omni.Admin.Repo;
 
 @Controller
 public class PageController {
@@ -29,11 +32,7 @@ public class PageController {
     }
 
     // 2. CORRIGIDO: Rota alterada para receber o clique sob o caminho público do JWT (/api/auth/cadastrar)
-    @PostMapping("/api/auth/cadastrar")
-    public String processarCadastroAdmin() {
-        // Redireciona o navegador do usuário automaticamente para a rota /admin abaixo
-        return "redirect:/admin"; 
-    }
+    
 
     // 3. Rota mapeada para renderizar o segundo HTML (o painel de controle admin.html)
     @GetMapping("/admin")
@@ -65,4 +64,5 @@ public class PageController {
     public String contatos() {
         return "contatos"; 
     }
+    
 }
