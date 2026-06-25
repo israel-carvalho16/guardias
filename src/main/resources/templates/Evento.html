@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -7,17 +7,17 @@
   <title>Eventos - Guardiãs das Águas</title>
 
   <!-- Widgets de Acessibilidade Estáveis -->
-  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
+  <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
   
-  <!-- Arquivo JavaScript Unificado do Projeto -->
-  <script src="/src/main/resources/static/js/home.js" defer></script>
+  <!-- JavaScript unificado do projeto -->
+  <script th:src="@{/js/home.js}" defer></script>
 
-  <!-- Biblioteca FontAwesome obrigatória para ícones -->
+  <!-- Biblioteca FontAwesome para ícones -->
   <link rel="stylesheet" href="https://cloudflare.com">
 
-  <!-- Links de Folha de Estilo Padronizados -->
-  <link rel="stylesheet" href="/src/main/resources/static/css/Inicio.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/eventos.css">
+  <!-- Folhas de estilo a partir da raiz de static -->
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  <link rel="stylesheet" th:href="@{/css/eventos.css}">
 </head>
 
 <body>
@@ -29,11 +29,11 @@
     </div>
   </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js" onload="initVLibras()"></script>
+  <script src="https://vlibras.gov.br" onload="initVLibras()"></script>
   <script>
     function initVLibras() {
       if (window.VLibras && window.VLibras.Widget) {
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
+        new window.VLibras.Widget('https://vlibras.gov.br');
       }
     }
   </script>
@@ -41,43 +41,43 @@
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
-      <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
       <h2>Guardiãs das Águas</h2> 
     </div>
 
     <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
       <ul class="nav-links"> 
-        <li><a href="pagina1.html">Início</a></li> 
-        <li><a href="noticias.html">Notícias</a></li> 
-        <li><a href="Projeto.html">Projetos</a></li> 
-        <li><a href="Evento.html" aria-current="page">Eventos</a></li> 
+        <li><a th:href="@{/pagina1}">Início</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/projeto}">Projetos</a></li> 
+        <li><a th:href="@{/evento}" aria-current="page">Eventos</a></li> 
         <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
             <div class="dropdown-content" role="menu">
-              <a href="MG.html" role="menuitem">MG</a> 
-              <a href="CE.html" role="menuitem">CE</a> 
+              <a th:href="@{/mg}" role="menuitem">MG</a> 
+              <a th:href="@{/ce}" role="menuitem">CE</a> 
             </div>
           </details> 
         </li> 
-        <li><a href="contatos.html">Contato</a></li> 
+        <li><a th:href="@{/contatos}">Contato</a></li> 
       </ul>
     </nav> 
 
-    <!-- Botões de Ação Unificados -->
+    <!-- Botões de Ação Unificados e Rotas do Java -->
     <div class="auth-actions">
-      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
-  </header> 
-
+  </header>
   <!-- CONTEÚDO PRINCIPAL (PORTAL DE EVENTOS INSTITUCIONAIS) -->
   <main class="eventos-container" id="conteudo-principal" role="main">
     
     <!-- Bloco de Introdução / Engajamento -->
     <section id="motivo" class="bloco-motivo-introducao">
       <div class="motivo-media-box">
-        <img src="/src/main/resources/static/img/ambiente.png" alt="Ilustração estilizada em tons pastéis representando o engajamento e a união comunitária em eventos ecológicos">
+        <!-- Caminho da imagem ajustado para Thymeleaf -->
+        <img th:src="@{/img/ambiente.png}" alt="Ilustração estilizada em tons pastéis representando o engajamento e a união comunitária em eventos ecológicos">
       </div>
 
       <div class="motivo-content-box">
@@ -99,6 +99,7 @@
         </p>
       </div>
     </section>
+
     <!-- Bloco de Aprendizado (Layout Invertido: Texto na Esquerda, Imagem na Direita) -->
     <section class="bloco-motivo-introducao projeto-inverted">
       <div class="motivo-content-box">
@@ -133,14 +134,16 @@
       </div>
 
       <div class="motivo-media-box">
-        <img src="/omni_BACK-geraldo/src/main/resources/static/img/aprenderCanvas.png" alt="Ilustração de estudantes e cientistas compartilhando conhecimentos sobre sustentabilidade hídrica">
+        <!-- Caminho da imagem limpo para a pasta static/img -->
+        <img th:src="@{/img/aprenderCanvas.png}" alt="Ilustração de estudantes e cientistas compartilhando conhecimentos sobre sustentabilidade hídrica">
       </div>
     </section>
 
     <!-- Bloco de Como Participar (Layout Normal: Imagem na Esquerda, Texto na Direita) -->
     <section class="bloco-motivo-introducao">
       <div class="motivo-media-box">
-        <img src="/omni_BACK-geraldo/src/main/resources/static/img/trlha.png" alt="Ilustração de uma trilha ecológica guiada e o caminho para o engajamento socioambiental sustentável">
+        <!-- Caminho da imagem limpo para a pasta static/img -->
+        <img th:src="@{/img/trlha.png}" alt="Ilustração de uma trilha ecológica guiada e o caminho para o engajamento socioambiental sustentável">
       </div>
 
       <div class="motivo-content-box">
@@ -161,7 +164,7 @@
         <!-- Card de Evento 1: Uberlândia -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do evento ambiental em Uberlândia">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo do evento ambiental in Uberlândia">
             <span class="evento-tag-status">Inscrições Abertas</span>
           </div>
           <div class="evento-card-body">
@@ -171,7 +174,7 @@
               <li><i class="far fa-clock"></i> 17:00h</li>
             </ul>
             <p class="evento-descricao">Evento voltado à conscientização ambiental e à importância da preservação dos recursos hídricos.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScqdR8-bPjQXYQCmaQUeao8fMuG6BVHWWOFRYJlkeLeMfBCjg/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+            <a href="https://google.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
               Garantir Vaga
             </a>
           </div>
@@ -180,7 +183,7 @@
         <!-- Card de Evento 2: Cuiabá -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do encontro educativo em Cuiabá">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo do encontro educativo em Cuiabá">
             <span class="evento-tag-status">Em Breve</span>
           </div>
           <div class="evento-card-body">
@@ -190,7 +193,7 @@
               <li><i class="far fa-clock"></i> 07:00h</li>
             </ul>
             <p class="evento-descricao">Encontro educativo sobre meio ambiente, sustentabilidade e participação feminina na ciência.</p>
-            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
               Garantir Vaga
             </a>
           </div>
@@ -199,7 +202,7 @@
         <!-- Card de Evento 3: Uberaba -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da atividade prática em Uberaba">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo da atividade prática em Uberaba">
             <span class="evento-tag-status">Em Breve</span>
           </div>
           <div class="evento-card-body">
@@ -209,7 +212,7 @@
               <li><i class="far fa-clock"></i> 08:00h</li>
             </ul>
             <p class="evento-descricao">Atividade com foco em saneamento básico, preservação da água e educação ambiental.</p>
-            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
               Garantir Vaga
             </a>
           </div>
@@ -218,7 +221,7 @@
         <!-- Card de Evento 4: Aracaju -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da mobilização social em Aracaju">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo da mobilização social em Aracaju">
             <span class="evento-tag-status">Em Breve</span>
           </div>
           <div class="evento-card-body">
@@ -228,16 +231,16 @@
               <li><i class="far fa-clock"></i> 19:00h</li>
             </ul>
             <p class="evento-descricao">Evento de mobilização social para discutir turismo, preservação ambiental e poluição hídrica.</p>
-            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
               Garantir Vaga
             </a>
           </div>
         </article>
 
-               <!-- Card de Evento 5: Uberlândia Teatro -->
+        <!-- Card de Evento 5: Uberlândia Teatro -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo da apresentação aberta no teatro de Uberlândia">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo da apresentação aberta no teatro de Uberlândia">
             <span class="evento-tag-status">Encerrado</span>
           </div>
           <div class="evento-card-body">
@@ -247,16 +250,16 @@
               <li><i class="far fa-clock"></i> 18:00h</li>
             </ul>
             <p class="evento-descricao">Apresentação aberta ao público sobre projetos ambientais e participação cidadã.</p>
-            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro btn-evento-encerrado">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro btn-evento-encerrado">
               Ver Detalhes
             </a>
           </div>
         </article>
 
-        <!-- Card de Evento 6: Uberlândia Educação Ambiental (AGORA ENCAIXADO NO LUGAR CERTO) -->
+        <!-- Card de Evento 6: Uberlândia Educação Ambiental -->
         <article class="card-evento-item">
           <div class="evento-thumb-box">
-            <img class="evento-logo-img" src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo oficial representativo do encontro de divulgação de conhecimento em Uberlândia">
+            <img class="evento-logo-img" th:src="@{/img/logo.png}" alt="Logotipo oficial representativo do encontro de divulgação de conhecimento em Uberlândia">
             <span class="evento-tag-status">Em Breve</span>
           </div>
           <div class="evento-card-body">
@@ -266,31 +269,29 @@
               <li><i class="far fa-clock"></i> 15:00h</li>
             </ul>
             <p class="evento-descricao">Encontro para divulgação de conhecimento sobre água, saneamento e sustentabilidade.</p>
-            <a href="https://www.instagram.com/guardias.aguas/" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn-evento-cadastro">
               Garantir Vaga
             </a>
           </div>
         </article>
 
-      </div> <!-- FECHAMENTO ÚNICO DA EVENTOS-GRID-LAYOUT (AQUI JUNA TODOS OS CARDS) -->
-    </section> <!-- FECHAMENTO ÚNICO DA SEÇÃO -->
-
+      </div> <!-- FECHAMENTO DA EVENTOS-GRID-LAYOUT -->
+    </section> <!-- FECHAMENTO DA SEÇÃO -->
     <!-- BANNER ILUSTRATIVO DE ENCERRAMENTO -->
     <article class="evento-banner-decorativo">
-      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Canvas1.png" alt="Painel artístico e ilustrativo unindo conceitos de ecologia, educação, recursos hídricos e preservação do meio ambiente">
+      <!-- Caminho corrigido para o Spring Boot -->
+      <img th:src="@{/img/Canvas1.png}" alt="Painel artístico e ilustrativo unindo conceitos de ecologia, educação, recursos hídricos e preservação do meio ambiente">
     </article>
 
     <h2 class="titulo-centralizado msg-agradecimento">Agradecemos a sua presença!</h2>
 
   </main> <!-- FECHAMENTO EXCLUSIVO DO MAIN ANTES DO FOOTER -->
 
-  <!-- Fechamento correto da main -->
-
-  <!-- SEÇÃO DE COLABORADORES (CORRIGIDA: ALINHADA EXATAMENTE ANTES DO FOOTER) -->
+  <!-- SEÇÃO DE COLABORADORES (ALINHADA EXATAMENTE ANTES DO FOOTER) -->
   <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
     <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
+      <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
 
@@ -301,7 +302,7 @@
       <!-- Coluna 1: Sobre o Projeto -->
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <img th:src="@{/img/logo.png}" alt="Logotipo simplificado do projeto Guardiãs das Águas">
           <h3>Guardiãs das Águas</h3>
         </div>
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
@@ -311,10 +312,10 @@
       <div class="footer-column footer-links">
         <h4>Navegação</h4>
         <ul role="menu" aria-label="Links rápidos do rodapé">
-          <li><a href="pagina1.html" role="menuitem">Início</a></li>
-          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
-          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
-          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+          <li><a th:href="@{/pagina1}" role="menuitem">Início</a></li>
+          <li><a th:href="@{/noticias}" role="menuitem">Notícias</a></li>
+          <li><a th:href="@{/projeto}" role="menuitem">Projetos</a></li>
+          <li><a th:href="@{/evento}" role="menuitem">Eventos</a></li>
         </ul>
       </div>
 
@@ -343,5 +344,4 @@
     </div>
   </footer>
 </body>
-
 </html>

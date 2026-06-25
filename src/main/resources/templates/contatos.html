@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<!-- 1. DECLARAÇÃO DO THYMELEAF INSERIDA PARA ERRO ZERO -->
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -9,16 +10,16 @@
   <!-- Widgets de Acessibilidade Estáveis -->
   <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
   
-  <!-- Arquivo JavaScript Unificado do Projeto -->
-  <script src="/src/main/resources/static/js/home.js" defer></script>
-  <script src="/src/main/resources/static/js/contato.js" defer></script>
+  <!-- 2. Arquivos JavaScript corrigidos com caminhos do Thymeleaf -->
+  <script th:src="@{/js/home.js}" defer></script>
+  <script th:src="@{/js/contato.js}" defer></script>
 
   <!-- Biblioteca FontAwesome obrigatória para ícones -->
   <link rel="stylesheet" href="https://cloudflare.com">
 
-  <!-- Links de Folha de Estilo Padronizados -->
-  <link rel="stylesheet" href="/src/main/resources/static/css/Inicio.css">
-  <link rel="stylesheet" href="/src/main/resources/static/css/contatos.css">
+  <!-- 3. Folhas de estilo mapeadas diretamente a partir de static -->
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  <link rel="stylesheet" th:href="@{/css/contatos.css}">
 </head>
 
 <body>
@@ -42,33 +43,34 @@
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
-      <img src="/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
       <h2>Guardiãs das Águas</h2> 
     </div>
 
     <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
       <ul class="nav-links"> 
-        <li><a href="pagina1.html">Início</a></li> 
-        <li><a href="noticias.html">Notícias</a></li> 
-        <li><a href="Projeto.html">Projetos</a></li> 
-        <li><a href="Evento.html">Eventos</a></li> 
+        <!-- 4. Links de navegação alinhados com o PageController do Java -->
+        <li><a th:href="@{/pagina1}">Início</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/projeto}">Projetos</a></li> 
+        <li><a th:href="@{/evento}">Eventos</a></li> 
         <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
             <div class="dropdown-content" role="menu">
-              <a href="MG.html" role="menuitem">MG</a> 
-              <a href="CE.html" role="menuitem">CE</a> 
+              <a th:href="@{/mg}" role="menuitem">MG</a> 
+              <a th:href="@{/ce}" role="menuitem">CE</a> 
             </div>
           </details> 
         </li> 
-        <li><a href="contatos.html" aria-current="page">Contato</a></li> 
+        <li><a th:href="@{/contatos}" aria-current="page">Contato</a></li> 
       </ul>
     </nav> 
 
-    <!-- Botões de Ação Unificados -->
+    <!-- Botões de Ação Unificados e Rotas do Java -->
     <div class="auth-actions">
-      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
   </header> 
 
@@ -81,7 +83,8 @@
 
       <!-- Container Centralizado Estilo Pílula de Leitura -->
       <div class="contact-form-center-panel">
-        <form class="contact-form" id="formContato" action="#" method="POST">
+        <!-- 5. Action preparada para receber o mapeamento do método POST no Java -->
+        <form class="contact-form" id="formContato" th:action="@{/contatos}" method="POST">
           
           <div class="form-group-box">
             <label for="nome">Seu nome</label>
@@ -97,8 +100,7 @@
             <label for="mensagem">Mensagem</label>
             <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem..." rows="5" required></textarea>
           </div>
-
-          <!-- Seção de Avaliação por Pastilhas Numéricas Premium -->
+<!-- Seção de Avaliação por Pastilhas Numéricas Premium -->
           <div class="form-group-box">
             <label class="label-rating-title">O quanto você recomendaria nosso projeto? (Avaliação de 0 a 10)</label>
 
@@ -174,7 +176,8 @@
     <section id="contatos" class="secao-orgaos-ambientais">
       <h2>Órgãos Ambientais</h2>
       <p>Conheça as principais instituições e secretarias voltadas à fiscalização e conservação hídrica.</p>
-      <a id="link_D" href="orgaoambiental.html" class="btn-orgaos-saiba-mais">
+      <!-- 1. Rota corrigida com a tag Thymeleaf -->
+      <a id="link_D" th:href="@{/orgao-ambiental}" class="btn-orgaos-saiba-mais">
         <i class="fas fa-external-link-alt"></i> Saiba mais
       </a>
     </section>
@@ -185,18 +188,19 @@
   <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
     <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
+      <!-- 2. Caminho de imagem corrigido para a raiz static -->
+      <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
-
-  <!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
+<!-- RODAPÉ ULTRA PREMIUM COUTRE PADRONIZADO (ACESSÍVEL) -->
   <footer class="main-footer" role="contentinfo">
     <div class="footer-container">
       
       <!-- Coluna 1: Sobre o Projeto -->
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
-          <img src="/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <!-- 1. Logo do rodapé corrigida -->
+          <img th:src="@{/img/logo.png}" alt="Logotipo simplificado do projeto Guardiãs das Águas">
           <h3>Guardiãs das Águas</h3>
         </div>
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
@@ -206,10 +210,11 @@
       <div class="footer-column footer-links">
         <h4>Navegação</h4>
         <ul role="menu" aria-label="Links rápidos do rodapé">
-          <li><a href="pagina1.html" role="menuitem">Início</a></li>
-          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
-          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
-          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+          <!-- 2. Links integrados ao Thymeleaf e mapeados para o PageController -->
+          <li><a th:href="@{/pagina1}" role="menuitem">Início</a></li>
+          <li><a th:href="@{/noticias}" role="menuitem">Notícias</a></li>
+          <li><a th:href="@{/projeto}" role="menuitem">Projetos</a></li>
+          <li><a th:href="@{/evento}" role="menuitem">Eventos</a></li>
         </ul>
       </div>
 
@@ -237,5 +242,4 @@
     </div>
   </footer>
 </body>
-
 </html>

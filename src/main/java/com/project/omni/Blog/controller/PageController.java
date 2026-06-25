@@ -2,17 +2,16 @@ package com.project.omni.Blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PageController {
 
-    // Rota raiz (/) — Corrigido: Removido o .html
     @GetMapping("/")
     public String home(){
         return "pagina1"; 
     }
 
-    // Rota secundária para o link "Início" do menu apontar para o mesmo lugar
     @GetMapping("/pagina1")
     public String pagina1(){
         return "pagina1";
@@ -23,14 +22,22 @@ public class PageController {
         return "login";
     }
 
+    // 1. Rota pública oficial que abre com sucesso o formulário de cadastro (AdminForm.html)
     @GetMapping("/register")
     public String register() {
-        return "register";
+        return "AdminForm"; 
     }
 
-    // Corrigido: Removido o .html
+    // 2. CORRIGIDO: Rota alterada para receber o clique sob o caminho público do JWT (/api/auth/cadastrar)
+    @PostMapping("/api/auth/cadastrar")
+    public String processarCadastroAdmin() {
+        // Redireciona o navegador do usuário automaticamente para a rota /admin abaixo
+        return "redirect:/admin"; 
+    }
+
+    // 3. Rota mapeada para renderizar o segundo HTML (o painel de controle admin.html)
     @GetMapping("/admin")
-    public String admin() {
+    public String exibirPainelAdmin() {
         return "admin"; 
     }
 
@@ -39,26 +46,23 @@ public class PageController {
         return "post";
     }
 
-    
     @GetMapping("/noticias")
     public String noticias() {
         return "noticias"; 
     }
 
-    
     @GetMapping("/projeto")
     public String projeto() {
-        return "Projeto"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Projeto.html
+        return "Projeto"; 
     }
 
-    
     @GetMapping("/evento")
     public String evento() {
-        return "Evento"; // Mantenha a primeira letra maiúscula se o arquivo se chamar Evento.html
+        return "Evento"; 
     }
-        @GetMapping("/contatos")
+
+    @GetMapping("/contatos")
     public String contatos() {
         return "contatos"; 
     }
-
 }

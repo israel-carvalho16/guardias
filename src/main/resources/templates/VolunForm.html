@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<!-- 1. DECLARAÇÃO DO THYMELEAF ADICIONADA (Obrigatória para processar os recursos) -->
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrição de Voluntariado - Guardiãs das Águas</title>
     
-    <!-- Link para o FontAwesome (Para o ícone de voltar) -->
+    <!-- Link para o FontAwesome -->
     <link rel="stylesheet" href="https://cloudflare.com">
     
-    <!-- Arquivo CSS Exclusivo para o Formulário de Voluntários -->
-    <link rel="stylesheet" href="/src/main/resources/static/css/voluntario.css">
-    <link rel="stylesheet" href="/src/main/resources/static/css/formularios.css">
+    <!-- 2. Arquivos CSS limpos e isolados a partir da raiz da pasta static -->
+    <link rel="stylesheet" th:href="@{/css/voluntario.css}">
+    <link rel="stylesheet" th:href="@{/css/formularios.css}">
 </head>
 <body>
 
-    <!-- Botão Flutuante Elegante para Voltar à Home -->
-    <a href="pagina1.html" class="btn-back-home">
+    <!-- 3. Botão de voltar ajustado para a rota correta do Controller -->
+    <a th:href="@{/pagina1}" class="btn-back-home">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
     </a>
 
@@ -31,12 +32,14 @@
         
         <!-- Identidade Visual do Projeto -->
         <div class="form-header">
-            <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo Guardiãs das Águas" class="form-logo">
+            <!-- 4. Logo corrigida removendo a pasta antiga 'omni_BACK-geraldo' -->
+            <img th:src="@{/img/logo.png}" alt="Logo Guardiãs das Águas" class="form-logo">
             <h2>Guardiãs das Águas</h2>
             <p>Faça parte do movimento</p>
         </div>
 
-        <form action="#" method="POST">
+        <!-- 5. Action preparada para receber o mapeamento do método POST no Java -->
+        <form th:action="@{/volun-form}" method="POST">
             <h3>Ficha de Inscrição</h3>
             
             <!-- Grid de Duas Colunas para os Campos -->
@@ -44,27 +47,27 @@
                 
                 <div class="input-field">
                     <label for="volun-name">Nome Completo</label>
-                    <input type="text" placeholder="Seu nome completo" id="volun-name" required>
+                    <input type="text" placeholder="Seu nome completo" id="volun-name" name="name" required>
                 </div>
 
                 <div class="input-field">
                     <label for="volun-email">E-mail</label>
-                    <input type="email" placeholder="seuemail@exemplo.com" id="volun-email" required>
+                    <input type="email" placeholder="seuemail@exemplo.com" id="volun-email" name="email" required>
                 </div>
 
                 <div class="input-field">
                     <label for="volun-cpf">CPF</label>
-                    <input type="text" placeholder="000.000.000-00" id="volun-cpf" maxlength="14" required>
+                    <input type="text" placeholder="000.000.000-00" id="volun-cpf" name="cpf" maxlength="14" required>
                 </div>
 
                 <div class="input-field">
                     <label for="volun-phone">Telefone / WhatsApp</label>
-                    <input type="tel" placeholder="(00) 00000-0000" id="volun-phone" required>
+                    <input type="tel" placeholder="(00) 00000-0000" id="volun-phone" name="phone" required>
                 </div>
 
                 <div class="input-field">
                     <label for="volun-gender">Gênero</label>
-                    <select id="volun-gender" required>
+                    <select id="volun-gender" name="gender" required>
                         <option value="" disabled selected hidden>Selecione</option>
                         <option value="feminino">Feminino</option>
                         <option value="masculino">Masculino</option>
@@ -74,7 +77,7 @@
 
                 <div class="input-field">
                     <label for="volun-pass">Criar Senha de Acesso</label>
-                    <input type="password" placeholder="Crie uma senha forte" id="volun-pass" required>
+                    <input type="password" placeholder="Crie uma senha forte" id="volun-pass" name="password" required>
                 </div>
 
             </div>

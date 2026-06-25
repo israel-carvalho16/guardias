@@ -47,42 +47,44 @@
         <li><a th:href="@{/contatos}">Contatos</a></li>
 
         <!-- Item de menu Dropdown que você estava editando -->
-        <li class="dropdown-item"> 
-          <details>
-            <summary>Mais Opções</summary>
-            <div class="dropdown-menu">
-              <!-- Seus links internos do dropdown continuam aqui -->
-            </div>
-          </details>
-        </li>
+       
+      
+        
       </ul>
     </nav>
 
+<!-- Botões de Ação Sem Margens Negativas -->
+<!-- BOTOES ALINHADOS COM AS ROTAS REAIS DO JAVA CONTROLLER -->
+<div class="auth-actions">
+  <!-- 1. Ajustado para chamar a rota /register que está liberada na segurança -->
+  <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+  
+  <!-- 2. Mantida a rota do voluntário que o seu grupo já configurou -->
+  <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+</div>
 
-    <!-- Botões de Ação Sem Margens Negativas -->
-    <div class="auth-actions">
-      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
-    </div>
+
+
   </header> 
 
   <!-- CONTEÚDO PRINCIPAL DO SITE -->
   <main class="main-content">
 
     <!-- HERO BANNER (VÍDEO DE FUNDO) -->
-    <section class="hero"> 
-      <video class="video-bg" autoplay muted loop playsinline> 
-        <source src="/src/main/resources/static/video/videoheader.mp4" type="video/mp4"> 
-      </video> 
-      <div class="hero-content"> 
-        <h1>
-          <span class="line-intro">Educação sobre</span>
-          <span class="line-impact">Saneamento e Recursos Hídricos</span>
-          <span class="line-outro">para comunidades e escolas</span>
-        </h1> 
-      </div> 
-    </section>
-
+<!-- HERO BANNER COM VÍDEO HOSPEDADO EM NUVEM (CORRIGIDO) -->
+<section class="hero"> 
+  <video class="video-bg" autoplay muted loop playsinline> 
+    <!-- Link direto do seu GitHub que entrega o vídeo sem travar o Spring Boot -->
+    <source src="https://github.com/israel-carvalho16/guardias/raw/refs/heads/main/src/main/resources/static/video/videoheader.mp4" type="video/mp4"> 
+  </video> 
+  <div class="hero-content"> 
+    <h1>
+      <span class="line-intro">Educação sobre</span>
+      <span class="line-impact">Saneamento e Recursos Hídricos</span>
+      <span class="line-outro">para comunidades e escolas</span>
+    </h1> 
+  </div> 
+</section>
 
 
     <!-- SEÇÃO TÓPICOS -->
@@ -91,20 +93,20 @@
       <div id="escolhe" class="topics-grid"> 
         <div class="card-topic"> 
           <div class="icon-box">
-            <img src="/src/main/resources/static/IMG/gota.png" alt="Ícone Gota de Água">
-            <img src="@{/src/main/resources/static/img/gota.png}"  alt="">
+            <!-- 3. Imagens limpas sem referenciar pastas do sistema operacional -->
+            <img th:src="@{/img/gota.png}" alt="Ícone Gota de Água">
           </div> 
           <p><strong>Saneamento e Água</strong></p> 
         </div> 
         <div class="card-topic"> 
           <div class="icon-box">
-            <img src="/src/main/resources/static/IMG/equipe.png" alt="Ícone de Equipe">
+            <img th:src="@{/img/equipe.png}" alt="Ícone de Equipe">
           </div> 
           <p><strong>Equipe</strong></p> 
         </div> 
         <div class="card-topic"> 
           <div class="icon-box">
-            <img src="/src/main/resources/static/IMG/Protagomismo feminino.png" alt="Ícone Protagonismo Feminino">
+            <img th:src="@{/img/Protagomismo feminino.png}" alt="Ícone Protagonismo Feminino">
           </div> 
           <p><strong>Protagonismo Feminino</strong></p> 
         </div> 
@@ -120,7 +122,7 @@
         <p>O projeto Guardiãs das Águas (@guardias.aguas), da UFU, selecionado para integrar o programa nacional, permitiu que as participantes vivenciassem a experiência de uma pesquisa científica...</p> 
       </section> 
       
-      <img src="/src/main/resources/static/IMG/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
       
       <section class="qs-mvv-block"> 
         <div> 
@@ -165,18 +167,19 @@
     <!-- SEÇÃO NOSSA EQUIPE (CORRIGIDA) -->
     <section class="team-container-block"> 
       <h1 class="titulo-centralizado">Nossa equipe</h1> 
-      <img class="team-banner-img" src="/omni_BACK-geraldo/src/main/resources/static/IMG/equipe.png" alt="Foto da Equipe Reunida"> 
+      <!-- 4. Removida a pasta "omni_BACK-geraldo" para funcionar na máquina de qualquer aluno -->
+      <img class="team-banner-img" th:src="@{/img/equipe.png}" alt="Foto da Equipe Reunida"> 
       
       <div class="team-grid-layout">
         <div class="team-card-item"> 
           <h3>Coordenação Geral</h3> 
-          <img src="/src/main/resources/static/IMG/cord1.jfif" alt="Dra. Jeamylle Nilin"> 
+          <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin"> 
           <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
         </div> 
         
         <div class="team-card-item"> 
           <h3>Coordenadora de Direitos Humanos</h3> 
-          <img src="/omni_BACK-geraldo/src/main/resources/static/IMG/cord2.jfif" alt="Dra. Claudiene Santos"> 
+          <img th:src="@{/img/cord2.jfif}" alt="Dra. Claudiene Santos"> 
           <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
         </div> 
       </div>
@@ -186,31 +189,30 @@
     <section id="empoder"> 
       <section class="empoder-card"> 
         <h3>Protagonismo Feminino</h3>
-        <img src="/src/main/resources/static/IMG/Protagomismo feminino.png" alt="Ilustração Protagonismo Feminino"> 
+        <img th:src="@{/img/Protagomismo feminino.png}" alt="Ilustração Protagonismo Feminino"> 
         <h4>Saiba mais</h4> 
         <p>O protagonismo feminino refere-se à atuação activa das mulheres em diferentes espaços sociais...</p> 
       </section> 
     </section> 
 
-    <!-- SEÇÃO DE COLABORADORES (POSICIONADA ANTES DO RODAPÉ) -->
+    <!-- SEÇÃO DE COLABORADORES -->
     <section class="colaboradores-section">
       <h4>COLABORADORES</h4>
       <div class="colaboradores">
-        <img src="/src/main/resources/static/IMG/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores">
+        <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores">
       </div>
     </section>
 
   </main> 
 
-  
-  <!-- RODAPÉ ULTRA PREMIUM COM LOGOS VIA CDN (LINK) -->
+  <!-- RODAPÉ ULTRA PREMIUM -->
   <footer class="main-footer">
     <div class="footer-container">
       
       <!-- Coluna 1: Sobre o Projeto -->
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
-          <img src="/src/main/resources/static/img/logo.png" alt="Logo Guardiãs">
+          <img th:src="@{/img/logo.png}" alt="Logo Guardiãs">
           <h3>Guardiãs das Águas</h3>
         </div>
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
@@ -220,22 +222,25 @@
       <div class="footer-column footer-links">
         <h4>Navegação</h4>
         <ul>
-          <li><a href="pagina1.html">Início</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="Projeto.html">Projetos</a></li>
-          <li><a href="Evento.html">Eventos</a></li>
+          <!-- 5. Links do rodapé sincronizados com as rotas do Thymeleaf -->
+          <li><a th:href="@{/pagina1}">Início</a></li>
+          <li><a th:href="@{/noticias}">Notícias</a></li>
+          <li><a th:href="@{/projeto}">Projetos</a></li>
+          <li><a th:href="@{/evento}">Eventos</a></li>
         </ul>
       </div>
 
       <!-- Coluna 3: Institucional e Contato -->
-          <!-- SUBSTITUA APENAS A COLUNA INSTITUCIONAL NO SEU HTML -->
-          <div class="footer-column footer-contact">
-            <h4>Institucional</h4>
-            <p class="institution-tag">Vinculado à UFU</p>
-            <div class="redes-sociais">
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube" class="icon-yt">YT</a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" class="icon-insta">IG</a>
-            </div>
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais">
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube" class="icon-yt">YT</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" class="icon-insta">IG</a>
+        </div>
+      </div>
+    </div>
+    
     <hr class="footer-divider">
 
     <div class="footer-bottom">
@@ -245,5 +250,5 @@
       </p>
     </div>
   </footer>
-</body> 
+</body>
 </html>

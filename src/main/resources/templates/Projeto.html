@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<!-- 1. DECLARAÇÃO DO THYMELEAF INSERIDA PARA ESTABILIDADE -->
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -9,15 +10,15 @@
   <!-- Widgets de Acessibilidade Estáveis -->
   <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
   
-  <!-- Arquivo JavaScript Unificado do Projeto -->
-  <script src="/omni_BACK-geraldo/src/main/resources/static/js/home.js" defer></script>
+  <!-- 2. Arquivo JavaScript Unificado com caminho absoluto dinâmico -->
+  <script th:src="@{/js/home.js}" defer></script>
 
   <!-- Biblioteca FontAwesome obrigatória para ícones -->
   <link rel="stylesheet" href="https://cloudflare.com">
 
-  <!-- Links de Folha de Estilo Padronizados -->
-  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/Inicio.css">
-  <link rel="stylesheet" href="/omni_BACK-geraldo/src/main/resources/static/css/projetos.css">
+  <!-- 3. Folhas de estilo puxadas diretamente da raiz de static -->
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  <link rel="stylesheet" th:href="@{/css/projetos.css}">
 </head>
 
 <body>
@@ -41,37 +42,38 @@
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
-      <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logo das Guardiãs das Águas"> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
       <h2>Guardiãs das Águas</h2> 
     </div>
 
     <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
       <ul class="nav-links"> 
-        <li><a href="pagina1.html">Início</a></li> 
-        <li><a href="noticias.html">Notícias</a></li> 
-        <li><a href="Projeto.html" aria-current="page">Projetos</a></li> 
-        <li><a href="Evento.html">Eventos</a></li> 
+        <!-- 4. Links de navegação alinhados com o PageController do Java -->
+        <li><a th:href="@{/pagina1}">Início</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/projeto}" aria-current="page">Projetos</a></li> 
+        <li><a th:href="@{/evento}">Eventos</a></li> 
         <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
             <div class="dropdown-content" role="menu">
-              <a href="MG.html" role="menuitem">MG</a> 
-              <a href="CE.html" role="menuitem">CE</a> 
+              <a th:href="@{/mg}" role="menuitem">MG</a> 
+              <a th:href="@{/ce}" role="menuitem">CE</a> 
             </div>
           </details> 
         </li> 
-        <li><a href="contatos.html">Contato</a></li> 
+        <li><a th:href="@{/contatos}">Contato</a></li> 
       </ul>
     </nav> 
 
-    <!-- Botões de Ação Unificados -->
+    <!-- Botões de Ação Unificados e Rotas Funcionais -->
     <div class="auth-actions">
-      <a href="AdminForm.html" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a href="VolunForm.html" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
   </header> 
 
-  <!-- CONTEÚDO PRINCIPAL (VITRINE DE PROJETOS EM ASIMETRIA PREMIUM) -->
+  <!-- CONTEÚDO PRINCIPAL -->
   <main class="projetos-container" id="conteudo-principal" role="main">
     <h1 class="titulo-centralizado">Projetos</h1>
 
@@ -79,7 +81,8 @@
     <article id="Juazeiro" class="bloco-projeto">
       <div class="projeto-media-box">
         <div class="projeto-img-wrapper">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Screenshot_20251202-094113~2.png" alt="Grupo de alunas e pesquisadoras reunidas no laboratório do projeto em Juazeiro do Norte, Ceará">
+          <!-- 5. Link da imagem corrigido com a tag do Thymeleaf -->
+          <img th:src="@{/img/Screenshot_20251202-094113~2.png}" alt="Grupo de alunas e pesquisadoras reunidas no laboratório do projeto em Juazeiro do Norte, Ceará">
         </div>
         <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
           <i class="fab fa-instagram"></i> Acessar publicação
@@ -96,16 +99,16 @@
         <p>
           O núcleo de Juazeiro do Norte, assim como outros, realiza atividades de mobilização social
           e conscientização sobre a importância do saneamento na cidade. O grupo utiliza as redes sociais
-          para divulgar informações sobre a situação do saneamento local e promover a discussão sobre o tema.
+          para divulgar informações sobre a situação do saneamento local e promover a discussion sobre o tema.
         </p>
       </div>
     </article>
-
-    <!-- Projeto 2: Aracaju (Pronto para receber o texto complementar) -->
+<!-- Projeto 2: Aracaju (Pronto para receber o texto complementar) -->
     <article id="Aracaju" class="bloco-projeto projeto-inverted">
       <div class="projeto-media-box">
         <div class="projeto-img-wrapper">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Aracaju.png" alt="Ação de conscientização ambiental em andamento no núcleo de Aracaju, Sergipe">
+          <!-- 1. Imagem de Aracaju corrigida -->
+          <img th:src="@{/img/Aracaju.png}" alt="Ação de conscientização ambiental em andamento no núcleo de Aracaju, Sergipe">
         </div>
         <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
           <i class="fab fa-instagram"></i> Acessar publicação
@@ -130,7 +133,8 @@
     <article id="Uber" class="bloco-projeto">
       <div class="projeto-media-box">
         <div class="projeto-img-wrapper">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/Uberlândia.png" alt="Grupo de estudantes realizando testes de qualidade da água no laboratório da UFU em Uberlândia, Minas Gerais">
+          <!-- 2. Imagem de Uberlândia corrigida -->
+          <img th:src="@{/img/Uberlândia.png}" alt="Grupo de estudantes realizando testes de qualidade da água no laboratório da UFU em Uberlândia, Minas Gerais">
         </div>
         <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
           <i class="fab fa-instagram"></i> Acessar publicação
@@ -156,12 +160,12 @@
       </div>
     </article>
 
-
     <!-- Projeto 4: Cuiabá / MT -->
     <article id="MT" class="bloco-projeto projeto-inverted">
       <div class="projeto-media-box">
         <div class="projeto-img-wrapper">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/MT.png" alt="Estudantes e pesquisadoras realizando análises e monitoramento de recursos hídricos em Cuiabá, Mato Grosso">
+          <!-- 3. Imagem de Cuiabá corrigida -->
+          <img th:src="@{/img/MT.png}" alt="Estudantes e pesquisadoras realizando análises e monitoramento de recursos hídricos em Cuiabá, Mato Grosso">
         </div>
         <a href="https://www.instagram.com/reel/DNgOz7giFDB/" target="_blank" rel="noopener noreferrer" class="btn-projeto-link">
           <i class="fab fa-instagram"></i> Acessar publicação
@@ -196,7 +200,8 @@
   <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
     <h4 id="titulo-colaboradores">COLABORADORES</h4>
     <div class="colaboradores">
-      <img src="/omni_BACK-geraldo/src/main/resources/static/img/Link do site PLEASE (1).png" alt="Logos dos parceiros e colaboradores institucionais">
+      <!-- 1. Imagem de colaboradores corrigida -->
+      <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores institucionais">
     </div>
   </section>
 
@@ -207,7 +212,8 @@
       <!-- Coluna 1: Sobre o Projeto -->
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
-          <img src="/omni_BACK-geraldo/src/main/resources/static/img/logo.png" alt="Logotipo simplificado do projeto Guardiãs das Águas">
+          <!-- 2. Logo do rodapé corrigida -->
+          <img th:src="@{/img/logo.png}" alt="Logotipo simplificado do projeto Guardiãs das Águas">
           <h3>Guardiãs das Águas</h3>
         </div>
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
@@ -217,10 +223,11 @@
       <div class="footer-column footer-links">
         <h4>Navegação</h4>
         <ul role="menu" aria-label="Links rápidos do rodapé">
-          <li><a href="pagina1.html" role="menuitem">Início</a></li>
-          <li><a href="noticias.html" role="menuitem">Notícias</a></li>
-          <li><a href="Projeto.html" role="menuitem">Projetos</a></li>
-          <li><a href="Evento.html" role="menuitem">Eventos</a></li>
+          <!-- 3. Links integrados às rotas do PageController do Java -->
+          <li><a th:href="@{/pagina1}" role="menuitem">Início</a></li>
+          <li><a th:href="@{/noticias}" role="menuitem">Notícias</a></li>
+          <li><a th:href="@{/projeto}" role="menuitem">Projetos</a></li>
+          <li><a th:href="@{/evento}" role="menuitem">Eventos</a></li>
         </ul>
       </div>
 
@@ -248,5 +255,4 @@
     </div>
   </footer>
 </body>
-
 </html>
