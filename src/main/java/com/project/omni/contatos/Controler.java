@@ -1,6 +1,5 @@
 package com.project.omni.contatos;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +14,7 @@ public class Controler {
         this.repositoryFeed = repositoryFeed;
     }
 
+    // Deixe APENAS a rota de contato aqui para sumir o erro
     @GetMapping("/contato")
     public String abrirPagina() {
         return "contatos"; 
@@ -36,4 +36,6 @@ public class Controler {
 
         return "redirect:/contato"; 
     }
+    
+    // RESOLUÇÃO: O método @GetMapping("/") foi deletado daqui!
 }

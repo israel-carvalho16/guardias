@@ -23,6 +23,10 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    // NOVA COLUNA: Mapeia a categoria/tag para os filtros do Front-End
+    @Column(nullable = false)
+    private String category;
+
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
@@ -35,4 +39,8 @@ public class Post {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+  
+    @Column(name = "image_url")
+    private String imageUrl; // Armazenará o nome ou o caminho do arquivo (Ex: "foto123.jpg")
+
 }

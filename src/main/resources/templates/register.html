@@ -43,7 +43,8 @@
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
     <script>
-        if (auth.isLoggedIn()) {
+        // Verifica se já está logado
+        if (auth && auth.isLoggedIn && auth.isLoggedIn()) {
             window.location.href = 'index.html';
         }
 
@@ -75,19 +76,17 @@
                 return;
             }
 
+            // Cria o objeto exatamente com as chaves que seu DTO no Java espera
+            const userData = { name, email, password };
+
             try {
-                const data = await api.register({ name, email, password });
-                auth.save(data);
-
-                alertEl.className = 'alert alert-success';
-                alertEl.textContent = 'Cadastro realizado com sucesso!';
-                alertEl.style.display = 'block';
-
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000);
-            } catch (e) {
-                alertEl.textContent = e.message;
+                // A função api.register já salva o token no localStorage se o back retornar { "token": "..." }
+                await api.register(userData);
+                
+                alert("Cadastro realizado com sucesso!");
+                window.location.replace('/admin-dashboard.html');
+            } catch (error) {
+                alertEl.textContent = "Erro ao cadastrar: " + error.message;
                 alertEl.style.display = 'block';
             }
         }

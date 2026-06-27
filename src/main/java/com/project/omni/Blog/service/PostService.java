@@ -1,18 +1,26 @@
 package com.project.omni.Blog.service;
 
-import  com.project.omni.Blog.dto.request.PostRequest;
-import  com.project.omni.Blog.dto.response.CommentResponse;
-import  com.project.omni.Blog.dto.response.PostResponse;
-import  com.project.omni.Blog.exception.ResourceNotFoundException;
-import  com.project.omni.Blog.model.Post;
-import  com.project.omni.Blog.model.User;
-import  com.project.omni.Blog.repository.PostRepository;
-import  com.project.omni.Blog.repository.UserRepository;
+import com.project.omni.Blog.dto.request.PostRequest;
+import com.project.omni.Blog.dto.response.CommentResponse;
+import com.project.omni.Blog.dto.response.PostResponse;
+import com.project.omni.Blog.exception.ResourceNotFoundException;
+import com.project.omni.Blog.model.Post;
+import com.project.omni.Blog.model.User;
+import com.project.omni.Blog.repository.PostRepository;
+import com.project.omni.Blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +29,10 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+
+    // Injeta o caminho absoluto configurado no seu application.properties
+    @Value("${app.upload.dir:C:/Users/Pichau/Documents/projetos/guardias/uploads/}")
+    private String uploadDir;
 
     public List<PostResponse> findAll() {
         return postRepository.findAllByOrderByCreatedAtDesc()
@@ -41,7 +53,14 @@ public class PostService {
         Post post = new Post();
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
+        post.setCategory(request.getCategory());
         post.setAuthor(author);
+
+        // Processa o upload do arquivo binário recebido do painel
+        if (request.getImage() != null && !request.getImage().isEmpty()) {
+            String fileName = uploadFile(request.getImage());
+            post.setImageUrl(fileName); // Grava o nome do arquivo gerado no banco Neon
+        }
 
         return toResponse(postRepository.save(post));
     }
@@ -52,6 +71,13 @@ public class PostService {
 
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
+        post.setCategory(request.getCategory());
+
+        // Se uma nova imagem foi selecionada, substitui a antiga
+        if (request.getImage() != null && !request.getImage().isEmpty()) {
+            String fileName = uploadFile(request.getImage());
+            post.setImageUrl(fileName);
+        }
 
         return toResponse(postRepository.save(post));
     }
@@ -60,6 +86,37 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado: " + id));
         postRepository.delete(post);
+    }
+
+    /**
+     * Motor de persistência física de arquivos em disco
+     */
+    private String uploadFile(MultipartFile file) {
+        try {
+            // Garante que a pasta destino exista no diretório do Windows
+            Path uploadPath = Paths.get(this.uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Descobre a extensão original (.png, .jpg, .webp)
+            String originalFilename = file.getOriginalFilename();
+            String extension = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            // Gera um hash único universal (UUID) para evitar sobrescrever arquivos de mesmo nome
+            String uniqueFileName = UUID.randomUUID().toString() + extension;
+            Path targetLocation = uploadPath.resolve(uniqueFileName);
+
+            // Copia o fluxo de bytes brutos direto para a pasta final
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            return uniqueFileName; // Retorna o nome final persistido
+        } catch (IOException ex) {
+            throw new RuntimeException("Falha de gravação de mídia no servidor: " + ex.getMessage(), ex);
+        }
     }
 
     private User getAuthenticatedUser() {
@@ -74,6 +131,9 @@ public class PostService {
         response.setId(post.getId());
         response.setTitle(post.getTitle());
         response.setContent(post.getContent());
+        response.setCategory(post.getCategory());
+        // MAPEADO: Repassa o link/nome da imagem para o DTO de resposta do Front-End
+        response.setImageUrl(post.getImageUrl());
         response.setAuthorName(post.getAuthor().getName());
         response.setCreatedAt(post.getCreatedAt());
 

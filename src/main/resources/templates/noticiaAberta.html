@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícia - Guardiãs das Águas</title>
+    
+    <!-- Widgets de Acessibilidade Estáveis -->
+    <script src="https://userway.org" data-account="WkxSCXRUll"></script>
+    
+    <!-- Biblioteca FontAwesome para os ícones -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+
+    <!-- Folhas de Estilo do seu Projeto -->
+    <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+    <link rel="stylesheet" th:href="@{/css/noticias.css}">
+    
+    <!-- LINK DO NOVO CSS SEPARADO CORRIGIDO COM THYMELEAF -->
+    <link rel="stylesheet" th:href="@{/css/noticiaaberta.css}">
+</head>
+<body>
+
+  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED -->
+  <header class="site-header" role="banner"> 
+    <div class="header-brand">
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
+      <h2>Guardiãs das Águas</h2> 
+    </div>
+    <nav class="header-nav"> 
+      <ul class="nav-links"> 
+        <li><a th:href="@{/pagina1}">Início</a></li> 
+        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/projeto}">Projetos</a></li> 
+        <li><a th:href="@{/evento}">Eventos</a></li> 
+        <li><a th:href="@{/contatos}">Contato</a></li> 
+      </ul>
+    </nav> 
+  </header>
+
+  <!-- CONTAINER DO ARTIGO -->
+  <main class="article-wrapper">
+      <a th:href="@{/noticias}" class="btn-voltar">
+          <i class="fas fa-arrow-left"></i> Voltar para Notícias
+      </a>
+      
+      <!-- Carregamento Assíncrono -->
+      <div id="loading-article" class="loading-container">
+          <i class="fas fa-spinner fa-spin fa-2x"></i> <br><br>Carregando conteúdo do banco Neon...
+      </div>
+
+      <!-- Estrutura do Artigo Dinâmico -->
+      <article id="container-artigo" class="article-card" style="display: none;">
+          <div class="article-banner">
+              <img id="artigo-imagem" src="/img/primeira.png" alt="Capa da Notícia">
+          </div>
+          
+          <div class="article-header">
+              <span id="artigo-categoria" class="article-badge"></span>
+              <h1 id="artigo-titulo" class="article-title"></h1>
+              
+              <div class="article-meta">
+                  <span><i class="far fa-calendar-alt"></i> <span id="artigo-data"></span></span>
+                  <span><i class="far fa-user"></i> Por: Portal Guardiãs</span>
+                  <span><i class="far fa-clock"></i> 3 min de leitura</span>
+              </div>
+          </div>
+
+          <div id="artigo-texto" class="article-body"></div>
+      </article>
+  </main>
+
+  <!-- MOTOR JAVASCRIPT -->
+  <script src="js/api.js"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const idNoticia = urlParams.get('id');
+
+          if (!idNoticia) {
+              window.location.href = '/noticias';
+              return;
+          }
+
+          try {
+              const post = await api.getPost(idNoticia);
+
+              if (post) {
+                  document.getElementById('artigo-categoria').innerText = post.category || 'Geral';
+                  document.getElementById('artigo-titulo').innerText = post.title;
+                  document.getElementById('artigo-data').innerText = new Date(post.createdAt).toLocaleDateString('pt-BR');
+                  document.getElementById('artigo-texto').innerHTML = post.content;
+
+
+                  const cat = (post.category || '').toLowerCase();
+                  if (cat.includes('clima')) document.getElementById('artigo-imagem').src = '/img/lula.webp';
+                  if (cat.includes('hidricos') || cat.includes('saneamento')) document.getElementById('artigo-imagem').src = '/img/AGUA 03.jpg';
+
+                  document.getElementById('loading-article').style.display = 'none';
+                  document.getElementById('container-artigo').style.display = 'block';
+              }
+          } catch (error) {
+              console.error("Erro ao processar renderização:", error);
+              document.getElementById('loading-article').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao renderizar a notícia.';
+          }
+      });
+  </script>
+</body>
+</html>

@@ -1,70 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — Blog</title>
-    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <div class="form-container">
-        <h1>Login</h1>
+    <div class="form-container" style="max-width: 400px; margin: 5rem auto; padding: 2rem; background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h1 style="text-align: center; color: #2c3e50; margin-bottom: 1.5rem;">Login</h1>
 
-        <div id="alert" class="alert alert-error" style="display:none"></div>
+        <div id="alert" class="alert alert-error" style="display:none; background: #fee2e2; color: #991b1b; padding: 10px; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; border: 1px solid #fca5a5;"></div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="seu@email.com">
+        <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+            <input type="email" id="email" placeholder="seu@email.com" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
         </div>
 
-        <div class="form-group">
-            <label for="password">Senha</label>
-            <input type="password" id="password" placeholder="••••••">
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Senha</label>
+            <input type="password" id="password" placeholder="••••••" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
         </div>
 
-        <button class="btn btn-primary" onclick="handleLogin()">Entrar</button>
+        <button class="btn btn-primary" onclick="handleLogin()" style="width: 100%; padding: 12px; background: #0071e3; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Entrar</button>
 
-        <p style="text-align:center; margin-top:1rem; font-size:0.9rem">
-            Não tem conta? <a href="register.html">Cadastre-se</a>
+        <p style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color: #666;">
+            Não tem conta? <a th:href="@{/register}" style="color: #0071e3; text-decoration: none; font-weight: 500;">Cadastre-se</a>
         </p>
     </div>
 
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
+    <script th:src="@{/js/api.js}"></script>
+    <script th:src="@{/js/auth.js}"></script>
+    
     <script>
+        // Se já estiver logado, joga direto para a página inicial (ajustado de index.html para /pagina1 ou /)
         if (auth.isLoggedIn()) {
-            window.location.href = 'index.html';
+            window.location.href = '/pagina1';
         }
 
         async function handleLogin() {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const alert = document.getElementById('alert');
+            const alertEl = document.getElementById('alert');
 
-            alert.style.display = 'none';
+            alertEl.style.display = 'none';
 
             if (!email || !password) {
-                alert.textContent = 'Preencha todos os campos';
-                alert.style.display = 'block';
+                alertEl.textContent = 'Preencha todos os campos';
+                alertEl.style.display = 'block';
                 return;
             }
 
             try {
+                // Envia a requisição para a nossa API restestruturada no api.js
                 const data = await api.login({ email, password });
+                
+                // Salva o token JWT e os dados do usuário no localStorage
                 auth.save(data);
 
+                // Redirecionamentos corrigidos de arquivos físicos (.html) para as rotas do Spring Boot
                 if (auth.isAdmin()) {
-                    window.location.href = 'admin.html';
+                    window.location.href = '/admin';
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = '/pagina1';
                 }
             } catch (e) {
-                alert.textContent = e.message;
-                alert.style.display = 'block';
+                alertEl.textContent = e.message || 'Email ou senha inválidos';
+                alertEl.style.display = 'block';
             }
         }
 
+        // Atalho para enviar o formulário ao pressionar a tecla Enter
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') handleLogin();
         });

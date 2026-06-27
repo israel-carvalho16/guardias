@@ -6,6 +6,7 @@ import com.project.omni.Blog.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +29,16 @@ public class PostController {
         return ResponseEntity.ok(postService.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<PostResponse> create(@Valid @RequestBody PostRequest request) {
+    // CORRIGIDO: Agora recebe arquivos físicos via FormData do JavaScript
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<PostResponse> create(@Valid @ModelAttribute PostRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.create(request));
     }
 
-    @PutMapping("/{id}")
+    // Opcional: Se quiser atualizar o post com uma nova imagem futuramente
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostResponse> update(@PathVariable Long id,
-                                               @Valid @RequestBody PostRequest request) {
+                                               @Valid @ModelAttribute PostRequest request) {
         return ResponseEntity.ok(postService.update(id, request));
     }
 

@@ -52,4 +52,18 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+  @Override
+protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    String path = request.getServletPath();
+    return path.equals("/AdminForm") 
+        || path.equals("/AdminForm/enviar") 
+        || path.equals("/admin-dashboard") 
+        || path.equals("/admin-dashboard.html")
+        || path.equals("/login.html")
+        || path.equals("/register.html")
+        || path.equals("/index.html") // ADICIONADO AQUI
+        || path.equals("/");
+}
+
 }

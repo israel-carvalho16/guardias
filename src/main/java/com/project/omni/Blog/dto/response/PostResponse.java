@@ -9,7 +9,9 @@ public class PostResponse {
     private Long id;
     private String title;
     private String content;
+    private String category;
     private String authorName;
     private LocalDateTime createdAt;
     private List<CommentResponse> comments;
+    private String imageUrl;
 }

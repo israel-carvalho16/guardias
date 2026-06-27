@@ -39,18 +39,18 @@
   </script>
 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
-  <header class="site-header" role="banner"> 
+  <header class="site-header"> 
     <div class="header-brand">
-      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
       <h2>Guardiãs das Águas</h2> 
     </div>
 
-    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
+    <nav class="header-nav"> 
       <ul class="nav-links"> 
-        <li><a th:href="@{/pagina1}">Início</a></li> 
-        <li><a th:href="@{/noticias}">Notícias</a></li> 
+        <li><a th:href="@{/pagina1}">Início</a></li>
+        <li><a th:href="@{/noticias}">Notícias</a></li>
         <li><a th:href="@{/projeto}">Projetos</a></li> 
-        <li><a th:href="@{/evento}" aria-current="page">Eventos</a></li> 
+        <li><a th:href="@{/evento}">Eventos</a></li> 
         <li class="dropdown-item"> 
           <details> 
             <summary id="Nucleos">Nossos Núcleos</summary> 
@@ -59,15 +59,15 @@
               <a th:href="@{/ce}" role="menuitem">CE</a> 
             </div>
           </details> 
-        </li> 
-        <li><a th:href="@{/contatos}">Contato</a></li> 
+        </li>
+        <li><a th:href="@{/contatos}">Contatos</a></li>
       </ul>
-    </nav> 
+    </nav>
 
-    <!-- Botões de Ação Unificados e Rotas do Java -->
+    <!-- Botões alinhados perfeitamente com o PageController e o SecurityConfig -->
     <div class="auth-actions">
-      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+      <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+      <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
   </header>
   <!-- CONTEÚDO PRINCIPAL (PORTAL DE EVENTOS INSTITUCIONAIS) -->

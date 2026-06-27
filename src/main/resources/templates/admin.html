@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<!-- 1. DECLARAÇÃO DO THYMELEAF ADICIONADA PARA EVITAR ERROS NO RENDER -->
 <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin — Blog</title>
     
-    <!-- 2. Link de estilo corrigido para partir da raiz do static -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <!-- 3. Navegação limpa (Conflito do Git resolvido e link ajustado para rota Java) -->
-       <nav>
-        <!-- Alterado para chamar a rota oficial do Spring Boot -->
+    <nav>
         <a th:href="@{/pagina1}">Ver Site</a>
         <div class="nav-links" id="navLinks"></div>
     </nav>
-
 
     <div class="container">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
@@ -32,9 +27,10 @@
             <thead>
                 <tr>
                     <th>Título</th>
+                    <th>Categoria</th>
                     <th>Autor</th>
                     <th>Data</th>
-                    <th>Comentários</th>
+                    <th style="text-align:center">Comentários</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -45,8 +41,7 @@
             Nenhum post criado ainda.
         </p>
     </div>
-    <!-- Modal criar/editar post -->
-       <!-- Modal criar/editar post -->
+
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,6 +57,16 @@
             </div>
 
             <div class="form-group">
+                <label for="postCategory">Categoria da Notícia</label>
+                <select id="postCategory" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 0.95rem; background: #fff;">
+                    <option value="ambiental">Ambiental</option>
+                    <option value="clima">Clima</option>
+                    <option value="recursos hidricos">Recursos Hídricos</option>
+                    <option value="sustentabilidade">Sustentabilidade</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="postContent">Conteúdo</label>
                 <textarea id="postContent" style="min-height:200px" placeholder="Escreva o conteúdo aqui..."></textarea>
             </div>
@@ -73,15 +78,13 @@
         </div>
     </div>
 
-    <!-- Scripts com caminhos dinâmicos do Thymeleaf a partir da pasta static/js -->
     <script th:src="@{/js/api.js}"></script>
     <script th:src="@{/js/auth.js}"></script>
+    
     <script>
-        // TRAVA REMOVIDA PARA O FLUXO DE REDIRECIONAMENTO FUNCIONAR EM CASA SEM O TOKEN JWT
-        // auth.requireAdmin();
-
         let editingPostId = null;
 
+        // Constrói a barra de saudação e ferramentas do Admin
         function buildNav() {
             const nav = document.getElementById('navLinks');
             const user = auth.getUser();
@@ -92,15 +95,14 @@
             `;
         }
 
-               async function loadPosts() {
+        // Carrega a listagem de posts diretamente do Banco de Dados / API
+        async function loadPosts() {
             const loading = document.getElementById('loading');
-            const alertEl = document.getElementById('alert');
             const table = document.getElementById('postsTable');
             const emptyMsg = document.getElementById('emptyMsg');
             const tbody = document.getElementById('postsBody');
 
             try {
-                // Tenta buscar da API do grupo
                 const posts = await api.getPosts();
                 loading.style.display = 'none';
 
@@ -110,73 +112,90 @@
                 }
 
                 table.style.display = 'table';
-                tbody.innerHTML = posts.map(post => `
-                    <tr id="row-${post.id}">
-                        <td><strong>${post.title}</strong></td>
-                        <td>${post.authorName}</td>
-                        <td>${new Date(post.createdAt).toLocaleDateString('pt-BR')}</td>
-                        <td style="text-align:center">${post.comments ? post.comments.length : 0}</td>
-                        <td>
-                            <div style="display:flex; gap:0.5rem">
-                                <button class="btn btn-primary btn-sm"
-                                    onclick="openModal(${post.id}, '${encodeURIComponent(post.title)}', '${encodeURIComponent(post.content)}')">
-                                    Editar
-                                </button>
-                                <button class="btn btn-danger btn-sm"
-                                    onclick="deletePost(${post.id})">
-                                    Excluir
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
+                tbody.innerHTML = posts.map(post => {
+                    const safeTitle = encodeURIComponent(post.title || '');
+                    const safeContent = encodeURIComponent(post.content || '');
+                    const safeCategory = encodeURIComponent(post.category || 'ambiental');
+
+                    return `
+                        <tr id="row-${post.id}">
+                            <td><strong>${post.title}</strong></td>
+                            <td><span class="badge" style="background:#e2e8f0; padding:4px 8px; border-radius:4px; font-size:0.85rem; text-transform:capitalize">${post.category || 'ambiental'}</span></td>
+                            <td>${post.authorName || 'Admin'}</td>
+                            <td>${new Date(post.createdAt || new Date()).toLocaleDateString('pt-BR')}</td>
+                            <td style="text-align:center">${post.comments ? post.comments.length : 0}</td>
+                            <td>
+                                <div style="display:flex; gap:0.5rem">
+                                    <button class="btn btn-primary btn-sm"
+                                        onclick="openModal(${post.id}, '${safeTitle}', '${safeContent}', '${safeCategory}')">
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-danger btn-sm"
+                                        onclick="deletePost(${post.id})">
+                                        Excluir
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
 
             } catch (e) {
-                // SE A API FALHAR OU DEMORAR (AMBIENTE LOCAL), RECHEAR COM POSTS FICTÍCIOS PARA O SISTEMA NÃO FICAR TRAVADO
+                // FALLBACK EM CASO DE ERRO DE CONEXÃO OU SERVIDOR LOCAL DESLIGADO
                 loading.style.display = 'none';
                 table.style.display = 'table';
                 
-                // Posts simulados para teste visual limpo
                 const mockPosts = [
-                    { id: 1, title: 'Importância do Saneamento Básico nas Escolas', authorName: 'Guardiã Maria', createdAt: new Date(), comments: [] },
-                    { id: 2, title: 'Monitoramento do Rio Uberabinha: Resultados Parciais', authorName: 'Ana Silva', createdAt: new Date(), comments: [1] }
+                    { id: 1, title: 'Importância do Saneamento Básico nas Escolas', category: 'ambiental', authorName: 'Guardiã Maria', createdAt: new Date(), comments: [] },
+                    { id: 2, title: 'Monitoramento do Rio Uberabinha: Resultados Parciais', category: 'recursos hidricos', authorName: 'Ana Silva', createdAt: new Date(), comments: [1] }
                 ];
 
-                tbody.innerHTML = mockPosts.map(post => `
-                    <tr id="row-${post.id}">
-                        <td><strong>${post.title}</strong></td>
-                        <td>${post.authorName}</td>
-                        <td>${new Date(post.createdAt).toLocaleDateString('pt-BR')}</td>
-                        <td style="text-align:center">${post.comments.length}</td>
-                        <td>
-                            <div style="display:flex; gap:0.5rem">
-                                <button class="btn btn-primary btn-sm" onclick="alert('Modo de teste: post estático')">Editar</button>
-                                <button class="btn btn-danger btn-sm" onclick="document.getElementById('row-${post.id}').remove()">Excluir</button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
+                tbody.innerHTML = mockPosts.map(post => {
+                    const safeTitle = encodeURIComponent(post.title);
+                    const safeContent = encodeURIComponent('Conteúdo de teste mockado.');
+                    const safeCategory = encodeURIComponent(post.category);
+
+                    return `
+                        <tr id="row-${post.id}">
+                            <td><strong>${post.title}</strong></td>
+                            <td><span class="badge" style="background:#e2e8f0; padding:4px 8px; border-radius:4px; font-size:0.85rem; text-transform:capitalize">${post.category}</span></td>
+                            <td>${post.authorName}</td>
+                            <td>${new Date(post.createdAt).toLocaleDateString('pt-BR')}</td>
+                            <td style="text-align:center">${post.comments.length}</td>
+                            <td>
+                                <div style="display:flex; gap:0.5rem">
+                                    <button class="btn btn-primary btn-sm" onclick="openModal(${post.id}, '${safeTitle}', '${safeContent}', '${safeCategory}')">Editar</button>
+                                    <button class="btn btn-danger btn-sm" onclick="document.getElementById('row-${post.id}').remove()">Excluir</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
             }
         }
 
-
-        function openModal(id = null, title = '', content = '') {
+        // Abre o modal de controle configurado para adição ou edição
+        function openModal(id = null, title = '', content = '', category = 'ambiental') {
             editingPostId = id;
             document.getElementById('modalTitle').textContent = id ? 'Editar Post' : 'Novo Post';
             document.getElementById('postTitle').value = id ? decodeURIComponent(title) : '';
             document.getElementById('postContent').value = id ? decodeURIComponent(content) : '';
+            document.getElementById('postCategory').value = id ? decodeURIComponent(category) : 'ambiental';
             document.getElementById('modalAlert').style.display = 'none';
             document.getElementById('modal').classList.add('active');
         }
 
+        // Fecha o modal limpando o ID de edição temporário
         function closeModal() {
             editingPostId = null;
             document.getElementById('modal').classList.remove('active');
         }
 
-               async function savePost() {
+        // Captura os dados e dispara a gravação via API HTTP
+        async function savePost() {
             const title = document.getElementById('postTitle').value.trim();
             const content = document.getElementById('postContent').value.trim();
+            const category = document.getElementById('postCategory').value;
             const alertEl = document.getElementById('modalAlert');
 
             alertEl.style.display = 'none';
@@ -188,7 +207,7 @@
                 return;
             }
 
-            // CORREÇÃO PARA AMBIENTE DE CASA: Se o token não existir, simula um login de Admin para o banco aceitar
+            // SIMULAÇÃO DE CREDENCIAIS CASO O TOKEN JWT LOCAl NÃO EXISTA DURANTE OS TESTES DE LAYOUT
             if (!localStorage.getItem('token') || !localStorage.getItem('user')) {
                 localStorage.setItem('token', 'mocked-token-for-home-testing');
                 localStorage.setItem('user', JSON.stringify({ id: 1, name: 'Administrador Local', email: 'admin@omni.com', role: 'ADMIN' }));
@@ -196,9 +215,9 @@
 
             try {
                 if (editingPostId) {
-                    await api.updatePost(editingPostId, { title, content });
+                    await api.updatePost(editingPostId, { title, content, category });
                 } else {
-                    await api.createPost({ title, content });
+                    await api.createPost({ title, content, category });
                 }
 
                 closeModal();
@@ -216,7 +235,7 @@
             }
         }
 
-
+        // Remove permanentemente o post por ID
         async function deletePost(id) {
             if (!confirm('Deseja excluir este post? Todos os comentários serão removidos.')) return;
 
@@ -228,7 +247,7 @@
                 alertEl.className = 'alert alert-success';
                 alertEl.textContent = 'Post excluído!';
                 alertEl.style.display = 'block';
-                setTimeout(() => alertMain.style.display = 'none', 2000);
+                setTimeout(() => alertEl.style.display = 'none', 2000);
 
             } catch (e) {
                 const alertEl = document.getElementById('alert');
@@ -238,11 +257,12 @@
             }
         }
 
-        // fecha modal clicando fora
+        // Fecha a janela modal clicando na área escura de fundo
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
 
+        // Inicialização de interface
         buildNav();
         loadPosts();
     </script>

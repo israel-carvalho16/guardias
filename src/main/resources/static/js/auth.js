@@ -16,20 +16,21 @@ const auth = {
         }));
     },
 
+    // CORREÇÃO CRÍTICA: Redirecionamentos limpos sem usar a extensão física .html
     logout: () => {
         localStorage.clear();
-        window.location.href = '/login.html';
+        window.location.href = '/login';
     },
 
     requireLogin: () => {
         if (!auth.isLoggedIn()) {
-            window.location.href = '/login.html';
+            window.location.href = '/login';
         }
     },
 
     requireAdmin: () => {
         if (!auth.isLoggedIn() || !auth.isAdmin()) {
-            window.location.href = '/index.html';
+            window.location.href = '/';
         }
     }
 };

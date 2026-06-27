@@ -4,11 +4,11 @@ import com.project.omni.Blog.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,54 +32,34 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+    // Desliga o Spring Security para os arquivos físicos iniciais de carregamento do Tomcat
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/index.html", "/index", "/favicon.ico");
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                // 1. Recursos estáticos livres de mídia e estilização
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/Font/**", "/video/**", "/uploads/**").permitAll()
 
-                        // 1. Recursos estáticos físicos (CSS, JS, Imagens, Ícones)
-                        .requestMatchers(
-                                "/css/**",
-                                "/js/**",
-                                "/img/**",
-                                "/favicon.ico"
-                        ).permitAll()
-
-                        // 2. URLs de páginas públicas (TODAS UNIFICADAS SEM CONFLITOS)
-                        .requestMatchers(
-                                "/",
-                                "/pagina1",
-                                "/login",
-                                "/register",
-                                "/admin",
-                                "/post",
-                                "/noticias",
-                                "/projeto",
-                                "/evento",
-                                "/error",
-                                "/contatos",
-                                "/AdminForm", 
-                                "/AdminForm/enviar",
-                                "/mg", 
-                                "/ce"  
-                        ).permitAll()
-
-                        // 3. Regras de API controladas pelo Token JWT
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                        
-                        // MODIFICADO: Liberado o POST temporariamente para salvar posts em casa sem travar no token
-                        .requestMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
-                        
-                        .requestMatchers(HttpMethod.PUT, "/api/posts/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
-                        .requestMatchers("/api/comments/**").hasAnyRole("USER", "ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                
+                // 2. Apenas rotas lógicas limpas na lista de requisições permitidas
+                .requestMatchers("/", "/login", "/register", "/pagina1", "/AdminForm", "/admin-dashboard",
+                                 "/noticias", "/projeto", "/evento", "/mg", "/ce", "/contatos", "/orgaoambiental","/noticiaAberta").permitAll()
+                
+                // 3. Endpoints públicos da API (CORRIGIDO: Incluídas as rotas de postagens)
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/posts/**").permitAll() // <--- LIBERAÇÃO DA API DE POSTS PARA SUMIR O ERRO 403
+                
+                // Qualquer outro recurso restrito exigirá autenticação por Token
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

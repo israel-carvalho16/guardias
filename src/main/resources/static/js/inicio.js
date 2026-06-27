@@ -4,6 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavbarScrollAndParallax();
   initDropdownHandler();
   initScrollReveal();
+  initAnimatedCounters();
+  initTypewriterEffect();
+  initWaterRippleOnClick();
+
+  // Ativa os efeitos de mouse APENAS se o dispositivo tiver um mouse/touchpad
+  if (window.matchMedia("(pointer: fine)").matches) {
+    initMagneticButtons();
+    initCustomCursor();
+    init3DCardTilt();
+    initWaterParticles();
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  initNavbarScrollAndParallax();
+  initDropdownHandler();
+  initScrollReveal();
   initMagneticButtons();
   initAnimatedCounters();
   initTypewriterEffect();

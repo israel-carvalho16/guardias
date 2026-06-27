@@ -9,6 +9,9 @@
    <script src="https://userway.org" data-account="WkxSCXRUll"></script>
   <!-- Arquivos JavaScript do Projeto Corrigido -->
   <script th:src="@{/js/home.js}" defer></script>
+    <!-- CORRIGIDO: Agora o Java busca o script dentro do fluxo correto de arquivos estáticos -->
+  <script th:src="@{/js/inicio.js}" defer></script>
+
   <!-- Biblioteca FontAwesome -->
   <link rel="stylesheet" href="https://cloudflare.com">
   <!-- Arquivo CSS Único Corrigido -->
@@ -74,9 +77,12 @@
   </video> 
   <div class="hero-content"> 
     <h1>
+      
       <span class="line-intro">Educação sobre</span>
       <span class="line-impact">Saneamento e Recursos Hídricos</span>
       <span class="line-outro">para comunidades e escolas</span>
+      <span class="line-outro">Foco em <strong id="text-typewriter" style="color: var(--roxo-principal);"></strong></span>
+
     </h1> 
   </div> 
 </section>
@@ -107,6 +113,50 @@
         </div> 
       </div> 
     </section> 
+<!-- SEÇÃO DE DADOS DE IMPACTO (MÉTRICAS DO PROJETO) -->
+<section class="team-container-block" style="margin: 80px auto;">
+  <h2 class="titulo-centralizado">Nosso Impacto em Números</h2>
+  
+  <div class="team-grid-layout" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+    
+    <!-- Métrica 1 -->
+    <div class="team-card-item" style="padding: 30px 20px !important;">
+      <div style="font-size: 2.8rem; color: var(--roxo-principal); font-weight: 900; margin-bottom: 5px;">
+        <span class="counter-number" data-target="120">0</span>+
+      </div>
+      <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Guardiãs Formadas</p>
+      <p style="font-size: 0.85rem; color: #718096;">Jovens lideranças capacitadas</p>
+    </div>
+
+    <!-- Métrica 2 -->
+    <div class="team-card-item" style="padding: 30px 20px !important;">
+      <div style="font-size: 2.8rem; color: var(--azul1); font-weight: 900; margin-bottom: 5px;">
+        <span class="counter-number" data-target="15">0</span>
+      </div>
+      <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Escolas Atendidas</p>
+      <p style="font-size: 0.85rem; color: #718096;">Comunidades estudantis integradas</p>
+    </div>
+
+    <!-- Métrica 3 -->
+    <div class="team-card-item" style="padding: 30px 20px !important;">
+      <div style="font-size: 2.8rem; color: var(--roxo-secundario); font-weight: 900; margin-bottom: 5px;">
+        <span class="counter-number" data-target="450">0</span>+
+      </div>
+      <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Análises de Água</p>
+      <p style="font-size: 0.85rem; color: #718096;">Monitoramentos hídricos realizados</p>
+    </div>
+
+    <!-- Métrica 4 -->
+    <div class="team-card-item" style="padding: 30px 20px !important;">
+      <div style="font-size: 2.8rem; color: var(--azul3); font-weight: 900; margin-bottom: 5px;">
+        <span class="counter-number" data-target="3">0</span>
+      </div>
+      <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Bacias Hidrográficas</p>
+      <p style="font-size: 0.85rem; color: #718096;">Rios e córregos monitorados</p>
+    </div>
+
+  </div>
+</section>
 
     <!-- SEÇÃO QUEM SOMOS (GRID LADO A LADO) -->
     <section id="toma"> 
