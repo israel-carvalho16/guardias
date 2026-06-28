@@ -15,7 +15,7 @@
   <script th:src="@{/js/contato.js}" defer></script>
 
   <!-- Biblioteca FontAwesome obrigatória para ícones -->
-  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- 3. Folhas de estilo mapeadas diretamente a partir de static -->
   <link rel="stylesheet" th:href="@{/css/Inicio.css}">
@@ -174,14 +174,16 @@
 
     <!-- SEÇÃO ÓRGÃOS AMBIENTAIS (REPOSICIONADA E TRAVADA DENTRO DO MAIN) -->
         <!-- SEÇÃO ÓRGÃOS AMBIENTAIS CORRIGIDA -->
-    <section id="contatos" class="secao-orgaos-ambientais">
-      <h2>Órgãos Ambientais</h2>
-      <p>Conheça as principais instituições e secretarias voltadas à fiscalização e conservação hídrica.</p>
-      <!-- Aponta para a rota pública liberada -->
-      <a id="link_D" th:href="@{/post}" class="btn-orgaos-saiba-mais">
-        <i class="fas fa-external-link-alt"></i> Saiba mais
-      </a>
-    </section>
+   <section id="contatos" class="secao-orgaos-ambientais">
+  <h2>Órgãos Ambientais</h2>
+  <p>Conheça as principais instituições e secretarias voltadas à fiscalização e conservação hídrica.</p>
+  
+  <!-- CORREÇÃO: Aponta para o endpoint correto da página de órgãos ambientais -->
+  <a id="link_D" th:href="@{/orgaoambiental}" class="btn-orgaos-saiba-mais">
+    <i class="fas fa-external-link-alt"></i> Saiba mais
+  </a>
+</section>
+
 
 
   </main> <!-- Fechamento correto do main antes do footer -->

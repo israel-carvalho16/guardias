@@ -1,6 +1,6 @@
 package com.project.omni.Blog.security;
 
-import  com.project.omni.Blog.security.jwt.JwtService;
+import com.project.omni.Blog.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,40 +30,53 @@ public class JwtFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        // CORREÇÃO 1: Ignora o filtro se o cabeçalho for nulo, não começar com Bearer ou for curto demais (como "Bearer null")
+        if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.trim().length() <= 15) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String token = authHeader.substring(7);
-        final String email = jwtService.extractEmail(token);
+        final String token = authHeader.substring(7).trim();
 
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        // CORREÇÃO 2: Um JWT estruturado possui exatamente 2 pontos. Se não tiver, o token está malformado e não deve ser processado.
+        if (token.chars().filter(ch -> ch == '.').count() != 2) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            if (jwtService.isTokenValid(token, userDetails)) {
-                var authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+        // CORREÇÃO 3: Bloco try-catch para capturar qualquer falha inesperada na leitura do token e não travar o Tomcat
+        try {
+            final String email = jwtService.extractEmail(token);
+
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+                if (jwtService.isTokenValid(token, userDetails)) {
+                    var authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities()
+                    );
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Limpa o contexto de segurança caso o token seja inválido ou expire
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);
     }
 
-  @Override
-protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-    String path = request.getServletPath();
-    return path.equals("/AdminForm") 
-        || path.equals("/AdminForm/enviar") 
-        || path.equals("/admin-dashboard") 
-        || path.equals("/admin-dashboard.html")
-        || path.equals("/login.html")
-        || path.equals("/register.html")
-        || path.equals("/index.html") // ADICIONADO AQUI
-        || path.equals("/");
-}
-
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.equals("/AdminForm") 
+            || path.equals("/AdminForm/enviar") 
+            || path.equals("/admin-dashboard") 
+            || path.equals("/admin-dashboard.html")
+            || path.equals("/login.html")
+            || path.equals("/register.html")
+            || path.equals("/index.html")
+            || path.equals("/");
+    }
 }

@@ -1,7 +1,3 @@
-/* ==========================================================================
-   SISTEMA DE DESIGN ESPECÍFICO - PORTAL DE NOTÍCIAS (PARTE 1 DE 2)
-   ========================================================================= */
-
 :root {
   /* Paleta Oficial Herdada da Primeira Página */
   --roxo-logo: #8e6db5;
@@ -38,6 +34,14 @@
   font-family: "arabic", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+body {
+  background-color: var(--lilas);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
 /* ==========================================================================
    HUB DE NOTÍCIAS - COMPONENTES DINÂMICOS DE BUSCA E FILTRO
    ========================================================================= */
@@ -56,14 +60,13 @@
   gap: 20px;
 }
 
-/* Força o título a alinhar na esquerda em telas grandes para acomodar a busca */
 .header-title-search .titulo-centralizado {
   text-align: left !important;
   margin-bottom: 0 !important;
 }
 
 .header-title-search .titulo-centralizado::after {
-  margin: 8px 0 0 0 !important; /* Move o traço azul para a esquerda */
+  margin: 8px 0 0 0 !important;
 }
 
 /* Input de Pesquisa com Vidro Polido */
@@ -107,11 +110,11 @@
   gap: 10px;
   overflow-x: auto;
   padding-bottom: 8px;
-  scrollbar-width: none; /* Esconde barra no Firefox */
+  scrollbar-width: none;
 }
 
 .categories-filter-bar::-webkit-scrollbar {
-  display: none; /* Esconde barra no Chrome/Safari */
+  display: none;
 }
 
 .filter-tag {
@@ -133,41 +136,11 @@
   color: var(--roxo-principal);
 }
 
-/* Tag ativa com a paleta oficial do tema */
 .filter-tag.active {
   background: var(--roxo-principal) !important;
   border-color: var(--roxo-principal) !important;
   color: var(--text-light) !important;
   box-shadow: 0 4px 10px rgba(91, 40, 158, 0.15);
-}
-
-/* Ajustes de Responsividade para o Hub */
-@media (max-width: 900px) {
-  .header-title-search {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .header-title-search .titulo-centralizado {
-    text-align: center !important;
-  }
-  .header-title-search .titulo-centralizado::after {
-    margin: 8px auto 0 auto !important;
-  }
-  .search-box-wrapper {
-    max-width: 100%;
-  }
-  .categories-filter-bar {
-    justify-content: flex-start;
-    padding-left: 5px;
-  }
-}
-
-body {
-  background-color: var(--lilas);
-  color: var(--text-dark);
-  line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* Título Centralizado Padronizado */
@@ -192,24 +165,23 @@ body {
 /* Container Principal de Notícias */
 .noticias-container {
   max-width: 1200px;
-  margin: 120px auto 60px !important; /* Margem para o menu de vidro fixed não cobrir o título */
+  margin: 120px auto 60px !important;
   padding: 0 4% !important;
 }
 
 /* Grid de Distribuição Simétrica */
-/* Procure por .noticias-grid no seu noticias.css e substitua por este: */
 .noticias-grid {
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 30px !important;
   margin-top: 40px !important;
-  justify-content: flex-start !important; /* Força tudo a alinhar grudado na esquerda */
+  justify-content: flex-start !important;
 }
 
-/* E ajuste o tamanho fixo dos cards para eles dividirem o espaço perfeitamente */
+/* Cards */
 .card-noticia {
-  width: calc(33.333% - 20px) !important; /* Divide a tela em 3 colunas perfeitas */
-  min-width: 300px !important; /* Garante que fique responsivo em telas menores */
+  width: calc(33.333% - 20px) !important;
+  min-width: 300px !important;
   background: var(--bg-white) !important;
   border-radius: var(--radius-lg) !important;
   border: 1px solid rgba(142, 109, 181, 0.12) !important;
@@ -220,21 +192,19 @@ body {
   transition: all 0.3s ease !important;
 }
 
-
-/* Hover Cirúrgico: O card ganha elevação tridimensional realista */
 .card-noticia:hover {
   transform: translateY(-8px) scale(1.01) !important;
   border-color: var(--azul2) !important;
   box-shadow: 0 20px 25px -5px rgba(91, 40, 158, 0.08), 0 10px 10px -5px rgba(91, 40, 158, 0.04) !important;
 }
 
-/* Área da Foto com Zoom e Ajuste de Brilho */
+/* Área da Foto */
 .card-thumb {
   width: 100% !important;
   height: 210px !important;
   overflow: hidden !important;
   background-color: var(--lilas) !important;
-  position: relative;
+  position: relative !important;
 }
 
 .card-thumb img {
@@ -247,32 +217,38 @@ body {
 
 .card-noticia:hover .card-thumb img {
   transform: scale(1.06) !important;
-  filter: brightness(1.02); /* A imagem acende de forma viva no hover */
+  filter: brightness(1.02);
 }
 
-/* --- ADICIONAL: EFEITO DE BADGE DE CATEGORIA --- */
-.card-thumb::after {
-  content: "Ambiental"; /* Fallback padrão caso não queira mexer no HTML ainda */
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background-color: rgba(91, 40, 158, 0.85);
-  backdrop-filter: blur(4px);
-  color: #ffffff;
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  z-index: 2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+/* ==========================================================================
+   BLOQUEIO ABSOLUTO DE SOBREPOSIÇÕES (COBERTURA DO SEU PRINT)
+   ========================================================================= */
+/* Apaga o "Eventos" ou "Ambiental" estáticos que o CSS antigo tentava forçar */
+.card-thumb::before,
+.card-thumb::after,
+.card-noticia::before,
+.card-noticia::after {
+  display: none !important;
+  content: "" !important;
 }
 
-/* Customização de Badges específicas baseadas no número do card (Truque de CSS Puro) */
-.card-noticia:nth-of-type(2) .card-thumb::after { content: "Clima"; background-color: rgba(145, 176, 212, 0.9); color: #1a0636; }
-.card-noticia:nth-of-type(3) .card-thumb::after { content: "Recursos Hídricos"; }
-.card-noticia:nth-of-type(4) .card-thumb::after { content: "Sustentabilidade"; }
+/* Estilização da etiqueta roxa oficial dinâmica vinda do JavaScript */
+.card-thumb .badge-categoria {
+  position: absolute !important;
+  top: 16px !important;
+  left: 16px !important;
+  background-color: rgba(91, 40, 158, 0.9) !important;
+  backdrop-filter: blur(4px) !important;
+  color: #ffffff !important;
+  padding: 6px 14px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  border-radius: 20px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  z-index: 5 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
 
 /* Bloco de Conteúdo Interno */
 .card-body {
@@ -293,7 +269,6 @@ body {
   transition: color 0.2s ease;
 }
 
-/* O título acende na cor azul da marca ao passar o mouse no card */
 .card-noticia:hover .card-body h2 {
   color: #3182ce !important;
 }
@@ -311,7 +286,7 @@ body {
   overflow: hidden !important;
 }
 
-/* Data e Tempo de Leitura Alinhados */
+/* Data e Informações */
 .card-date {
   font-size: 0.85rem !important;
   color: var(--roxo-secundario) !important;
@@ -322,14 +297,7 @@ body {
   gap: 6px;
 }
 
-/* Adiciona um micro-ícone de relógio invisível via CSS para o tempo de leitura */
-.card-date::after {
-  content: "• ⏱ 3 min de leitura";
-  opacity: 0.7;
-  font-weight: 500;
-}
-
-/* Botão Ler Mais Dinâmico */
+/* Botão Ler Mais */
 .btn-ler-mais {
   text-decoration: none !important;
   text-align: center !important;
@@ -344,9 +312,30 @@ body {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* No hover do card, o botão ganha destaque em azul combinando com a paleta */
 .card-noticia:hover .btn-ler-mais {
   background-color: var(--azul1) !important;
   color: #1a0636 !important;
   box-shadow: 0 4px 14px rgba(145, 164, 206, 0.4);
+}
+
+/* Responsividade Geral */
+@media (max-width: 900px) {
+  .header-title-search {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .header-title-search .titulo-centralizado {
+    text-align: center !important;
+  }
+  .header-title-search .titulo-centralizado::after {
+    margin: 8px auto 0 auto !important;
+  }
+  .search-box-wrapper {
+    max-width: 100%;
+  }
+  .categories-filter-bar {
+    justify-content: flex-start;
+    padding-left: 5px;
+  }
 }

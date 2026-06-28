@@ -1,151 +1,155 @@
 /* ==========================================================================
-   SISTEMA DE INTERAÇÃO GLOBAL - PORTAL DE NOTÍCIAS (PRODUÇÃO)
+   MÓDULO UNIFICADO - PORTAL DE NOTÍCIAS (GUARDIÃS DAS ÁGUAS)
    ========================================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
-  
-  // 1. CONTROLE DO CABEÇALHO (SCROLL PERFORMANCE COM THROTTLE)
-  const header = document.querySelector(".site-header");
-  if (header) {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+// Variável global para armazenar a lista vinda da API
+let todasAsNoticias = []; 
 
-    const updateHeaderState = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > 15) {
-        header.classList.add("header-scrolled");
-      } else {
-        header.classList.remove("header-scrolled");
-      }
-      lastScrollY = currentScrollY;
-      ticking = false;
-    };
-
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateHeaderState);
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  // 2. CONSUMO DA API DO BANCO DE DADOS (POSTS DINÂMICOS DO ADMIN)
-  const grid = document.getElementById("noticias-dinamicas");
-  const loadingNews = document.getElementById("loading-news");
-
-  try {
-    // Chamada AJAX para buscar os posts reais salvos no banco
-    const response = await fetch('/api/posts');
-    if (!response.ok) throw new Error("Erro na requisição da API");
+document.addEventListener('DOMContentLoaded', async () => {
     
-    const posts = await response.json();
-
-    // Injeta cada post vindo do banco de dados no início do grid
-    posts.forEach(post => {
-      const article = document.createElement("article");
-      article.className = "card-noticia";
-      
-      // Vincula dinamicamente os posts criados às categorias padrão
-      article.setAttribute("data-category", "saneamento recursos hidricos");
-
-      article.innerHTML = `
-        <div class="card-thumb">
-          <img src="/img/logo.png" alt="Capa da notícia">
-        </div>
-        <div class="card-body">
-          <h2>${post.title}</h2>
-          <p>${post.content}</p>
-          <span class="card-date">${new Date(post.createdAt || new Date()).toLocaleDateString('pt-BR')}</span>
-          <a href="/post?id=${post.id}" class="btn-ler-mais">Ler mais</a>
-        </div>
-      `;
-      
-      // Insere no topo (início) da grade de notícias
-      if (grid) {
-        grid.insertBefore(article, grid.firstChild);
-      }
-    });
-
-  } catch (error) {
-    console.log("Modo de desenvolvimento: Usando apenas os cards estáticos locais.", error);
-  } finally {
-    // Esconde o spinner de carregamento após a tentativa de fetch
-    if (loadingNews) {
-      loadingNews.style.display = "none";
+    // 1. CONTROLE VISUAL DO CABEÇALHO (Efeito de Scroll)
+    const header = document.querySelector(".site-header");
+    if (header) {
+        let ticking = false;
+        const updateHeaderState = () => {
+            if (window.scrollY > 15) {
+                header.classList.add("header-scrolled");
+            } else {
+                header.classList.remove("header-scrolled");
+            }
+            ticking = false;
+        };
+        window.addEventListener("scroll", () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeaderState);
+                ticking = true;
+            }
+        }, { passive: true });
     }
-  }
 
-  // 3. SISTEMA DE FILTRAGEM AVANÇADO (BUSCA + TAGS COMBINADAS)
-  const searchInput = document.getElementById("search-input");
-  const filterTags = document.querySelectorAll(".filter-tag");
+    // 2. INICIALIZAÇÃO DA CARGA DE DADOS DO BANCO NEON
+    const loadingDiv = document.getElementById('loading-news');
+    const gridDiv = document.getElementById('noticias-dinamicas');
 
-  // Helper indispensável para ignorar acentos e letras maiúsculas/minúsculas
-  const normalizeString = (str) => {
-    return str
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
-  };
+    try {
+        // Busca os posts usando a abstração do api.js
+        const posts = await api.getPosts();
+        todasAsNoticias = (posts && Array.isArray(posts)) ? posts : [];
 
-  const filterNews = () => {
-    const searchText = searchInput ? normalizeString(searchInput.value) : "";
-    const activeTag = document.querySelector(".filter-tag.active");
-    const activeCategory = activeTag ? normalizeString(activeTag.getAttribute("data-filter") || "all") : "all";
+        if (loadingDiv) loadingDiv.style.display = 'none';
+        if (gridDiv) gridDiv.style.display = 'grid';
 
-    // CRÍTICO: Captura os cards ATUALIZADOS na tela toda vez que o usuário interage
-    // Isso garante que os posts recém-chegados da API também entrem no filtro!
-    const currentCards = document.querySelectorAll(".card-noticia");
+        renderizarNoticias(todasAsNoticias);
+        configurarFiltros();
+        configurarBusca();
 
-    currentCards.forEach(card => {
-      const title = normalizeString(card.querySelector("h2").textContent);
-      const description = normalizeString(card.querySelector("p").textContent);
-      const cardCategory = normalizeString(card.getAttribute("data-category") || "");
+    } catch (error) {
+        console.error("Erro na carga de notícias:", error);
+        if (loadingDiv) {
+            loadingDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Não foi possível sincronizar as notícias no momento.';
+        }
+    }
+});
 
-      const matchesSearch = title.includes(searchText) || description.includes(searchText);
-      const matchesCategory = (activeCategory === "all") || (cardCategory.includes(activeCategory));
+// 3. RENDERIZAÇÃO DOS CARDS
+function renderizarNoticias(lista) {
+    const gridDiv = document.getElementById('noticias-dinamicas');
+    if (!gridDiv) return;
+    
+    // TRAVA CRÍTICA ANTI-DUPLICAÇÃO: Esvazia o container antes de desenhar os elementos
+    gridDiv.innerHTML = "";
+    
+    if (lista.length === 0) {
+        gridDiv.innerHTML = '<p style="grid-column: 1/-1; text-align: center; font-weight: bold; color: #666; padding: 40px 0;">Nenhuma notícia corresponde aos termos selecionados.</p>';
+        return;
+    }
 
-      if (matchesSearch && matchesCategory) {
-        // Força o card a voltar para o fluxo simétrico do Flexbox
-        card.style.setProperty('display', 'flex', 'important');
-        card.style.setProperty('position', 'relative', 'important');
-        card.style.setProperty('float', 'none', 'important');
-        card.style.opacity = "1";
-        card.style.transform = "scale(1)";
-      } else {
-        // Oculta e move de forma absoluta para não quebrar o layout vizinho
-        card.style.setProperty('display', 'none', 'important');
-        card.style.setProperty('position', 'absolute', 'important');
-        card.style.opacity = "0";
-        card.style.transform = "scale(0.95)";
-      }
-    });
-  };
-
-  // Ouvinte de digitação na barra de pesquisa
-  if (searchInput) {
-    searchInput.addEventListener("input", filterNews);
-  }
-
-  // Ouvinte de cliques nas tags de categoria
-  if (filterTags.length > 0) {
-    filterTags.forEach(tag => {
-      tag.addEventListener("click", (e) => {
-        e.preventDefault();
+    gridDiv.innerHTML = lista.map(post => {
+        const categoriaTexto = post.category || post.categoria || 'Geral';
+        const tituloTexto = post.title || post.titulo || 'Sem Título';
+        const conteudoTexto = post.content || post.conteudo || 'Sem conteúdo disponível...';
         
-        // Reseta estados visuais e de acessibilidade de todas as tags
-        filterTags.forEach(t => {
-          t.classList.remove("active");
-          t.setAttribute("aria-selected", "false");
+        // CORREÇÃO DA IMAGEM: Garante o caminho relativo correto para a pasta física de uploads
+        let nomeImagem = post.imageUrl || post.imagemUrl || "";
+        let linkImagem = "/img/primeira.png"; 
+
+        if (nomeImagem) {
+            linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
+        }
+        
+        // CORREÇÃO DA DATA: Trata strings ISO ou timestamps
+        const dataBruta = post.createdAt || post.dataCriacao || new Date();
+        const dataFormatada = new Date(dataBruta).toLocaleDateString('pt-BR');
+        
+        // Remove tags HTML (<p>, <strong>) geradas pelo editor de texto rico no resumo
+        const conteudoLimpo = conteudoTexto.replace(/<[^>]*>/g, '');
+        const resumoCard = conteudoLimpo.length > 120 ? conteudoLimpo.substring(0, 120) + "..." : conteudoLimpo;
+
+        return `
+          <article class="card-noticia" data-category="${categoriaTexto.toLowerCase().trim()}">
+            <div class="card-thumb">
+              <img src="${linkImagem}" alt="Imagem ilustrativa da notícia: ${tituloTexto}">
+              <span class="badge-categoria" style="position: absolute; top: 10px; left: 10px; background: #5c2d91; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; z-index: 10;">${categoriaTexto}</span>
+            </div>
+            <div class="card-body">
+              <h2>${tituloTexto}</h2>
+              <p>${resumoCard}</p>
+              <div class="card-footer-info">
+                <span class="card-date"><i class="far fa-calendar-alt"></i> ${dataFormatada}</span>
+              </div>
+              <a href="/noticiaAberta?id=${post.id}" class="btn-ler-mais">Ler mais</a>
+            </div>
+          </article>
+        `;
+    }).join('');
+}
+
+// 4. SISTEMA DE FILTRO POR CLIQUE (TAGS)
+function configurarFiltros() {
+    const tags = document.querySelectorAll('.filter-tag');
+    tags.forEach(tag => {
+        tag.addEventListener('click', (e) => {
+            tags.forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+
+            const filtro = e.target.getAttribute('data-filter').toLowerCase().trim();
+            
+            if (filtro === 'all' || filtro === 'todas') {
+                renderizarNoticias(todasAsNoticias);
+            } else {
+                const filtradas = todasAsNoticias.filter(post => {
+                    const cat = post.category || post.categoria || '';
+                    return cat.toLowerCase().trim() === filtro;
+                });
+                renderizarNoticias(filtradas);
+            }
+        });
+    });
+}
+
+// Helper para ignorar acentos e maiúsculas na busca em tempo real
+const normalizeStr = (str) => {
+    return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+};
+
+// 5. SISTEMA DE FILTRO POR DIGITAÇÃO (BARRA DE PESQUISA)
+function configurarBusca() {
+    const inputBusca = document.getElementById('search-input');
+    if (!inputBusca) return;
+
+    inputBusca.addEventListener('input', (e) => {
+        const termo = normalizeStr(e.target.value);
+        
+        const resultadoBusca = todasAsNoticias.filter(post => {
+            const tit = normalizeStr(post.title || post.titulo || '');
+            const con = normalizeStr(post.content || post.conteudo || '');
+            const cat = normalizeStr(post.category || post.categoria || '');
+            
+            return tit.includes(termo) || 
+                   con.includes(termo) ||
+                   cat.includes(termo);
         });
         
-        // Ativa a tag atual clicada
-        tag.classList.add("active");
-        tag.setAttribute("aria-selected", "true");
-        
-        // Executa o filtro refinado
-        filterNews();
-      });
+        renderizarNoticias(resultadoBusca);
     });
-  }
-});
+}
