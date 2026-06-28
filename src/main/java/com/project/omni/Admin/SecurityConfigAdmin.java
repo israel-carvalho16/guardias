@@ -2,16 +2,22 @@ package com.project.omni.Admin;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-// COMENTE ESTA LINHA PARA DESATIVAR O CONFLITO:
-// @Configuration("adminSecurityConfig")
+@Configuration("adminSecurityConfig")
+@Order(1) 
 public class SecurityConfigAdmin {
 
-    // Você pode deixar o método aqui comentado ou apagá-lo depois
-    // @Bean
-    // public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
-    //     return http.build();
-    // }
+    @Bean
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
+        http
+            // CORREÇÃO DEFINITIVA: Liberamos qualquer rota que comece com /admin e a tela de login
+            .securityMatcher("/AdminForm", "/admin/**")
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()) 
+            .csrf(csrf -> csrf.disable()); // Mantém desativado para o formulário manual passar direto
+
+        return http.build();
+    }
 }

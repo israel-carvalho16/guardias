@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Novo Administrador - Guardiãs das Águas</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" th:href="@{/css/formularios.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+    <!-- Botão para o Administrador voltar com segurança para o painel principal -->
+    <a th:href="@{/admin-dashboard}" class="btn-voltar-formulario">
+        <i class="fas fa-arrow-left"></i> Voltar ao Painel
+    </a>
+
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="form-container">
+        
+        <div class="form-header">
+            <img th:src="@{/img/logo.png}" alt="Logo Guardiãs das Águas" class="form-logo">
+            <h2>Guardiãs das Águas</h2>
+            <p>Cadastro de Novo Administrador</p>
+        </div>
+
+        <!-- Formulário que envia os dados para serem validados pelo ControllerAd -->
+        <form id="adminForm" th:action="@{/admin/salvar-novo}" method="POST">
+
+            <!-- Mensagem caso ocorra erro de duplicidade no e-mail ou CPF -->
+            <div th:if="${erroCadastro}" style="color: #ff4a4a; margin-bottom: 15px; font-weight: bold; text-align: center;" th:text="${erroCadastro}"></div>
+
+            <div class="input-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" placeholder="Digite o nome completo" id="nome" name="nome" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail Institucional</label>
+                <input type="email" placeholder="nome@exemplo.com" id="email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="cpf">CPF</label>
+                <input type="text" placeholder="000.000.000-00" id="cpf" name="cpf" maxlength="14" required>
+            </div>
+
+            <div class="input-group">
+                <label for="senha">Senha de Acesso</label>
+                <input type="password" placeholder="Crie uma senha segura" id="senha" name="senha" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Confirmar Cadastro</button>
+        </form>
+
+    </div>
+</body>
+</html>

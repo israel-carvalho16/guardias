@@ -44,12 +44,19 @@
                 <i class="fas fa-laptop-code brand-icon"></i>
                 <h2>Omni DevPanel</h2>
             </div>
-            <nav class="sidebar-nav">
-                <a href="/admin-dashboard" class="nav-item active"><i class="fas fa-chart-pie"></i> Dashboard</a>
-                <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
-                <a href="#" class="nav-item" onclick="toggleModal()"><i class="fas fa-plus-circle"></i> Novo Post</a>
-                <button onclick="auth.logout()" class="nav-item btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Sair do Painel</button>
-            </nav>
+          <nav class="sidebar-nav">
+    <a href="/admin-dashboard" class="nav-item active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+    <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
+    <a href="#" class="nav-item" onclick="toggleModal()"><i class="fas fa-plus-circle"></i> Novo Post</a>
+    
+    <!-- CORRIGIDO: Agora usando a classe correta 'nav-item' idêntica aos outros botões -->
+    <a th:href="@{/admin/novo-admin}" class="nav-item">
+        <i class="fas fa-user-plus"></i> Novo Admin
+    </a>
+
+    <button onclick="auth.logout()" class="nav-item btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Sair do Painel</button>
+</nav>
+
         </aside>
 
         <!-- ÁREA CONTEÚDO DA DIREITA -->

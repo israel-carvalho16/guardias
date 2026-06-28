@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro do Administrador - Guardiãs das Águas</title>
-    <!-- Font Awesome para o ícone de voltar voltar a funcionar correto -->
+    <title>Login do Administrador - Guardiãs das Águas</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" th:href="@{/css/formularios.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
 
-    <!-- Link com ThymeLeaf corrigido para apontar para a rota raiz de forma limpa -->
     <a th:href="@{/}" class="btn-voltar-formulario">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
     </a>
@@ -26,71 +24,55 @@
         <div class="form-header">
             <img th:src="@{/img/logo.png}" alt="Logo Guardiãs das Águas" class="form-logo">
             <h2>Guardiãs das Águas</h2>
-            <p>Portal do Administrator</p>
+            <p>Portal do Administrador</p>
         </div>
-
-        <!-- O return false impede o navegador de tentar dar um submit tradicional via POST HTTP -->
-        <form id="adminForm" onsubmit="handleAdminRegister(event); return false;">
-
-            <div class="input-group">
-                <label for="nome">Nome Completo</label>
-                <input type="text" placeholder="Digite seu nome" id="nome" name="nome" required>
-            </div>
-
-            <div class="input-group">
-                <label for="email">E-mail Institucional</label>
-                <input type="email" placeholder="nome@exemplo.com" id="email" name="email" required>
-            </div>
-
-            <div class="input-group">
-                <label for="CPF">CPF</label>
-                <input type="text" placeholder="000.000.000-00" id="CPF" name="CPF" maxlength="14" required>
-            </div>
-
-            <div class="input-group">
-                <label for="senha">Senha de Acesso</label>
-                <input type="password" placeholder="Crie uma senha segura" id="senha" name="senha" required>
-            </div>
-
-            <button type="submit" class="btn-submit">Cadastrar Administrador</button>
-        </form>
-
-        <!-- Scripts de controle da API e fluxo de autenticação -->
-        <script src="js/api.js"></script>
-        <script>
-        async function handleAdminRegister(event) {
-            event.preventDefault();
-
-            // Limpa tokens e lógicas residuais do LocalStorage para evitar loop de sessões antigas
-            localStorage.clear();
-
-            // Monta o DTO exatamente como seu AuthController espera receber na API Rest
-            const adminData = {
-                name: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('senha').value 
-            };
-
-            console.log("Enviando dados para a API Rest:", adminData);
-
-            try {
-                // Dispara o cadastro para a rota /api/auth/register através da sua api.js
-                const responseReg = await api.register(adminData); 
-                
-                // Extrai o Token retornado do JWT. Se não retornar, usa uma String padrão para não quebrar a URL
-                const tokenReal = (responseReg && responseReg.token) ? responseReg.token : 'token_admin';
-
-                alert("Administrador validado com sucesso! Entrando no Painel...");
-                
-                // REDIRECIONAMENTO DEFINITIVO: Aponta estritamente para a rota limpa do Spring Boot
-                window.location.href = '/admin-dashboard?token=' + encodeURIComponent(tokenReal);
-
-            } catch (error) {
-                console.error("Erro detectado durante o cadastro do Admin:", error);
-                alert("Erro ao cadastrar administrador: " + error.message);
-            }
-        }
-        </script>
+<form id="adminForm" onsubmit="enviarLoginAdmin(event)">
+    
+    <div id="msgErro" style="color: #ff4a4a; margin-bottom: 15px; font-weight: bold; text-align: center; display: none;">
+        E-mail ou senha inválidos.
     </div>
+
+    <div class="input-group">
+        <label for="email">E-mail Institucional</label>
+        <input type="email" placeholder="nome@exemplo.com" id="email" required>
+    </div>
+
+    <div class="input-group">
+        <label for="senha">Senha de Acesso</label>
+        <input type="password" placeholder="Digite sua senha" id="senha" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Entrar no Painel</button>
+</form>
+
+<script>
+    async function enviarLoginAdmin(event) {
+        event.preventDefault();
+        document.getElementById('msgErro').style.display = 'none';
+
+        const dados = {
+            email: document.getElementById('email').value,
+            senha: document.getElementById('senha').value
+        };
+
+        try {
+            const response = await fetch('/admin/login-api', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            if (response.ok) {
+                localStorage.setItem('token', 'sessao_admin_confirmada_neon');
+                window.location.href = '/admin-dashboard';
+            } else {
+                document.getElementById('msgErro').style.display = 'block';
+            }
+        } catch (err) {
+            document.getElementById('msgErro').style.display = 'block';
+        }
+    }
+</script>
+
 </body>
 </html>

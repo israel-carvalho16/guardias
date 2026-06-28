@@ -32,7 +32,6 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // Desliga o Spring Security para os arquivos físicos iniciais de carregamento do Tomcat
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/index.html", "/index", "/favicon.ico");
@@ -47,20 +46,21 @@ public class SecurityConfig {
                 // 1. Recursos estáticos livres de mídia e estilização
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/Font/**", "/video/**", "/uploads/**").permitAll()
 
-                
                 // 2. Apenas rotas lógicas limpas na lista de requisições permitidas
                 .requestMatchers("/", "/login", "/register", "/pagina1", "/AdminForm", "/admin-dashboard",
                                  "/noticias", "/projeto", "/evento", "/mg", "/ce", "/contatos", "/orgaoambiental","/noticiaAberta").permitAll()
                 
-                // 3. Endpoints públicos da API (CORRIGIDO: Incluídas as rotas de postagens)
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/posts/**").permitAll() // <--- LIBERAÇÃO DA API DE POSTS PARA SUMIR O ERRO 403
+                // 3. Liberação total para a pasta /admin (Fim do erro 403 do painel)
+                .requestMatchers("/admin/**").permitAll() 
                 
-                // Qualquer outro recurso restrito exigirá autenticação por Token
+                // 4. Endpoints públicos da API do Blog
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/posts/**").permitAll() 
+                
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
+    }   
 }
