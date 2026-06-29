@@ -14,7 +14,7 @@ public class Controler {
         this.repositoryFeed = repositoryFeed;
     }
 
-    // Deixe APENAS a rota de contato aqui para sumir o erro
+    
     @GetMapping("/contato")
     public String abrirPagina() {
         return "contatos"; 
