@@ -28,6 +28,13 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        // ESCAPE SUPREMO ANTI-ERRO 400: Se a requisição for para as APIs gerenciais, ignora o filtro e passa direto
+        String pathURI = request.getRequestURI();
+        if (pathURI != null && (pathURI.startsWith("/api/admin") || pathURI.startsWith("/api/admin/"))) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
 
         // CORREÇÃO 1: Ignora o filtro se o cabeçalho for nulo, não começar com Bearer ou for curto demais (como "Bearer null")
@@ -70,6 +77,13 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
+        String uri = request.getRequestURI();
+        
+        // Garante a redundância de segurança também na checagem de rotas nativas
+        if ((path != null && path.startsWith("/api/admin")) || (uri != null && uri.startsWith("/api/admin"))) {
+            return true;
+        }
+
         return path.equals("/AdminForm") 
             || path.equals("/AdminForm/enviar") 
             || path.equals("/admin-dashboard") 

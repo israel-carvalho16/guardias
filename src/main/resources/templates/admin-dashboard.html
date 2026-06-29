@@ -6,10 +6,10 @@
     <title>Painel do Desenvolvedor | Omni Blog</title>
     
     <!-- Font Awesome para os ícones modernos do painel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <script src="https://jsdelivr.net"></script>
 
     <!-- CORRIGIDO COM THYMELEAF: Vinculação correta e segura da folha de estilos -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -44,12 +44,13 @@
                 <i class="fas fa-laptop-code brand-icon"></i>
                 <h2>Omni DevPanel</h2>
             </div>
-          <nav class="sidebar-nav">
-    <a href="/admin-dashboard" class="nav-item active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <nav class="sidebar-nav">
+    <!-- LINKS INTEGRADOS COM O MOTOR DE CONVERSÃO DE ABAS DO SCRIPT -->
+    <a href="#" onclick="exibirAbaDashboardNoticias()" class="nav-item active" id="menu-noticias"><i class="fas fa-chart-pie"></i> Dashboard</a>
+    <a href="#" onclick="loadVolunteers()" class="nav-item" id="menu-volun"><i class="fas fa-users"></i> Voluntários</a>
     <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
-    <a href="#" class="nav-item" onclick="toggleModal()"><i class="fas fa-plus-circle"></i> Novo Post</a>
+    <a href="#" class="nav-item" onclick="abrirModalParaCriacao()"><i class="fas fa-plus-circle"></i> Novo Post</a>
     
-    <!-- CORRIGIDO: Agora usando a classe correta 'nav-item' idêntica aos outros botões -->
     <a th:href="@{/admin/novo-admin}" class="nav-item">
         <i class="fas fa-user-plus"></i> Novo Admin
     </a>
@@ -58,21 +59,27 @@
 </nav>
 
         </aside>
-
         <!-- ÁREA CONTEÚDO DA DIREITA -->
         <div class="dashboard-main-content">
             
             <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES -->
+                       <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES COM ALTERNADOR DE MODO ESCURO -->
             <header class="dashboard-topbar">
                 <div class="topbar-search">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Buscar posts na tabela...">
+                    <input type="text" id="panel-search-input" placeholder="Buscar posts na tabela...">
                 </div>
-                <div class="topbar-user">
+                <div class="topbar-user" style="display: flex; align-items: center; gap: 20px;">
+                    <!-- BOTÃO INTERRUPTOR DO MODO ESCURO INJETADO AQUI -->
+                    <button id="dark-mode-toggle" onclick="alternarModoEscuro()" style="background: none; border: none; color: var(--roxo-secundario); font-size: 1.2rem; cursor: pointer; padding: 8px; transition: color 0.3s; display: flex; align-items: center; justify-content: center;" title="Alternar tema visual">
+                        <i id="dark-mode-icon" class="fas fa-moon"></i>
+                    </button>
+                    
                     <span class="user-status-badge"><i class="fas fa-circle"></i> Sistema Online</span>
                     <div class="user-avatar-text">Dev</div>
                 </div>
             </header>
+
 
             <!-- CONTEÚDO INTERNO INTERATIVO -->
             <main class="dashboard-view-body">
@@ -103,7 +110,7 @@
                 <div class="panel-card-table">
                     <div class="table-card-header">
                         <h2>Artigos Publicados</h2>
-                        <button class="btn-create-fast" onclick="toggleModal()">+ Criar Post</button>
+                        <button class="btn-create-fast" onclick="abrirModalParaCriacao()">+ Criar Post</button>
                     </div>
                     <div class="admin-table-wrapper">
                         <table class="table">
@@ -124,11 +131,11 @@
         </div>
     </div>
 
-    <!-- MODAL DE CRIAÇÃO DE POST TOTALMENTE TURBINADO (700px para o editor rico) -->
+    <!-- MODAL DE CRIAÇÃO E EDIÇÃO DE POST TOTALMENTE TURBINADO -->
     <div id="postModal" class="modal">
         <div class="modal-content" style="width: 700px; max-height: 90vh; overflow-y: auto;">
             <div class="modal-header">
-                <h2><i class="fas fa-pen-fancy"></i> Criar Nova Postagem</h2>
+                <h2 id="modalTitle"><i class="fas fa-pen-fancy"></i> Criar Nova Postagem</h2>
                 <button class="modal-close" onclick="toggleModal()">&times;</button>
             </div>
             <form id="postForm" onsubmit="handlePostSubmit(event)">
@@ -136,7 +143,7 @@
                     <label>Título do Artigo</label>
                     <input type="text" id="title" placeholder="Digite um título chamativo..." required>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Categoria do Assunto</label>
                     <select id="category" required style="width: 100%; padding: 12px 16px; border: 1px solid #edf2f7; background-color: #f8fafc; border-radius: 8px; font-size: 14px; outline: none; cursor: pointer;">
@@ -145,12 +152,14 @@
                         <option value="Recursos Hidricos">Recursos Hídricos</option>
                         <option value="Sustentabilidade">Sustentabilidade</option>
                         <option value="Saneamento">Saneamento</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Avisos">Avisos</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Imagem de Capa (Upload)</label>
-                    <input type="file" id="imageFile" accept="image/*" required onchange="previewImage(event)">
+                    <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
                     
                     <div id="imagePreviewContainer" style="display: none; margin-top: 12px; width: 100%; height: 180px; border-radius: 8px; overflow: hidden; border: 2px dashed #5c2d91;">
                         <img id="imagePreviewElement" src="" alt="Pré-visualização" style="width: 100%; height: 100%; object-fit: cover;">
@@ -159,48 +168,111 @@
                 
                 <div class="form-group">
                     <label>Conteúdo Avançado do Artigo</label>
-                    <!-- Onde a barra de ferramentas do Quill se acoplará -->
                     <div id="editor-container" style="height: 200px; background: #fff; border-radius: 0 0 8px 8px;"></div>
                 </div>
-                
-                <div class="modal-footer-actions" style="margin-top: 30px;">
-                    <button type="button" class="btn-cancel" onclick="toggleModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Publicar Artigo</button>
+
+                <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" class="btn-action-delete" style="background-color: #718096;" onclick="toggleModal()">Cancelar</button>
+                    <button type="submit" id="btnSubmitForm" class="btn-create-fast">Publicar Post</button>
                 </div>
             </form>
         </div>
     </div>
     <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
+           <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
+        <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
     <script th:src="@{/js/api.js}"></script>
     <script>
-        // EVOLUÇÃO: Inicialização do Editor de Texto Rico Quill.js com painel completo
-        const quill = new Quill('#editor-container', {
-            theme: 'snow',
-            placeholder: 'Escreva e formate o texto completo do seu artigo aqui...',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'clean'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link']
-                ]
+        // Inicialização do Editor de Texto Rico Quill.js
+        let quill = null;
+        try {
+            if (typeof Quill !== 'undefined') {
+                quill = new Quill('#editor-container', {
+                    theme: 'snow',
+                    placeholder: 'Escreva e formate o texto completo do seu artigo aqui...',
+                    modules: {
+                        toolbar: [
+                            [{ 'header': [1, 2, 3, false] }],
+                            ['bold', 'italic', 'underline', 'clean'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            ['link']
+                        ]
+                    }
+            });
+            } else {
+                console.warn("Aviso: Biblioteca Quill.js não pôde ser carregada. Usando fallback de texto puro.");
+                document.getElementById('editor-container').innerHTML = '<textarea id="fallback-editor" style="width:100%; height:200px; padding:12px; border:1px solid #edf2f7; border-radius:8px; resize:none;" placeholder="Escreva seu artigo aqui..."></textarea>';
             }
-        });
+        } catch (err) {
+            console.error("Erro ao inicializar o Quill:", err);
+        }
+
+        // Variável de controle global para identificar se é Criação ou Edição
+        let idDoPostSendoEditado = null;
 
         // Alternador de estados de exibição do Modal Gerencial
         function toggleModal() {
             const modal = document.getElementById('postModal');
-            modal.classList.toggle('active');
-            
-            // Limpa resíduos visuais caso o modal esteja sendo fechado
-            if (!modal.classList.contains('active')) {
-                document.getElementById('imagePreviewContainer').style.display = 'none';
-                document.getElementById('imagePreviewElement').src = '';
-                quill.setContents([]); // Reseta o editor rico
+            if (modal) {
+                modal.classList.toggle('active');
+                
+                if (!modal.classList.contains('active')) {
+                    document.getElementById('imagePreviewContainer').style.display = 'none';
+                    document.getElementById('imagePreviewElement').src = '';
+                    if (quill) {
+                        quill.setContents([]); 
+                    } else if (document.getElementById('fallback-editor')) {
+                        document.getElementById('fallback-editor').value = '';
+                    }
+                    document.getElementById('postForm').reset();
+                    idDoPostSendoEditado = null;
+                }
             }
         }
 
-        // Sistema dinâmico de pré-visualização de imagem antes do envio
+        // Força o modal a abrir configurado para um NOVO post
+        function abrirModalParaCriacao() {
+            idDoPostSendoEditado = null;
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-pen-fancy"></i> Criar Nova Postagem';
+            document.getElementById('btnSubmitForm').innerText = 'Publicar Post';
+            document.getElementById('imageFile').required = true;
+            toggleModal();
+        }
+
+        // Busca o post na API e preenche o modal pronto para Edição
+        async function abrirModalParaEdicao(id) {
+            idDoPostSendoEditado = id;
+            try {
+                const post = await api.getPost(id);
+                
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Postagem';
+                document.getElementById('btnSubmitForm').innerText = 'Salvar Alterações';
+                document.getElementById('imageFile').required = false;
+                
+                document.getElementById('title').value = post.title || '';
+                document.getElementById('category').value = post.category || '';
+                
+                if (quill) {
+                    quill.root.innerHTML = post.content || '';
+                } else if (document.getElementById('fallback-editor')) {
+                    document.getElementById('fallback-editor').value = post.content || '';
+                }
+
+                if (post.imageUrl) {
+                    const previewElement = document.getElementById('imagePreviewElement');
+                    previewElement.src = post.imageUrl.startsWith('/uploads/') ? post.imageUrl : `/uploads/${post.imageUrl}`;
+                    document.getElementById('imagePreviewContainer').style.display = 'block';
+                }
+
+                const modal = document.getElementById('postModal');
+                if (modal) modal.classList.add('active');
+
+            } catch (error) {
+                alert("Erro ao coletar dados para edição: " + error.message);
+            }
+        }
+
+        // Sistema dinâmico de pré-visualização de imagem
         function previewImage(event) {
             const reader = new FileReader();
             const container = document.getElementById('imagePreviewContainer');
@@ -212,8 +284,8 @@
                     container.style.display = 'block';
                 }
             }
-            if (event.target.files && event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
+            if (event.target.files && event.target.files.item(0)) {
+                reader.readAsDataURL(event.target.files.item(0));
             }
         }
 
@@ -225,28 +297,91 @@
                 return;
             }
             loadPosts(); 
+            configurarFiltroTabela();
         });
-
-        // Coleta os registros do banco Neon e atualiza o painel
+        // Coleta os registros do banco Neon e atualiza o painel com Badges Coloridas
         async function loadPosts() {
             const tbody = document.getElementById('postTableBody');
             const totalMetric = document.getElementById('metric-total-posts');
+            if (!tbody) return;
+
             try {
                 const posts = await api.getPosts();
                 if (posts && Array.isArray(posts)) {
                     totalMetric.innerText = posts.length;
                     
-                    tbody.innerHTML = posts.map(post => `
-                        <tr>
-                            <td class="td-title-bold">${post.title}</td>
-                            <td><i class="far fa-calendar-alt"></i> ${new Date(post.createdAt).toLocaleDateString('pt-BR')}</td>
-                            <td style="text-align: center;">
-                                <button class="btn-action-delete" onclick="deletePost(${post.id})">
-                                    <i class="fas fa-trash-alt"></i> Excluir
-                                </button>
-                            </td>
-                        </tr>
-                    `).join('');
+                    tbody.innerHTML = posts.map(post => {
+                        let dataExibicao = "Data indisponível";
+                        try {
+                            const dataBruta = post.createdAt || post.dataCriacao;
+                            if (dataBruta) {
+                                if (Array.isArray(dataBruta)) {
+                                    dataExibicao = new Date(dataBruta[0], dataBruta[1] - 1, dataBruta[2]).toLocaleDateString('pt-BR');
+                                } else {
+                                    dataExibicao = new Date(dataBruta).toLocaleDateString('pt-BR');
+                                }
+                            }
+                            if (dataExibicao === "Invalid Date") dataExibicao = new Date().toLocaleDateString('pt-BR');
+                        } catch (err) {
+                            dataExibicao = new Date().toLocaleDateString('pt-BR');
+                        }
+
+                        const categoria = post.category || post.categoria || 'Geral';
+                        let corFundo = '#718096'; 
+                        let corTexto = '#ffffff';
+
+                        switch(categoria.toLowerCase().trim()) {
+                            case 'clima':
+                                corFundo = '#e0f2fe'; 
+                                corTexto = '#0369a1';
+                                break;
+                            case 'recursos hidricos':
+                            case 'recursos hídricos':
+                                corFundo = '#e0e7ff'; 
+                                corTexto = '#4338ca';
+                                break;
+                            case 'sustentabilidade':
+                                corFundo = '#dcfce7'; 
+                                corTexto = '#15803d';
+                                break;
+                            case 'saneamento':
+                                corFundo = '#fef3c7'; 
+                                corTexto = '#b45309';
+                                break;
+                            case 'eventos':
+                                corFundo = '#f3e8ff'; 
+                                corTexto = '#6b21a8';
+                                break;
+                            case 'avisos':
+                                corFundo = '#fee2e2'; 
+                                corTexto = '#991b1b';
+                                break;
+                        }
+
+                        return `
+                            <tr>
+                                <td class="td-title-bold" style="padding: 16px 12px;">
+                                    <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                                        <span style="font-weight: 600; color: #2d3748; font-size: 15px;">${post.title || 'Sem título'}</span>
+                                        <span style="background-color: ${corFundo}; color: ${corTexto}; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;">
+                                            ${categoria}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="color: #4a5568;"><i class="far fa-calendar-alt" style="color: #8f73b2;"></i> ${dataExibicao}</td>
+                                <td style="text-align: center;">
+                                    <div style="display: inline-flex; gap: 8px;">
+                                        <button class="btn-action-edit" onclick="abrirModalParaEdicao(${post.id})" style="background-color: #5b289e; color: white; border: none; padding: 7px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; transition: opacity 0.2s;">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
+                                        <button class="btn-action-delete" onclick="deletePost(${post.id})">
+                                            <i class="fas fa-trash-alt"></i> Excluir
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
                 } else {
                     totalMetric.innerText = "0";
                     tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 30px; color: #888;">Nenhuma postagem encontrada no banco Neon.</td></tr>`;
@@ -256,41 +391,50 @@
                 totalMetric.innerText = "Erro";
             }
         }
-
-        // Envio estruturado do formulário com imagem binária e texto rico (HTML)
+        // Envio estruturado do formulário (Suporta criação com POST e edição com PUT)
         async function handlePostSubmit(event) {
             event.preventDefault();
             
-            // Coleta a estrutura HTML gerada pelo editor ricos (Mantém as tags de negrito, listas, etc.)
-            const HTMLDoConteudo = quill.getSemanticHTML();
-            
-            // Empacota tudo em formato MultipartFormData
+            let HTMLDoConteudo = "";
+            if (quill) {
+                HTMLDoConteudo = quill.getSemanticHTML();
+            } else if (document.getElementById('fallback-editor')) {
+                HTMLDoConteudo = document.getElementById('fallback-editor').value;
+            }
+
             const formData = new FormData();
             formData.append('title', document.getElementById('title').value);
             formData.append('category', document.getElementById('category').value);
-            formData.append('content', HTMLDoConteudo); // Envia o texto formatado profissionalmente
+            formData.append('content', HTMLDoConteudo); 
             
             const fileInput = document.getElementById('imageFile');
-            if (fileInput && fileInput.files.length > 0) {
-                formData.append('image', fileInput.files[0]); // Pega o arquivo físico absoluto
+            if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                formData.append('image', fileInput.files.item(0)); 
             }
 
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('/api/posts', {
-                    method: 'POST',
+                let url = '/api/posts';
+                let metodo = 'POST';
+
+                if (idDoPostSendoEditado !== null) {
+                    url = `/api/posts/${idDoPostSendoEditado}`;
+                    metodo = 'PUT';
+                }
+
+                const response = await fetch(url, {
+                    method: metodo,
                     headers: { 'Authorization': `Bearer ${token}` },
                     body: formData
                 });
 
-                if (!response.ok) throw new Error('Servidor recusou os dados de publicação.');
+                if (!response.ok) throw new Error('Servidor recusou a operação.');
 
-                alert("Nova postagem avançada publicada com sucesso no banco Neon!");
+                alert(idDoPostSendoEditado !== null ? "Postagem atualizada com sucesso!" : "Nova postagem publicada com sucesso!");
                 toggleModal();
-                document.getElementById('postForm').reset();
                 loadPosts(); 
             } catch (error) {
-                alert("Erro ao publicar: " + error.message);
+                alert("Erro ao processar postagem: " + error.message);
             }
         }
 
@@ -304,6 +448,212 @@
                     alert("Erro ao deletar postagem: " + error.message);
                 }
             }
+        }
+
+        // Filtro em tempo real para a barra de pesquisa do painel admin
+        function configurarFiltroTabela() {
+            const searchInput = document.getElementById('panel-search-input');
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', (e) => {
+                const termo = e.target.value.toLowerCase().trim();
+                const linhas = document.querySelectorAll('#postTableBody tr');
+
+                linhas.forEach(linha => {
+                    const tituloCelula = linha.querySelector('.td-title-bold'); 
+                    if (tituloCelula) {
+                        const textoTitulo = tituloCelula.textContent.toLowerCase();
+                        if (textoTitulo.includes(termo)) {
+                            linha.style.display = "";
+                        } else {
+                            linha.style.display = "none";
+                        }
+                    }
+                });
+            });
+        }
+
+        // ==========================================================================
+        // MOTOR DE CONTROLE DO MODO ESCURO (DARK MODE)
+        // ==========================================================================
+        function alternarModoEscuro() {
+            const body = document.body;
+            const icone = document.getElementById('dark-mode-icon');
+            
+            body.classList.toggle('dark-theme');
+            
+            if (body.classList.contains('dark-theme')) {
+                localStorage.setItem('painel-tema', 'escuro');
+                if (icone) {
+                    icone.className = 'fas fa-sun'; 
+                    icone.style.color = '#f1c40f';  
+                }
+            } else {
+                localStorage.setItem('painel-tema', 'claro');
+                if (icone) {
+                    icone.className = 'fas fa-moon'; 
+                    icone.style.color = 'var(--purple-muted)';
+                }
+            }
+        }
+
+        function aplicarTemaSalvo() {
+            const temaSalvo = localStorage.getItem('painel-tema');
+            const body = document.body;
+            const icone = document.getElementById('dark-mode-icon');
+            
+            if (temaSalvo === 'escuro') {
+                body.classList.add('dark-theme');
+                if (icone) {
+                    icone.className = 'fas fa-sun';
+                    icone.style.color = '#f1c40f';
+                }
+            }
+        }
+        // ==========================================================================
+        // MÓDULO ADICIONAL: GESTÃO DE VOLUNTÁRIOS (BANCO NEON)
+        // ==========================================================================
+                // Coleta os registros do banco Neon e atualiza o painel de Voluntários com Autenticação
+               // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% blindada
+               // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% corrigida
+              // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% limpa
+        async function loadVolunteers() {
+            const tbody = document.getElementById('postTableBody');
+            const cardHeaderTitle = document.querySelector('.table-card-header h2');
+            const btnCreate = document.querySelector('.btn-create-fast');
+            
+            if (!tbody) return;
+
+            // Gerencia os estados visuais dos botões do menu lateral (Active/Inactive)
+            const menuDash = document.getElementById('menu-noticias');
+            const menuVol = document.getElementById('menu-volun');
+            if (menuDash) menuDash.classList.remove('active');
+            if (menuVol) menuVol.classList.add('active');
+
+            try {
+                if (cardHeaderTitle) cardHeaderTitle.innerText = "Candidatos a Voluntários";
+                if (btnCreate) btnCreate.style.display = "none"; 
+
+                const thLinha = document.querySelector('.table thead tr');
+                if (thLinha) {
+                    thLinha.innerHTML = `
+                        <th>Nome do Voluntário</th>
+                        <th>Dados e Contato (Links)</th>
+                        <th style="text-align: center;">Ações de Aprovação</th>
+                    `;
+                }
+
+                const token = localStorage.getItem('token');
+                
+                // REESTRUTURAÇÃO COMPLETA DA CHAMADA CONTRA O ERRO 400
+                // Adicionada a barra final '/' na rota e simplificado os cabeçalhos para o padrão puro aceito pelo Spring
+                const response = await fetch('/api/admin/voluntarios/', {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error("Acesso recusado pelo Spring Security (Status " + response.status + ")");
+                const voluntarios = await response.json();
+
+                // Garante que temos uma lista válida para iterar
+                if (voluntarios && Array.isArray(voluntarios) && voluntarios.length > 0) {
+                    tbody.innerHTML = voluntarios.map(v => {
+                        const nomeVoluntario = v.nome || v.name || "Candidato sem nome";
+                        const emailVoluntario = v.email || "E-mail não informado";
+                        const linksVoluntario = v.links || "Sem informações adicionais.";
+                        const statusVoluntario = (v.status || "PENDENTE").toUpperCase().trim();
+
+                        let corBadge = "#b45309"; 
+                        let bgBadge = "#fef3c7";
+                        if (statusVoluntario === "APROVADO") { corBadge = "#15803d"; bgBadge = "#dcfce7"; }
+                        if (statusVoluntario === "RECUSADO") { corBadge = "#991b1b"; bgBadge = "#fee2e2"; }
+
+                        return `
+                            <tr>
+                                <td class="td-title-bold" style="padding: 16px 12px;">
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span style="font-weight: 600; color: var(--text-dark); font-size: 15px;">${nomeVoluntario}</span>
+                                        <span style="color: var(--text-muted); font-size: 13px;"><i class="far fa-envelope"></i> ${emailVoluntario}</span>
+                                    </div>
+                                </td>
+                                <td style="color: var(--text-dark); font-size: 13px; max-width: 300px; word-break: break-all; padding: 16px 12px;">
+                                    ${linksVoluntario}
+                                </td>
+                                <td style="text-align: center; padding: 16px 12px;">
+                                    <div style="display: inline-flex; gap: 8px; align-items: center;">
+                                        <span style="background-color: ${bgBadge}; color: ${corBadge}; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-right: 8px;">
+                                            ${statusVoluntario}
+                                        </span>
+                                        
+                                        <button onclick="alterarStatusVoluntario(${v.id}, 'APROVADO')" style="background-color: #2ed573; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; transition: opacity 0.2s;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button onclick="alterarStatusVoluntario(${v.id}, 'RECUSADO')" style="background-color: #ff4757; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; transition: opacity 0.2s;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 30px; color: #888;">Nenhum voluntário cadastrado até o momento.</td></tr>`;
+                }
+            } catch (error) {
+                console.error("Erro interno no laço de voluntários:", error);
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 30px; color: #ff4757;">Falha ao carregar voluntários: ${error.message}</td></tr>`;
+            }
+        }
+
+
+                /**
+         * Altera o status do voluntário direto na rota PUT do Spring Boot com Token de Segurança
+              /**
+         * Altera o status do voluntário direto na rota PUT do Spring Boot com Token de Segurança
+         */
+        async function alterarStatusVoluntario(id, novoStatus) {
+            try {
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`/api/admin/voluntarios/${id}/status?status=${novoStatus}`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Authorization': `Bearer ${token}` 
+                    }
+                });
+
+                if (!response.ok) throw new Error("Operação recusada pelo Spring Security");
+                
+                alert(`Voluntário atualizado para o status: ${novoStatus}!`);
+                loadVolunteers(); 
+            } catch (error) {
+                alert("Erro na operação: " + error.message);
+            }
+        }
+
+        function exibirAbaDashboardNoticias() {
+            const tbody = document.getElementById('postTableBody');
+            const cardHeaderTitle = document.querySelector('.table-card-header h2');
+            const btnCreate = document.querySelector('.btn-create-fast');
+            
+            const menuDash = document.getElementById('menu-noticias');
+            const menuVol = document.getElementById('menu-volun');
+            if (menuDash) menuDash.classList.add('active');
+            if (menuVol) menuVol.classList.remove('active');
+            
+            if (cardHeaderTitle) cardHeaderTitle.innerText = "Artigos Publicados";
+            if (btnCreate) btnCreate.style.display = "block";
+
+            const thLinha = document.querySelector('.table thead tr');
+            if (thLinha) {
+                thLinha.innerHTML = `
+                    <th>Título da Postagem</th>
+                    <th>Data de Criação</th>
+                    <th style="text-align: center;">Ações Gerenciais</th>
+                `;
+            }
+            loadPosts();
         }
     </script>
 </body>

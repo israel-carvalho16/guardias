@@ -50,12 +50,15 @@ public class SecurityConfig {
                 .requestMatchers("/", "/login", "/register", "/pagina1", "/AdminForm", "/admin-dashboard",
                                  "/noticias", "/projeto", "/evento", "/mg", "/ce", "/contatos", "/orgaoambiental","/noticiaAberta").permitAll()
                 
-                // 3. Liberação total para a pasta /admin (Fim do erro 403 do painel)
+                // 3. Liberação total para as visualizações de páginas da pasta /admin
                 .requestMatchers("/admin/**").permitAll() 
                 
                 // 4. Endpoints públicos da API do Blog
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/posts/**").permitAll() 
+
+                // CORREÇÃO CRÍTICA: Alinha a rota com as permissões permitidas do painel administrativo
+                .requestMatchers("/api/admin/**").permitAll()
                 
                 .anyRequest().authenticated()
             )

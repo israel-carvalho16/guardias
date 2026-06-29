@@ -73,8 +73,19 @@ public class PostService {
         post.setContent(request.getContent());
         post.setCategory(request.getCategory());
 
-        // Se uma nova imagem foi selecionada, substitui a antiga
+        // CORREÇÃO: Se uma nova imagem foi selecionada, limpa a imagem velha do disco do PC
         if (request.getImage() != null && !request.getImage().isEmpty()) {
+            // Se o post já tinha uma imagem associada, deleta o arquivo físico antigo
+            if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+                try {
+                    Path caminhoImagemVelha = Paths.get(this.uploadDir).resolve(post.getImageUrl());
+                    Files.deleteIfExists(caminhoImagemVelha);
+                } catch (IOException e) {
+                    System.err.println("Aviso: Não foi possível remover o arquivo físico antigo: " + post.getImageUrl());
+                }
+            }
+            
+            // Faz o upload do arquivo novo
             String fileName = uploadFile(request.getImage());
             post.setImageUrl(fileName);
         }
@@ -85,6 +96,17 @@ public class PostService {
     public void delete(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post não encontrado: " + id));
+        
+        // CORREÇÃO EXTRA: Ao deletar o post completo, apaga também o arquivo de imagem associado a ele
+        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+            try {
+                Path caminhoImagem = Paths.get(this.uploadDir).resolve(post.getImageUrl());
+                Files.deleteIfExists(caminhoImagem);
+            } catch (IOException e) {
+                System.err.println("Aviso: Falha ao remover o arquivo físico no delete.");
+            }
+        }
+        
         postRepository.delete(post);
     }
 
