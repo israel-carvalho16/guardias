@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ARQUIVO CSS UNIFICADO - GUARDIÃS DAS ÁGUAS (PARTE 1 DE 2)
+   ARQUIVO CSS UNIFICADO - GUARDIÃS DAS ÁGUAS
    ========================================================================= */
 
    :root {
@@ -29,9 +29,8 @@
     font-family: "arabic";
     src: url("../font/GlacialIndifference-Regular.otf");
   }
-
-
-  /* Reset Global de Elementos */
+  
+  /* Reset Global */
   * {
     margin: 0;
     padding: 0;
@@ -69,43 +68,37 @@
   }
   
   /* ==========================================================================
-     CABEÇALHO GLOBAL E NAVEGAÇÃO
+     CABEÇALHO GLOBAL E NAVEGAÇÃO DESKTOP
      ========================================================================= */
-header.site-header {
-  background-color: rgba(255, 255, 255, 0.82) !important; /* Efeito vidro translúcido */
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+  header.site-header {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 30px rgba(91, 40, 158, 0.03) !important;
+    border-bottom: 1px solid rgba(145, 164, 206, 0.15) !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important; /* Fica na frente do conteúdo da página */
+    padding: 14px 5% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    transition: all 0.4s ease !important;
+  }
   
-  box-shadow: 0 4px 30px rgba(91, 40, 158, 0.03) !important;
-  border-bottom: 1px solid rgba(145, 164, 206, 0.15) !important;
-  
-  /* MUDANÇA CRÍTICA: Fixa o menu no topo de forma absoluta e isolada */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  z-index: 99999 !important; /* Fica na frente de absolutamente tudo */
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease-in-out !important;
-  padding: 14px 5% !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-/* Mantém o encolhimento perfeito com o script de rolagem */
-header.site-header.header-scrolled {
-  padding: 10px 5% !important;
-  background-color: rgba(255, 255, 255, 0.92) !important;
-  box-shadow: 0 10px 30px rgba(91, 40, 158, 0.06) !important;
-}
-
-
+  header.site-header.header-scrolled {
+    padding: 10px 5% !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 10px 30px rgba(91, 40, 158, 0.06) !important;
+  }
   
   header .header-brand {
     display: flex;
     align-items: center;
     gap: 14px;
+    z-index: 160000; /* Força ficar na frente da overlay escura */
   }
   
   header img {
@@ -123,18 +116,18 @@ header.site-header.header-scrolled {
     letter-spacing: -0.5px;
   }
   
-  nav ul.nav-links {
+  nav.nav-desktop ul.nav-links {
     list-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 28px;
-    background-color: transparent !important;
-    margin-top: 0 !important;
+    background: transparent !important;
+    margin: 0 !important;
     padding: 0 !important;
   }
   
-  nav ul li a {
+  nav.nav-desktop ul.nav-links li a {
     color: #4a5568;
     text-decoration: none;
     font-weight: 600;
@@ -145,12 +138,12 @@ header.site-header.header-scrolled {
     display: inline-block;
   }
   
-  nav ul li a:hover {
+  nav.nav-desktop ul.nav-links li a:hover {
     background-color: #f7f4fc;
     color: var(--roxo-principal);
   }
   
-  /* Dropdown Nossos Núcleos */
+  /* Dropdown */
   details { position: relative; }
   #Nucleos {
     text-decoration: none;
@@ -159,7 +152,9 @@ header.site-header.header-scrolled {
     font-size: 1rem;
     cursor: pointer;
     padding: 8px 16px;
+    list-style: none;
   }
+  #Nucleos::-webkit-details-marker { display: none; }
   #Nucleos:hover { color: var(--roxo-principal); }
   
   details .dropdown-content {
@@ -175,15 +170,23 @@ header.site-header.header-scrolled {
     gap: 12px;
     margin-top: 10px;
     border: 1px solid #e2e8f0;
+    z-index: 100;
   }
   
-  /* Botões de Autenticação */
+  details .dropdown-content a {
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 12px;
+  }
+  details .dropdown-content a:hover { color: var(--roxo-principal); }
+  
+  /* Botões Autenticação */
   .auth-actions {
     display: flex;
     align-items: center;
     gap: 12px;
   }
-  .auth-actions a { margin: 0 !important; }
   
   .btn-auth {
     text-decoration: none;
@@ -214,117 +217,211 @@ header.site-header.header-scrolled {
     transform: translateY(-1px);
   }
   
-/* ==========================================================================
-   3. HERO SECTION (TEXT MASK COM FONT-WEIGHT MAXIMIZADO)
-   ========================================================================= */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 520px;
-  overflow: hidden;
-  background-color: #ffffff !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 75px !important; 
-}
-
-.hero .video-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.hero::after {
-  display: none !important;
-}
-
-/* Container de Máscara Total (Sua versão favorita) */
-.hero-content {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 20px !important;
-  background-color: #ffffff !important;
-  z-index: 2;
-  
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  mix-blend-mode: screen !important; /* Mantido o efeito de mesclagem que você preferiu */
-}
-
-.hero-content h1 {
-  text-align: center;
-  margin: 0;
-  text-shadow: none !important;
-  text-transform: uppercase;
-  color: #000000 !important;
-  width: 100%;
-  max-width: 1100px;
-}
-
-/* Linha 1: "Educação sobre" */
-.hero-content h1 span.line-intro {
-  display: block;
-  font-size: 1.1rem !important;
-  font-weight: 400 !important;
-  letter-spacing: 6px !important;
-  color: var(--roxo-principal) !important;
-  margin-bottom: 10px;
-}
-
-/* Linha 2: SANEAMENTO E RECURSOS HÍDRICOS (LETRAS ENGORDADAS) */
-.hero-content h1 span.line-impact {
-  display: block;
-  font-size: 3.4rem !important; 
-  font-weight: 900 !important; /* Força o peso máximo da fonte */
-  letter-spacing: 3px !important; 
-  line-height: 1.15;
-  color: #000000 !important;
-  margin-bottom: 16px;
-  
-  /* TRUQUE GENIAL: Adiciona um contorno preto grosso que expande a largura da letra */
-  -webkit-text-stroke: 4px #000000 !important; 
-  text-stroke: 4px #000000 !important;
-}
-
-/* Linha 3: "para comunidades e escolas" */
-.hero-content h1 span.line-outro {
-  display: block;
-  font-size: 1.3rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 2px !important;
-  color: #4a5568 !important;
-}
-
-/* Responsividade Mobile */
-@media (max-width: 768px) {
-  .hero { height: 420px; }
-  .hero-content h1 span.line-impact { 
-    font-size: 2.2rem !important; 
-    -webkit-text-stroke: 2px #000000 !important; /* Contorno menor no celular para não juntar as letras */
-    text-stroke: 2px #000000 !important;
+  /* ==========================================================================
+     ESTILO CODEPEN - ESTRUTURA CRÍTICA DE PROCESSO HAMBÚRGUER (Z-INDEX ULTRA MAX)
+     ========================================================================= */
+  .button {
+    display: none; /* Oculto por padrão no Computador */
+    position: absolute !important;
+    right: 5% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 200000 !important; /* ULTRA ALTO: Sobressai às ferramentas V Libras e UserWay */
   }
-}
-
-
-
-
+  
+  .button a {
+    text-decoration: none;
+    display: block;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer !important;
+  }
+  
+  .btn-open:after {
+    color: #333;
+    content: "\f0c9";
+    font-family: "Font Awesome 6 Free", "FontAwesome";
+    font-weight: 900;
+    font-size: 28px;
+  }
+  .btn-open:hover:after { color: #34B484; }
+  
+  .btn-close:after {
+    color: #fff !important;
+    content: "\f00d";
+    font-family: "Font Awesome 6 Free", "FontAwesome";
+    font-weight: 900;
+    font-size: 28px;
+  }
+  .btn-close:hover:after { color: #34B484; }
+  
+  /* Menu de Tela Cheia (Overlay) */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(26, 26, 26, 0.98) !important;
+    overflow-y: auto;
+    z-index: 150000 !important; /* Acima de plugins de acessibilidade */
+  }
+  
+  .wrap {
+    color: #e9e9e9;
+    text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+    padding-top: 120px;
+  }
+  
+  .wrap ul.wrap-nav {
+    border-bottom: 1px solid #575757;
+    text-transform: capitalize;
+    padding: 20px 0;
+    list-style: none;
+  }
+  
+  .wrap ul.wrap-nav li {
+    font-size: 24px;
+    display: block;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .wrap ul.wrap-nav li a {
+    color: #34B484;
+    text-decoration: none;
+    transition: all .2s linear;
+    font-weight: 700;
+  }
+  .wrap ul.wrap-nav li a:hover { color: #f0f0f0; }
+  
+  .wrap ul.wrap-nav ul {
+    list-style: none;
+    padding: 10px 0;
+  }
+  
+  .wrap ul.wrap-nav ul li {
+    font-size: 19px;
+    margin-bottom: 15px;
+  }
+  
+  .wrap ul.wrap-nav ul li a {
+    color: #f0f0f0;
+    font-weight: 500;
+  }
+  .wrap ul.wrap-nav ul li a:hover { color: #34B484; }
   
   /* ==========================================================================
-     SEÇÃO TÓPICOS (COM CORREÇÃO DE IMAGENS GIGANTES)
+     RESPONSIVIDADE CALIBRADA EM 1105PX
      ========================================================================= */
-  .topicos-section { padding: 60px 4% 20px; }
+  @media screen and (max-width: 1105px) {
+    nav.nav-desktop, 
+    .auth-desktop {
+      display: none !important; /* Esconde elementos nativos horizontais */
+    }
+    
+    .button {
+      display: block !important; /* Ativa gatilho do hambúrguer */
+    }
   
+    .auth-actions-mobile {
+      display: block !important;
+      margin-top: 35px;
+    }
+  }
+  
+  /* ==========================================================================
+     ELEMENTOS INTERNOS - HERO E CONTEÚDOS (INALTERADOS)
+     ========================================================================= */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+    background-color: #ffffff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 75px !important; 
+  }
+  
+  .hero .video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .hero-content {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #ffffff !important;
+    z-index: 2;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    mix-blend-mode: screen !important; 
+  }
+  
+  .hero-content h1 {
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    color: #000000 !important;
+    width: 100%;
+    max-width: 1100px;
+  }
+  
+  .hero-content h1 span.line-intro {
+    display: block;
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 6px !important;
+    color: var(--roxo-principal) !important;
+    margin-bottom: 10px;
+  }
+  
+  .hero-content h1 span.line-impact {
+    display: block;
+    font-size: 3.4rem !important; 
+    font-weight: 900 !important; 
+    letter-spacing: 3px !important; 
+    line-height: 1.15;
+    color: #000000 !important;
+    margin-bottom: 16px;
+    -webkit-text-stroke: 4px #000000 !important; 
+    text-stroke: 4px #000000 !important;
+  }
+  
+  .hero-content h1 span.line-outro {
+    display: block;
+    font-size: 1.3rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 2px !important;
+    color: #4a5568 !important;
+  }
+  
+  @media (max-width: 768px) {
+    .hero { height: 420px; }
+    .hero-content h1 span.line-impact { 
+      font-size: 2.2rem !important; 
+      -webkit-text-stroke: 2px #000000 !important; 
+      text-stroke: 2px #000000 !important;
+    }
+  }
+  
+  .topicos-section { padding: 60px 4% 20px; }
   .topics-grid, #escolhe {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -353,9 +450,7 @@ header.site-header.header-scrolled {
     box-shadow: var(--shadow-md) !important;
   }
   
-  /* Trava para que os ícones fiquem perfeitos e pequenos */
-  .topics-grid .card-topic .icon-box img,
-  #escolhe section img {
+  .topics-grid .card-topic .icon-box img, #escolhe section img {
     width: 100% !important;
     max-width: 110px !important;
     height: 110px !important;
@@ -368,14 +463,8 @@ header.site-header.header-scrolled {
     font-size: 1.25rem;
     color: var(--roxo-principal);
   }
-/* ==========================================================================
-   ARQUIVO CSS UNIFICADO - GUARDIÃS DAS ÁGUAS (PARTE 2 DE 2)
-   ========================================================================= */
-
-/* ==========================================================================
-   SEÇÃO QUEM SOMOS
-   ========================================================================= */
-   #toma { 
+  
+  #toma { 
     max-width: 1200px; 
     margin: 60px auto; 
     padding: 40px; 
@@ -432,9 +521,6 @@ header.site-header.header-scrolled {
     text-align: justify;
   } 
   
-  /* ==========================================================================
-     SEÇÃO SANEAMENTO BÁSICO (ACCORDIONS)
-     ========================================================================= */
   #saneamento { 
     max-width: 850px; 
     margin: 60px auto; 
@@ -458,9 +544,7 @@ header.site-header.header-scrolled {
     transition: var(--transition);
   } 
   
-  .san-item:hover { 
-    transform: translateY(-2px);
-  } 
+  .san-item:hover { transform: translateY(-2px); } 
   
   .san-item summary { 
     padding: 18px 24px !important; 
@@ -482,7 +566,6 @@ header.site-header.header-scrolled {
   }
   
   .san-item summary::-webkit-details-marker { display: none; } 
-  
   .san-item summary::after { 
     content: "➔" !important; 
     display: inline-block;
@@ -495,10 +578,7 @@ header.site-header.header-scrolled {
     color: var(--roxo-principal);
   } 
   
-  .san-item[open] summary::after { 
-    transform: translateY(-50%) rotate(90deg) !important; 
-  } 
-  
+  .san-item[open] summary::after { transform: translateY(-50%) rotate(90deg) !important; } 
   .san-item p, .san-item ul { 
     padding: 24px !important; 
     background: #ffffff !important; 
@@ -506,12 +586,8 @@ header.site-header.header-scrolled {
     color: var(--text-dark) !important; 
     text-align: left; 
   } 
-  
   .san-item ul { padding-left: 40px !important; }
   
-  /* ==========================================================================
-     SEÇÃO EQUIPE (GRID LADO A LADO)
-     ========================================================================= */
   .team-container-block {
     max-width: 1200px;
     margin: 60px auto;
@@ -572,9 +648,6 @@ header.site-header.header-scrolled {
     display: block !important;
   }
   
-  /* ==========================================================================
-     SEÇÃO EMPODERAMENTO / PROTAGONISMO FEMININO
-     ========================================================================= */
   #empoder { 
     max-width: 900px; 
     margin: 60px auto; 
@@ -605,411 +678,45 @@ header.site-header.header-scrolled {
   
   #empoder section.empoder-card img { 
     width: 100% !important;
-    max-width: 180px !important; 
-    height: auto !important; 
-    border-radius: var(--radius-md) !important; 
-    margin: 20px auto !important; 
-    display: block !important; 
-  } 
-  
-  #empoder section.empoder-card p {
-    color: var(--text-dark) !important;
-    font-size: 1.05rem;
+    max-width: 180px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    display: block !important;
   }
   
-  /* ==========================================================================
-     COLABORADORES E POPUPS
-     ========================================================================= */
-  .colaboradores-section { 
-    background-color: var(--azul1) !important; 
-    padding: 40px 20px !important; 
-    text-align: center; 
-    border-radius: var(--radius-lg);
-    max-width: 1200px;
-    margin: 60px auto;
-  } 
-  
-  .colaboradores-section h4 { 
-    margin: 0 0 20px 0; 
-    font-size: 1.8rem; 
-    color: #fff !important; 
-  } 
-  
-  .colaboradores { 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    background: white !important;
-    padding: 20px !important;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-  } 
-  
-  .colaboradores img { 
-    max-width: 700px; 
-    width: 100%; 
-    height: auto; 
-    display: block; 
-  } 
-  
-  #tela-login { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.7); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    z-index: 9999; 
-  } 
-  
- /* ==========================================================================
-   8. RODAPÉ FINAL (FOOTER RESTRUTURADO)
-   ========================================================================= */
-/* ==========================================================================
-   8. RODAPÉ FINAL (ESTILO CORPORATIVO PREMIUM LAPIDADO)
-   ========================================================================= */
-   footer.main-footer {
-    background: linear-gradient(135deg, #2d0f5a, #1a0636) !important; /* Gradiente profundo e sóbrio */
-    color: rgba(255, 255, 255, 0.85) !important;
-    padding: 80px 6% 35px !important;
-    margin-top: 100px;
-    font-family: "arabic", sans-serif;
-    border-top: 4px solid var(--azul1); /* Linha sutil de transição com a paleta */
+  .colaboradores-section {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .colaboradores img {
+    max-width: 100%;
+    height: auto;
   }
   
+  .main-footer {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+  }
   .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr; /* Distribuição profissional assimétrica */
-    gap: 50px;
-  }
-  
-  .footer-column h4 {
-    color: #ffffff;
-    font-size: 1.15rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-    position: relative;
-  }
-  
-  /* Marcação sutil abaixo dos subtítulos do footer */
-  .footer-column h4::after {
-    content: "";
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: var(--azul1);
-    margin-top: 6px;
-  }
-  
-  /* Tratamento da Logo interna do Footer */
-  .footer-logo-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  
-  .footer-logo-title img {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background: white;
-    padding: 2px;
-  }
-  
-  .footer-logo-title h3 {
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin: 0;
-  }
-  
-  .footer-about p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    opacity: 0.75;
-  }
-  
-  /* Links Rápidos com Efeito Slide de Linha */
-  .footer-links ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start; /* Corrige alinhamento */
-  }
-  
-  .footer-links ul li a {
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 0; /* Limpa paddings antigos */
-    position: relative;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-links ul li a::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--azul1);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  .footer-links ul li a:hover {
-    color: #ffffff;
-    background-color: transparent; /* Anula heranças */
-  }
-  
-  .footer-links ul li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-  
-  /* Coluna de Contato e Ícones Redes */
-  .footer-contact .institution-tag {
-    font-size: 0.95rem;
-    margin-bottom: 16px;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* Força o container das redes sociais a ficar lado a lado */
-  .footer-contact .redes-sociais {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 12px !important;
-    justify-content: flex-start !important;
-    margin-top: 15px !important;
-    padding: 0 !important;
-    list-style: none !important;
-  }
-  
-  /* Remove qualquer herança de tag img antiga */
-  .redes-sociais a img {
-    display: none !important;
-  }
-  
-  /* Transforma as esferas em containers de texto perfeitos, circulares e brancos */
-  .redes-sociais a {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 40px !important;
-    height: 40px !important;
-    background-color: rgba(255, 255, 255, 0.15) !important; /* Esfera translúcida sutil */
-    border-radius: 50% !important;
-    text-decoration: none !important;
-    color: #ffffff !important; /* Força o texto interno (YT/IG) a ficar branco */
-    font-size: 0.85rem !important; /* Proporção ideal para as siglas */
-    font-weight: 700 !important;
-    letter-spacing: 0px !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
-  
-  /* Efeito Hover Premium individual para cada botão */
-  .redes-sociais a.icon-yt:hover {
-    background-color: #ff0000 !important; /* Vermelho do YouTube */
-    color: #ffffff !important;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
-  }
-  
-  .redes-sociais a.icon-insta:hover {
-    background-color: #e1306c !important; /* Rosa do Instagram */
-    color: #ffffff !important;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
-  }
-  
-  /* Divisores e Base */
-  .footer-divider {
-    border: 0;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 50px auto 25px;
-  }
-  
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    font-size: 0.85rem;
-    opacity: 0.65;
-    padding-top: 10px;
-  }
-  
-  .footer-credits a {
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
-    transition: var(--transition);
-  }
-  
-  .footer-credits a:hover {
-    color: var(--azul3);
-    border-bottom-color: var(--azul3);
-  }
-  
-  /* Ajustes de Responsividade do Novo Layout */
-  @media (max-width: 900px) {
-    .footer-container {
-      grid-template-columns: 1fr;
-      gap: 35px;
-      text-align: center;
-    }
-    .footer-logo-title, .footer-links ul {
-      justify-content: center;
-      align-items: center;
-    }
-    .footer-column h4::after {
-      margin: 6px auto 0;
-    }
-    .footer-contact .redes-sociais {
-      justify-content: center !important;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-  }
-  
-  
-  /* Ajustes de Responsividade do Novo Layout */
-  @media (max-width: 900px) {
-    .footer-container {
-      grid-template-columns: 1fr;
-      gap: 35px;
-      text-align: center;
-    }
-    .footer-logo-title, .footer-links ul {
-      justify-content: center;
-      align-items: center;
-    }
-    .footer-column h4::after {
-      margin: 6px auto 0;
-    }
-    .footer-contact .institution-tag {
-      justify-content: center;
-    }
-    .redes-sociais {
-      justify-content: center;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-  }
-  
-
-/* Responsividade do Novo Footer */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
     gap: 30px;
   }
-  .footer-brand-info, .footer-social-box {
-    max-width: 100%;
-    text-align: center;
-  }
-  .footer-social-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-  /* ==========================================================================
-     MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
-     ========================================================================= */
-  @media (max-width: 1024px) {
-    header.site-header {
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
-  }
-  
-  @media (max-width: 900px) { 
-    #toma { 
-      grid-template-columns: 1fr; 
-      text-align: center; 
-      padding: 24px;
-    } 
-    #toma h1, #toma img, #toma section:nth-of-type(1), #toma section:nth-of-type(2) { 
-      grid-column: auto; 
-    } 
-    #toma img { 
-      max-width: 220px; 
-      order: -1;
-    } 
-    .hero-content h1 { font-size: 32px; } 
-  } 
-  
-  @media (max-width: 768px) { 
-    #escolhe, .team-grid-layout { grid-template-columns: 1fr; } 
-    #saneamento h1 { font-size: 28px; } 
-  } 
-  
-  @media (max-width: 600px) { 
-    .hero { height: 380px; } 
-    .hero-content h1 { font-size: 24px; } 
-    .san-item summary { font-size: 1rem; padding: 15px !important; } 
-  } 
-  
-  @media (max-width: 480px) { 
-    #toma, #escolhe, #saneamento, #empoder { 
-      width: 95%; 
-      margin: 15px auto; 
-      padding: 15px; 
-    } 
-    .hero-content h1 { font-size: 20px; } 
-  }
-/* ==========================================================================
-   POSICIONAMENTO ESTRATÉGICO INTEGRADO DE ACESSIBILIDADE
-   ========================================================================= */
-
-/* UserWay: Fixo no topo direito, logo abaixo da barra de navegação */
-#userwayAccessibilityWidget, 
-.uwy {
-  z-index: 999999 !important;
-  top: 95px !important;    /* Desce o botão para não tampar a barra roxa de login */
-  right: 24px !important;  /* Alinha com a margem da sua página */
-  left: auto !important;
-}
-
-/* VLibras: Fixo no canto inferior esquerdo (Livre de obstruções) */
-div[vw], 
-[vw], 
-.enabled[vw] {
-  z-index: 999999 !important;
-  position: fixed !important;
-  top: auto !important;
-  bottom: 120px !important; /* Deixa o ícone flutuando logo acima do início do rodapé */
-  left: 24px !important;    /* Fixa no canto esquerdo limpo da tela */
-  right: auto !important;
-  transform: none !important;
-}
+  .footer-column { flex: 1; min-width: 250px; }
+  .footer-logo-title { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+  .footer-logo-title img { width: 40px; height: 40px; border-radius: 50%; }
+  .footer-links ul { list-style: none; }
+  .footer-links ul li { margin-bottom: 10px; }
+  .footer-links ul li a { color: #ccc; text-decoration: none; }
+  .footer-links ul li a:hover { color: #34B484; }
+  .redes-sociais a { color: #fff; text-decoration: none; margin-right: 15px; font-weight: bold; }
+  .redes-sociais a:hover { color: #34B484; }
+  .footer-divider { border: 0; border-top: 1px solid #333; margin: 30px 0; }
+  .footer-bottom { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; color: #aaa; font-size: 0.9rem; }
+  .footer-credits a { color: #34B484; text-decoration: none; }
