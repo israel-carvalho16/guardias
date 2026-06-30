@@ -14,8 +14,11 @@ import java.util.Optional;
 @Controller
 public class ControllerAd {
 
-    @Autowired
-    private Repository_admin repositoryAdmin;
+    private final Repository_admin repositoryAdmin;
+
+    ControllerAd(Repository_admin repositoryAdmin) {
+        this.repositoryAdmin = repositoryAdmin;
+    }
 
     @GetMapping("/AdminForm")
     public String abrirPagina() {
