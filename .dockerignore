@@ -1,0 +1,14 @@
+target/
+.git/
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+node_modules/
+package-lock.json
+package.json
+uploads/
+.gitignore
+.hintrc
+REQUISITOS_ALUNOS.md
