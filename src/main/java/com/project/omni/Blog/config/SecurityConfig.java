@@ -44,7 +44,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // 1. Recursos estáticos livres de mídia e estilização
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/Font/**", "/video/**", "/uploads/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/Font/**", "/video/**", "/uploads/**", "/Núcleo - Juazeiro do Norte-CE/Saúde em ação/**", "/Núcleo - Uberlândia-MG/Evento - Dia da água (22-03) - OK/**", "/Núcleo - Uberlândia-MG/Evento - Mostra Extencionista da biologia (26-04)").permitAll()
 
                 // 2. Apenas rotas lógicas limpas na lista de requisições permitidas
                 .requestMatchers("/", "/login", "/register", "/pagina1", "/AdminForm", "/admin-dashboard",

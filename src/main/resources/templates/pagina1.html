@@ -5,16 +5,14 @@
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>Guardiãs das Águas</title> 
-  <!-- Widgets de Acessibilidade -->
-   <script src="https://userway.org" data-account="WkxSCXRUll"></script>
-  <!-- Arquivos JavaScript do Projeto Corrigido -->
+  
   <script th:src="@{/js/home.js}" defer></script>
-    <!-- CORRIGIDO: Agora o Java busca o script dentro do fluxo correto de arquivos estáticos -->
+    
   <script th:src="@{/js/inicio.js}" defer></script>
-
-  <!-- Biblioteca FontAwesome -->
+  <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
+  
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Arquivo CSS Único Corrigido -->
+  
   <link rel="stylesheet" th:href="@{/css/inicio.css}">
 </head> 
 <body> 
@@ -26,12 +24,11 @@
   </div>
 
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
+  <script style="float: left;">
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  <!-- CABEÇALHO GLOBAL (HEADER) -->
-    <!-- CABEÇALHO GLOBAL (HEADER) -->
+  
   <header class="site-header"> 
     <div class="header-brand">
       <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 1. DECLARAÇÃO DO THYMELEAF INSERIDA PARA ERRO ZERO -->
+
 <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
 <head>
@@ -7,23 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contato - Guardiãs das Águas</title>
 
-  <!-- Widgets de Acessibilidade Estáveis -->
+  
   <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
   
-  <!-- 2. Arquivos JavaScript corrigidos com caminhos do Thymeleaf -->
+  
   <script th:src="@{/js/home.js}" defer></script>
   <script th:src="@{/js/contato.js}" defer></script>
 
-  <!-- Biblioteca FontAwesome obrigatória para ícones -->
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- 3. Folhas de estilo mapeadas diretamente a partir de static -->
+  
   <link rel="stylesheet" th:href="@{/css/Inicio.css}">
   <link rel="stylesheet" th:href="@{/css/contatos.css}">
 </head>
 
 <body>
-  <!-- Componente de Acessibilidade VLibras -->
+  
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -40,7 +40,7 @@
     }
   </script>
 
-  <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
+  
   <header class="site-header" role="banner"> 
     <div class="header-brand">
       <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
@@ -66,7 +66,7 @@
       </ul>
     </nav> 
 
-    <!-- BOTÕES DE AÇÃO UNIFICADOS E SINCRONIZADOS COM A SEGURANÇA -->
+    
     <div class="auth-actions">
       <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
       <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
@@ -74,7 +74,7 @@
   </header>
 
 
-  <!-- CONTEÚDO PRINCIPAL (PORTAL DE ATENDIMENTO CENTRALIZADO) -->
+  
   <main class="contatos-page-container" id="conteudo-principal" role="main">
     
     <section class="contact-section">
@@ -234,10 +234,10 @@
 
     </div>
 
-    <!-- Linha Divisória de Acabamento -->
+   
     <hr class="footer-divider">
 
-    <!-- Base do Footer com Créditos -->
+    
     <div class="footer-bottom">
       <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
       <p class="footer-credits">
