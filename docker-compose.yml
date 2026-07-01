@@ -9,8 +9,10 @@ services:
       - guardias2-uploads:/app/uploads
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-soft-term-apur2p4j-pooler.c-7.us-east-1.aws.neon.tech/neondb?ssl=true&sslmode=require
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=neondb_owner
       - SPRING_DATASOURCE_PASSWORD=npg_WmdS1V5PrLGg
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
       - JWT_SECRET=D6$$PG38^RDbQXu%4^J8XmpfP4!i9apBh
     restart: unless-stopped
 
