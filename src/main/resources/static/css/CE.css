@@ -621,7 +621,8 @@ height: 280px !important;
 border-radius: 50% !important;
 object-fit: cover !important;
 border: 3px solid var(--azul2) !important;
-margin-left: 325px;
+display: block;
+margin: auto;
 }
 
 
