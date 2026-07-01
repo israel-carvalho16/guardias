@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Desenvolvedor | Omni Blog</title>
-    
+   
     <!-- Font Awesome para os ícones modernos do painel -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
     <link href="https://jsdelivr.net" rel="stylesheet">
     <script src="https://jsdelivr.net"></script>
 
+
     <!-- CORRIGIDO COM THYMELEAF: Vinculação correta e segura da folha de estilos -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    
+   
     <script>
         // Captura o token vindo da URL imediatamente e salva no LocalStorage
         const urlParams = new URLSearchParams(window.location.search);
@@ -30,14 +32,15 @@
         // Trava local de segurança baseada no fluxo de tempo estável
         setTimeout(() => {
             if (!localStorage.getItem('token')) {
-                window.location.href = '/'; 
+                window.location.href = '/';
             }
         }, 300);
     </script>
 
+
     <!-- LAYOUT CONTAINER PRINCIPAL DO DASHBOARD -->
     <div class="dashboard-layout">
-        
+       
         <!-- SIDEBAR: MENU LATERAL FIXO PREMIUM -->
         <aside class="dashboard-sidebar">
             <div class="sidebar-brand">
@@ -50,18 +53,20 @@
     <a href="#" onclick="loadVolunteers()" class="nav-item" id="menu-volun"><i class="fas fa-users"></i> Voluntários</a>
     <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
     <a href="#" class="nav-item" onclick="abrirModalParaCriacao()"><i class="fas fa-plus-circle"></i> Novo Post</a>
-    
+   
     <a th:href="@{/admin/novo-admin}" class="nav-item">
         <i class="fas fa-user-plus"></i> Novo Admin
     </a>
 
+
     <button onclick="auth.logout()" class="nav-item btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Sair do Painel</button>
 </nav>
+
 
         </aside>
         <!-- ÁREA CONTEÚDO DA DIREITA -->
         <div class="dashboard-main-content">
-            
+           
             <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES -->
                        <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES COM ALTERNADOR DE MODO ESCURO -->
             <header class="dashboard-topbar">
@@ -74,11 +79,13 @@
                     <button id="dark-mode-toggle" onclick="alternarModoEscuro()" style="background: none; border: none; color: var(--roxo-secundario); font-size: 1.2rem; cursor: pointer; padding: 8px; transition: color 0.3s; display: flex; align-items: center; justify-content: center;" title="Alternar tema visual">
                         <i id="dark-mode-icon" class="fas fa-moon"></i>
                     </button>
-                    
+                   
                     <span class="user-status-badge"><i class="fas fa-circle"></i> Sistema Online</span>
                     <div class="user-avatar-text">Dev</div>
                 </div>
             </header>
+
+
 
 
             <!-- CONTEÚDO INTERNO INTERATIVO -->
@@ -87,6 +94,7 @@
                     <h1>Visão Geral do Sistema</h1>
                     <p>Gerencie as postagens das Guardiãs das Águas e acompanhe o banco Neon.</p>
                 </div>
+
 
                 <!-- CARDS DE INDICADORES / ESTATÍSTICAS RÁPIDAS -->
                 <div class="metrics-grid">
@@ -100,11 +108,12 @@
                     <div class="metric-card">
                         <div class="metric-info">
                             <span class="metric-label">Status do Banco</span>
-                            <h3 class="metric-value" style="color: #2ed573;">Neon OK</h3>
+                            <h3 class="metric-value" style="color: #2ed573;">Sistema operante funcional</h3>
                         </div>
                         <div class="metric-icon-box" style="background: rgba(46, 213, 115, 0.1); color: #2ed573;"><i class="fas fa-database"></i></div>
                     </div>
                 </div>
+
 
                 <!-- TABELA DE POSTAGENS REESTRUTURADA -->
                 <div class="panel-card-table">
@@ -131,6 +140,7 @@
         </div>
     </div>
 
+
     <!-- MODAL DE CRIAÇÃO E EDIÇÃO DE POST TOTALMENTE TURBINADO -->
     <div id="postModal" class="modal">
         <div class="modal-content" style="width: 700px; max-height: 90vh; overflow-y: auto;">
@@ -143,6 +153,7 @@
                     <label>Título do Artigo</label>
                     <input type="text" id="title" placeholder="Digite um título chamativo..." required>
                 </div>
+
 
                 <div class="form-group">
                     <label>Categoria do Assunto</label>
@@ -157,19 +168,21 @@
                     </select>
                 </div>
 
+
                 <div class="form-group">
                     <label>Imagem de Capa (Upload)</label>
                     <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
-                    
+                   
                     <div id="imagePreviewContainer" style="display: none; margin-top: 12px; width: 100%; height: 180px; border-radius: 8px; overflow: hidden; border: 2px dashed #5c2d91;">
                         <img id="imagePreviewElement" src="" alt="Pré-visualização" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                
+               
                 <div class="form-group">
                     <label>Conteúdo Avançado do Artigo</label>
                     <div id="editor-container" style="height: 200px; background: #fff; border-radius: 0 0 8px 8px;"></div>
                 </div>
+
 
                 <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
                     <button type="button" class="btn-action-delete" style="background-color: #718096;" onclick="toggleModal()">Cancelar</button>
@@ -207,20 +220,22 @@
             console.error("Erro ao inicializar o Quill:", err);
         }
 
+
         // Variável de controle global para identificar se é Criação ou Edição
         let idDoPostSendoEditado = null;
+
 
         // Alternador de estados de exibição do Modal Gerencial
         function toggleModal() {
             const modal = document.getElementById('postModal');
             if (modal) {
                 modal.classList.toggle('active');
-                
+               
                 if (!modal.classList.contains('active')) {
                     document.getElementById('imagePreviewContainer').style.display = 'none';
                     document.getElementById('imagePreviewElement').src = '';
                     if (quill) {
-                        quill.setContents([]); 
+                        quill.setContents([]);
                     } else if (document.getElementById('fallback-editor')) {
                         document.getElementById('fallback-editor').value = '';
                     }
@@ -229,6 +244,7 @@
                 }
             }
         }
+
 
         // Força o modal a abrir configurado para um NOVO post
         function abrirModalParaCriacao() {
@@ -239,24 +255,26 @@
             toggleModal();
         }
 
+
         // Busca o post na API e preenche o modal pronto para Edição
         async function abrirModalParaEdicao(id) {
             idDoPostSendoEditado = id;
             try {
                 const post = await api.getPost(id);
-                
+               
                 document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Postagem';
                 document.getElementById('btnSubmitForm').innerText = 'Salvar Alterações';
                 document.getElementById('imageFile').required = false;
-                
+               
                 document.getElementById('title').value = post.title || '';
                 document.getElementById('category').value = post.category || '';
-                
+               
                 if (quill) {
                     quill.root.innerHTML = post.content || '';
                 } else if (document.getElementById('fallback-editor')) {
                     document.getElementById('fallback-editor').value = post.content || '';
                 }
+
 
                 if (post.imageUrl) {
                     const previewElement = document.getElementById('imagePreviewElement');
@@ -264,20 +282,23 @@
                     document.getElementById('imagePreviewContainer').style.display = 'block';
                 }
 
+
                 const modal = document.getElementById('postModal');
                 if (modal) modal.classList.add('active');
+
 
             } catch (error) {
                 alert("Erro ao coletar dados para edição: " + error.message);
             }
         }
 
+
         // Sistema dinâmico de pré-visualização de imagem
         function previewImage(event) {
             const reader = new FileReader();
             const container = document.getElementById('imagePreviewContainer');
             const element = document.getElementById('imagePreviewElement');
-            
+           
             reader.onload = function() {
                 if (reader.readyState === 2) {
                     element.src = reader.result;
@@ -289,6 +310,7 @@
             }
         }
 
+
         // Validação de segurança estrutural na carga da página
         document.addEventListener('DOMContentLoaded', () => {
             const tokenValido = localStorage.getItem('token');
@@ -296,7 +318,7 @@
                 window.location.href = '/';
                 return;
             }
-            loadPosts(); 
+            loadPosts();
             configurarFiltroTabela();
         });
         // Coleta os registros do banco Neon e atualiza o painel com Badges Coloridas
@@ -305,11 +327,12 @@
             const totalMetric = document.getElementById('metric-total-posts');
             if (!tbody) return;
 
+
             try {
                 const posts = await api.getPosts();
                 if (posts && Array.isArray(posts)) {
                     totalMetric.innerText = posts.length;
-                    
+                   
                     tbody.innerHTML = posts.map(post => {
                         let dataExibicao = "Data indisponível";
                         try {
@@ -326,37 +349,40 @@
                             dataExibicao = new Date().toLocaleDateString('pt-BR');
                         }
 
+
                         const categoria = post.category || post.categoria || 'Geral';
-                        let corFundo = '#718096'; 
+                        let corFundo = '#718096';
                         let corTexto = '#ffffff';
+
 
                         switch(categoria.toLowerCase().trim()) {
                             case 'clima':
-                                corFundo = '#e0f2fe'; 
+                                corFundo = '#e0f2fe';
                                 corTexto = '#0369a1';
                                 break;
                             case 'recursos hidricos':
                             case 'recursos hídricos':
-                                corFundo = '#e0e7ff'; 
+                                corFundo = '#e0e7ff';
                                 corTexto = '#4338ca';
                                 break;
                             case 'sustentabilidade':
-                                corFundo = '#dcfce7'; 
+                                corFundo = '#dcfce7';
                                 corTexto = '#15803d';
                                 break;
                             case 'saneamento':
-                                corFundo = '#fef3c7'; 
+                                corFundo = '#fef3c7';
                                 corTexto = '#b45309';
                                 break;
                             case 'eventos':
-                                corFundo = '#f3e8ff'; 
+                                corFundo = '#f3e8ff';
                                 corTexto = '#6b21a8';
                                 break;
                             case 'avisos':
-                                corFundo = '#fee2e2'; 
+                                corFundo = '#fee2e2';
                                 corTexto = '#991b1b';
                                 break;
                         }
+
 
                         return `
                             <tr>
@@ -391,87 +417,57 @@
                 totalMetric.innerText = "Erro";
             }
         }
+        
         // Envio estruturado do formulário (Suporta criação com POST e edição com PUT)
-        async function handlePostSubmit(event) {
-            event.preventDefault();
+async function handlePostSubmit(event) {
+    event.preventDefault();
+    
+    let HTMLDoConteudo = "";
+    if (quill) {
+        HTMLDoConteudo = quill.getSemanticHTML();
+    } else if (document.getElementById('fallback-editor')) {
+        HTMLDoConteudo = document.getElementById('fallback-editor').value;
+    }
+
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('category', document.getElementById('category').value);
+    formData.append('content', HTMLDoConteudo);
+    
+    const fileInput = document.getElementById('imageFile');
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+        formData.append('image', fileInput.files.item(0));
+    }
+
+    try {
+        const token = localStorage.getItem('token');
+        
+        
+        let url = '/posts';
+        let metodo = 'POST';
+
+        if (idDoPostSendoEditado !== null) {
             
-            let HTMLDoConteudo = "";
-            if (quill) {
-                HTMLDoConteudo = quill.getSemanticHTML();
-            } else if (document.getElementById('fallback-editor')) {
-                HTMLDoConteudo = document.getElementById('fallback-editor').value;
-            }
-
-            const formData = new FormData();
-            formData.append('title', document.getElementById('title').value);
-            formData.append('category', document.getElementById('category').value);
-            formData.append('content', HTMLDoConteudo); 
-            
-            const fileInput = document.getElementById('imageFile');
-            if (fileInput && fileInput.files && fileInput.files.length > 0) {
-                formData.append('image', fileInput.files.item(0)); 
-            }
-
-            try {
-                const token = localStorage.getItem('token');
-                let url = '/api/posts';
-                let metodo = 'POST';
-
-                if (idDoPostSendoEditado !== null) {
-                    url = `/api/posts/${idDoPostSendoEditado}`;
-                    metodo = 'PUT';
-                }
-
-                const response = await fetch(url, {
-                    method: metodo,
-                    headers: { 'Authorization': `Bearer ${token}` },
-                    body: formData
-                });
-
-                if (!response.ok) throw new Error('Servidor recusou a operação.');
-
-                alert(idDoPostSendoEditado !== null ? "Postagem atualizada com sucesso!" : "Nova postagem publicada com sucesso!");
-                toggleModal();
-                loadPosts(); 
-            } catch (error) {
-                alert("Erro ao processar postagem: " + error.message);
-            }
+            url = `/posts/${idDoPostSendoEditado}`;
+            metodo = 'PUT';
         }
 
-        // Remoção física de postagens
-        async function deletePost(id) {
-            if (confirm('Tem certeza que deseja excluir esta postagem permanentemente?')) {
-                try {
-                    await api.deletePost(id);
-                    loadPosts(); 
-                } catch (error) {
-                    alert("Erro ao deletar postagem: " + error.message);
-                }
-            }
-        }
+        const response = await fetch(url, {
+            method: metodo,
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: formData
+        });
 
-        // Filtro em tempo real para a barra de pesquisa do painel admin
-        function configurarFiltroTabela() {
-            const searchInput = document.getElementById('panel-search-input');
-            if (!searchInput) return;
+        if (!response.ok) throw new Error('Servidor recusou a operação.');
 
-            searchInput.addEventListener('input', (e) => {
-                const termo = e.target.value.toLowerCase().trim();
-                const linhas = document.querySelectorAll('#postTableBody tr');
+        alert(idDoPostSendoEditado !== null ? "Postagem atualizada com sucesso!" : "Nova postagem publicada com sucesso!");
+        toggleModal();
+        loadPosts();
+    } catch (error) {
+        alert("Erro ao processar postagem: " + error.message);
+    }
+}
 
-                linhas.forEach(linha => {
-                    const tituloCelula = linha.querySelector('.td-title-bold'); 
-                    if (tituloCelula) {
-                        const textoTitulo = tituloCelula.textContent.toLowerCase();
-                        if (textoTitulo.includes(termo)) {
-                            linha.style.display = "";
-                        } else {
-                            linha.style.display = "none";
-                        }
-                    }
-                });
-            });
-        }
 
         // ==========================================================================
         // MOTOR DE CONTROLE DO MODO ESCURO (DARK MODE)
@@ -479,29 +475,30 @@
         function alternarModoEscuro() {
             const body = document.body;
             const icone = document.getElementById('dark-mode-icon');
-            
+           
             body.classList.toggle('dark-theme');
-            
+           
             if (body.classList.contains('dark-theme')) {
                 localStorage.setItem('painel-tema', 'escuro');
                 if (icone) {
-                    icone.className = 'fas fa-sun'; 
+                    icone.className = 'fas fa-sun';
                     icone.style.color = '#f1c40f';  
                 }
             } else {
                 localStorage.setItem('painel-tema', 'claro');
                 if (icone) {
-                    icone.className = 'fas fa-moon'; 
+                    icone.className = 'fas fa-moon';
                     icone.style.color = 'var(--purple-muted)';
                 }
             }
         }
 
+
         function aplicarTemaSalvo() {
             const temaSalvo = localStorage.getItem('painel-tema');
             const body = document.body;
             const icone = document.getElementById('dark-mode-icon');
-            
+           
             if (temaSalvo === 'escuro') {
                 body.classList.add('dark-theme');
                 if (icone) {
@@ -521,8 +518,9 @@
             const tbody = document.getElementById('postTableBody');
             const cardHeaderTitle = document.querySelector('.table-card-header h2');
             const btnCreate = document.querySelector('.btn-create-fast');
-            
+           
             if (!tbody) return;
+
 
             // Gerencia os estados visuais dos botões do menu lateral (Active/Inactive)
             const menuDash = document.getElementById('menu-noticias');
@@ -530,9 +528,11 @@
             if (menuDash) menuDash.classList.remove('active');
             if (menuVol) menuVol.classList.add('active');
 
+
             try {
                 if (cardHeaderTitle) cardHeaderTitle.innerText = "Candidatos a Voluntários";
-                if (btnCreate) btnCreate.style.display = "none"; 
+                if (btnCreate) btnCreate.style.display = "none";
+
 
                 const thLinha = document.querySelector('.table thead tr');
                 if (thLinha) {
@@ -543,18 +543,20 @@
                     `;
                 }
 
+
                 const token = localStorage.getItem('token');
-                
+               
                 // REESTRUTURAÇÃO COMPLETA DA CHAMADA CONTRA O ERRO 400
                 // Adicionada a barra final '/' na rota e simplificado os cabeçalhos para o padrão puro aceito pelo Spring
                 const response = await fetch('/api/admin/voluntarios/', {
-                    headers: { 
+                    headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                
+               
                 if (!response.ok) throw new Error("Acesso recusado pelo Spring Security (Status " + response.status + ")");
                 const voluntarios = await response.json();
+
 
                 // Garante que temos uma lista válida para iterar
                 if (voluntarios && Array.isArray(voluntarios) && voluntarios.length > 0) {
@@ -564,10 +566,12 @@
                         const linksVoluntario = v.links || "Sem informações adicionais.";
                         const statusVoluntario = (v.status || "PENDENTE").toUpperCase().trim();
 
-                        let corBadge = "#b45309"; 
+
+                        let corBadge = "#b45309";
                         let bgBadge = "#fef3c7";
                         if (statusVoluntario === "APROVADO") { corBadge = "#15803d"; bgBadge = "#dcfce7"; }
                         if (statusVoluntario === "RECUSADO") { corBadge = "#991b1b"; bgBadge = "#fee2e2"; }
+
 
                         return `
                             <tr>
@@ -585,7 +589,7 @@
                                         <span style="background-color: ${bgBadge}; color: ${corBadge}; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-right: 8px;">
                                             ${statusVoluntario}
                                         </span>
-                                        
+                                       
                                         <button onclick="alterarStatusVoluntario(${v.id}, 'APROVADO')" style="background-color: #2ed573; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; transition: opacity 0.2s;">
                                             <i class="fas fa-check"></i>
                                         </button>
@@ -607,6 +611,8 @@
         }
 
 
+
+
                 /**
          * Altera o status do voluntário direto na rota PUT do Spring Boot com Token de Segurança
               /**
@@ -615,35 +621,38 @@
         async function alterarStatusVoluntario(id, novoStatus) {
             try {
                 const token = localStorage.getItem('token');
-                
+               
                 const response = await fetch(`/api/admin/voluntarios/${id}/status?status=${novoStatus}`, {
                     method: 'PUT',
-                    headers: { 
-                        'Authorization': `Bearer ${token}` 
+                    headers: {
+                        'Authorization': `Bearer ${token}`
                     }
                 });
 
+
                 if (!response.ok) throw new Error("Operação recusada pelo Spring Security");
-                
+               
                 alert(`Voluntário atualizado para o status: ${novoStatus}!`);
-                loadVolunteers(); 
+                loadVolunteers();
             } catch (error) {
                 alert("Erro na operação: " + error.message);
             }
         }
 
+
         function exibirAbaDashboardNoticias() {
             const tbody = document.getElementById('postTableBody');
             const cardHeaderTitle = document.querySelector('.table-card-header h2');
             const btnCreate = document.querySelector('.btn-create-fast');
-            
+           
             const menuDash = document.getElementById('menu-noticias');
             const menuVol = document.getElementById('menu-volun');
             if (menuDash) menuDash.classList.add('active');
             if (menuVol) menuVol.classList.remove('active');
-            
+           
             if (cardHeaderTitle) cardHeaderTitle.innerText = "Artigos Publicados";
             if (btnCreate) btnCreate.style.display = "block";
+
 
             const thLinha = document.querySelector('.table thead tr');
             if (thLinha) {
@@ -658,3 +667,6 @@
     </script>
 </body>
 </html>
+
+
+
