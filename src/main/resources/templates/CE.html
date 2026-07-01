@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Núcleo CE - Guardiãs das Águas</title>
 
+
   <!-- Widgets de Acessibilidade -->
   <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
-  
+ 
   <!-- Arquivo JavaScript Unificado -->
   <script th:src="@{/js/home.js}" defer></script>
+
 
   <!-- Biblioteca FontAwesome obrigatória para os ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+
   <!-- Links de Folhas de Estilo Ajustados e Integrados -->
-  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+ 
   <link rel="stylesheet" th:href="@{/css/CE.css}">
   <style>
     .animar-texto span {
@@ -25,6 +29,7 @@
     }
   </style>
 </head>
+
 
 <body>
   <!-- Componente de Acessibilidade VLibras -->
@@ -38,32 +43,34 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-  
+ 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER COMPARTILHADO) -->
-  <header class="site-header" role="banner"> 
+  <header class="site-header" role="banner">
     <div class="header-brand">
-      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
-      <h2>Guardiãs das Águas</h2> 
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+      <h2>Guardiãs das Águas</h2>
     </div>
 
-    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
-      <ul class="nav-links"> 
-        <li><a th:href="@{/pagina1}">Início</a></li> 
-        <li><a th:href="@{/noticias}">Notícias</a></li> 
-        <li><a th:href="@{/projeto}">Projetos</a></li> 
-        <li><a th:href="@{/evento}">Eventos</a></li> 
-        <li class="dropdown-item"> 
-          <details> 
-            <summary id="Nucleos">Nossos Núcleos</summary> 
+
+    <nav class="header-nav" role="navigation" aria-label="Navegação principal">
+      <ul class="nav-links">
+        <li><a th:href="@{/pagina1}">Início</a></li>
+        <li><a th:href="@{/noticias}">Notícias</a></li>
+        <li><a th:href="@{/projeto}">Projetos</a></li>
+        <li><a th:href="@{/evento}">Eventos</a></li>
+        <li class="dropdown-item">
+          <details>
+            <summary id="Nucleos">Nossos Núcleos</summary>
             <div class="dropdown-content" role="menu">
-              <a th:href="@{/mg}" role="menuitem">MG</a> 
-              <a th:href="@{/ce}" role="menuitem">CE</a> 
+              <a th:href="@{/mg}" role="menuitem">MG</a>
+              <a th:href="@{/ce}" role="menuitem">CE</a>
             </div>
-          </details> 
-        </li> 
-        <li><a th:href="@{/contatos}">Contato</a></li> 
+          </details>
+        </li>
+        <li><a th:href="@{/contatos}">Contato</a></li>
       </ul>
-    </nav> 
+    </nav>
+
 
     <!-- Botões unificados com as rotas permitidas do SecurityConfig -->
     <div class="auth-actions">
@@ -72,13 +79,16 @@
     </div>
   </header>
 
+
   <!-- ESPAÇADOR DE SEGURANÇA CONTRA OBSTRUÇÃO DO HEADER -->
   <div style="margin-top: 110px;"></div>
 
+
   <main class="team-container-block">
-    
+   
     <!-- TÍTULO PRINCIPAL DE ACORDO COM AS DIRETRIZES DO ROOT -->
     <h1 class="titulo-centralizado">Núcleo Juazeiro do Norte — CE</h1>
+
 
     <!-- CARD INTRODUTÓRIO INTEGRADO AO LAYOUT DE CARD CORPORATIVO -->
     <section class="team-card-item" style="text-align: left; margin-bottom: 40px !important;">
@@ -86,19 +96,30 @@
         <p style="font-size: 1.1rem; line-height: 1.7; margin: 0;">
           O projeto <strong>Guardiãs das Águas</strong> promove a preservação dos recursos hídricos, formando jovens — especialmente mulheres — como agentes multiplicadoras de conhecimento ambiental no Ceará. Por meio da educação e da prática laboratorial, incentivamos o uso consciente da água e o engajamento da comunidade na proteção desse recurso essencial.
         </p>
-        <img th:src="@{/Núcleo - Juazeiro do Norte-CE/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg}" alt="Núcleo Juazeiro do Norte" style="width: 100% !important; max-height: 480px !important; border-radius: 16px; object-fit: cover; margin-top: 10px;">
+       
+        <!-- Container adicionado para centralizar a imagem perfeitamente -->
+        <div class="image-center-wrapper">
+          <img th:src="@{/Núcleo - Juazeiro do Norte-CE/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg}" alt="Núcleo Juazeiro do Norte">
+        </div>
       </div>
+    </section>
+   
     <!-- SEÇÃO "O QUE FAZEMOS" REESTRUTURADA PARA ACCORDIONS INTERATIVOS PREMIUM -->
-    <section id="saneamento" style="margin: 40px auto;">
+    <section id="saneamento" style="margin: 40px auto;"></section>
+   
+    <!-- SEÇÃO "O QUE FAZEMOS" REESTRUTURADA PARA ACCORDIONS INTERATIVOS PREMIUM -->
+    <section id="saneamento" style="margin: 40px auto;"></section>
+   
       <h2 class="section-title" style="font-size: 1.8rem; text-align: left; margin-bottom: 20px;">O que fazemos</h2>
-      
+     
       <div class="saneamento-section">
-        
+       
         <!-- Item 1: Saneamento Básico -->
         <details class="san-item">
           <summary>Saneamento básico</summary>
           <p>Análise aprofundada dos impactos ambientais e sociais causados pela falta de infraestrutura e saneamento na região.</p>
         </details>
+
 
         <!-- Item 2: Ecotoxicologia -->
         <details class="san-item">
@@ -106,11 +127,13 @@
           <p>Realização de testes práticos com germinação de sementes para avaliar e monitorar biologicamente a qualidade da água do Riacho das Timbaúbas.</p>
         </details>
 
+
         <!-- Item 3: Análise de Dados -->
         <details class="san-item">
           <summary>Análise de dados</summary>
           <p>Processamento e criação de gráficos estatísticos e visualizações dinâmicas e acessíveis para catalogar as condições dos recursos hídricos.</p>
         </details>
+
 
         <!-- Item 4: Divulgação Científica -->
         <details class="san-item">
@@ -118,8 +141,10 @@
           <p>Tradução do conhecimento acadêmico em uma comunicação clara, didática e de livre acesso para conscientizar toda a comunidade local.</p>
         </details>
 
+
       </div>
     </section>
+
 
     <!-- SEÇÃO IMPACTO ADAPTADA AO DESIGN DE CARTÃO FLUTUANTE DE ALTA UI -->
     <section class="team-card-item" style="text-align: left; margin-top: 40px !important; border-left: 4px solid var(--roxo-principal) !important; background: #f8f6fc !important;">
@@ -129,7 +154,9 @@
       </p>
     </section>
 
+
   </main>
+
 
   <!-- SEÇÃO DE COLABORADORES UNIFICADA -->
   <section class="colaboradores-section" aria-labelledby="titulo-colaboradores">
@@ -139,10 +166,11 @@
     </div>
   </section>
 
+
   <!-- RODAPÉ CORPORATIVO PREMIUM GRADIENTE INTEGRAÇÃO THYMELEAF -->
   <footer class="main-footer" role="contentinfo">
     <div class="footer-container">
-      
+     
       <!-- Coluna 1: Sobre -->
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
@@ -151,6 +179,7 @@
         </div>
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
       </div>
+
 
       <!-- Coluna 2: Navegação Sincronizada -->
       <div class="footer-column footer-links">
@@ -163,6 +192,7 @@
         </ul>
       </div>
 
+
       <!-- Coluna 3: Redes Sociais Esferas -->
       <div class="footer-column footer-contact">
         <h4>Institucional</h4>
@@ -173,9 +203,12 @@
         </div>
       </div>
 
+
     </div>
 
+
     <hr class="footer-divider">
+
 
     <div class="footer-bottom">
       <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
@@ -184,6 +217,7 @@
       </p>
     </div>
   </footer>
+
 
   <!-- ESTILOS INTEGRADOS DE ACESSIBILIDADE ENVIADOS -->
   <style>
@@ -204,5 +238,9 @@
     }
   </style>
 
+
 </body>
 </html>
+
+
+
