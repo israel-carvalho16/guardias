@@ -53,11 +53,18 @@ public class SecurityConfig {
                 // 3. Liberação total para as visualizações de páginas da pasta /admin
                 .requestMatchers("/admin/**").permitAll() 
                 
-                // 4. Endpoints públicos da API do Blog
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/posts/**").permitAll() 
+                // Se o seu AuthController também perdeu o prefixo /api, use "/auth/**"
+                .requestMatchers("/api/auth/**", "/auth/**").permitAll() 
+                
+                // Libera os métodos GET públicos de posts e comentários (Visualização do Blog)
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/posts/**", "/comments/**").permitAll()
+                
+                // Bloqueia modificações (POST, PUT, DELETE) para exigir autenticação JWT válida
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/posts/**", "/comments/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/posts/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/posts/**", "/comments/**").authenticated()
 
-                // CORREÇÃO CRÍTICA: Alinha a rota com as permissões permitidas do painel administrativo
+                // Mantém regras legadas se houver outros controllers admin
                 .requestMatchers("/api/admin/**").permitAll()
                 
                 .anyRequest().authenticated()

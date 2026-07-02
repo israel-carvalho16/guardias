@@ -865,44 +865,337 @@ header.site-header.header-scrolled {
     border-bottom-color: var(--azul3);
   }
   
+/* ==========================================================================
+   MÁXIMA PERFORMANCE: UNIÃO DE TODAS AS PARTES PARA 420px x 866px
+   ========================================================================= */
+   @media (max-width: 1455px) {
 
-/* Responsividade do Novo Footer */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-    gap: 30px;
-  }
-  .footer-brand-info, .footer-social-box {
-    max-width: 100%;
-    text-align: center;
-  }
-  .footer-social-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-  /* ==========================================================================
-     MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
-     ========================================================================= */
-  @media (max-width: 1470px) {
+    /* --- GLOBAIS E ESTRUTURA BASE --- */
+    body {
+      overflow-x: hidden;
+    }
+  
+    .titulo-centralizado, .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 24px;
+    }
+  
+    /* --- CABEÇALHO GLOBAL (HEADER) --- */
     header.site-header {
+      padding: 12px 4% !important;
+    }
+  
+    header h2 {
+      font-size: 1.15rem;
+      letter-spacing: -0.3px;
+    }
+  
+    header img {
+      width: 38px;
+      height: 38px;
+    }
+    
+    header .header-brand {
+      gap: 10px;
+    }
+  
+    /* --- NAVEGAÇÃO E BOTÕES (MENU MÓVEL) --- */
+    nav ul.nav-links {
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 0 !important;
+    }
+  
+    nav ul li, #Nucleos {
+      width: 100%;
       text-align: center;
     }
-  }
   
-  @media (max-width: 799px) {
-    header.site-header {
-      position: relative;
-      
+    nav ul li a, #Nucleos {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.05rem;
+    }
+  
+    /* Dropdown sem flutuação absoluta */
+    details {
+      width: 100%;
+    }
+  
+    details .dropdown-content {
+      position: static;
+      transform: none;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin-top: 5px;
+      background-color: rgba(91, 40, 158, 0.04);
+      box-shadow: none;
+      border: 1px solid rgba(145, 164, 206, 0.2);
+      padding: 10px;
+    }
+  
+    .auth-actions {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .btn-auth {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+    }
+  
+    /* --- HERO SECTION WITH TEXT MASK --- */
+    .hero {
+      height: 390px;
+      margin-top: 60px !important;
+    }
+  
+    .hero-content {
+      padding: 0 16px !important;
+    }
+  
+    .hero-content h1 span.line-intro {
+      font-size: 0.9rem !important;
+      letter-spacing: 3px !important;
+      margin-bottom: 6px;
+    }
+  
+    .hero-content h1 span.line-impact {
+      font-size: 1.65rem !important;
+      line-height: 1.2;
+      letter-spacing: 1px !important;
+      margin-bottom: 12px;
+      -webkit-text-stroke: 1.2px #000000 !important; 
+      text-stroke: 1.2px #000000 !important;
+    }
+  
+    .hero-content h1 span.line-outro {
+      font-size: 1.05rem !important;
+      letter-spacing: 0.5px !important;
+      line-height: 1.4;
+    }
+  
+    /* --- SEÇÃO TÓPICOS --- */
+    .topicos-section {
+      padding: 30px 16px 10px;
+    }
+  
+    .topics-grid, #escolhe {
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+  
+    .card-topic, #escolhe section {
+      padding: 24px 16px !important;
+    }
+  
+    .topics-grid .card-topic .icon-box img,
+    #escolhe section img {
+      max-width: 90px !important;
+      height: 90px !important;
+    }
+  
+    /* --- SEÇÃO QUEM SOMOS (#toma) --- */
+    #toma {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+      padding: 24px 16px !important;
+      margin: 35px auto !important;
+    }
+  
+    #toma h1 {
+      grid-column: auto !important;
+      font-size: 1.7rem !important;
+    }
+  
+    #toma img {
+      grid-column: auto !important;
+      max-width: 180px !important;
+      margin: 10px auto !important;
+    }
+  
+    #toma section {
+      padding: 20px !important;
+    }
+  
+    #toma section:nth-of-type(1),
+    #toma section:nth-of-type(2) {
+      grid-column: auto !important;
+      font-size: 0.95rem !important;
+      text-align: left;
+    }
+  
+    /* --- SEÇÃO SANEAMENTO (ACCORDIONS) --- */
+    #saneamento {
+      margin: 35px auto !important;
+      padding: 0 16px;
+    }
+  
+    .saneamento-section {
+      gap: 12px;
+    }
+  
+    .san-item summary {
+      padding: 14px 16px !important;
+      font-size: 1rem !important;
+      line-height: 1.4;
+    }
+  
+    .san-item summary::after { 
+      right: 16px; 
+    }
+  
+    .san-item p, .san-item ul { 
+      padding: 16px !important;
+      font-size: 0.95rem;
+    }
+  
+    .san-item ul { 
+      padding-left: 24px !important;
+    }
+  
+    /* --- SEÇÃO EQUIPE --- */
+    .team-container-block {
+      margin: 35px auto !important;
+      padding: 0 16px;
+    }
+  
+    .team-grid-layout {
+      grid-template-columns: 1fr !important;
+      gap: 16px;
+      margin-top: 24px;
+    }
+  
+    .team-card-item {
+      padding: 24px 16px !important;
+    }
+  
+    .team-card-item h3 {
+      font-size: 1.2rem;
+    }
+  
+    .team-card-item img {
+      width: 120px !important;
+      height: 120px !important;
+    }
+  
+    .team-banner-img {
+      margin: 0 auto 24px auto !important;
+    }
+  
+    /* --- SEÇÃO EMPODERAMENTO --- */
+    #empoder { 
+      margin: 35px auto !important;
+      padding: 0 16px; 
+    } 
+  
+    #empoder section.empoder-card { 
+      padding: 30px 16px !important;
+      margin: 20px 0 !important; 
+    } 
+  
+    #empoder section.empoder-card h3 { 
+      font-size: 1.45rem;
+    } 
+  
+    #empoder section.empoder-card h4 { 
+      font-size: 1.1rem;
+      margin: 16px 0 8px; 
+    } 
+  
+    #empoder section.empoder-card p {
+      font-size: 0.95rem;
+    }
+  
+    /* --- SEÇÃO COLABORADORES E POPUP --- */
+    .colaboradores-section { 
+      margin: 35px auto !important;
+      padding: 24px 16px !important; 
+    } 
+  
+    .colaboradores-section h4 { 
+      font-size: 1.4rem; 
+    } 
+  
+    .colaboradores { 
+      padding: 12px !important;
+    } 
+  
+    #tela-login { 
+      padding: 16px; 
+    } 
+    
+    #tela-login > div, #tela-login .modal-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 20px !important;
+    }
+  
+    /* --- RODAPÉ CORPORATIVO PREMIUM (FOOTER) --- */
+    footer.main-footer {
+      padding: 40px 16px 24px !important;
+      margin-top: 50px;
+    }
+    
+    .footer-container {
+      grid-template-columns: 1fr !important;
+      gap: 32px;
+      text-align: center;
+    }
+  
+    .footer-column h4::after {
+      margin: 6px auto 0;
+    }
+  
+    .footer-logo-title {
+      justify-content: center;
+    }
+  
+    .footer-logo-title h3 {
+      font-size: 1.35rem;
+    }
+  
+    .footer-links ul {
+      align-items: center;
+    }
+  
+    .footer-links ul li a {
+      padding: 6px 0;
+      font-size: 0.9rem;
+    }
+  
+    .footer-contact .institution-tag {
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+  
+    .footer-contact .redes-sociais {
+      justify-content: center !important;
+      margin-top: 20px !important;
+      gap: 16px !important;
+    }
+  
+    .redes-sociais a.icon-yt:hover,
+    .redes-sociais a.icon-insta:hover {
+      transform: none !important; /* Desativa balanço vertical no toque */
+    }
+  
+    .footer-divider {
+      margin: 30px auto 20px;
+    }
+  
+    .footer-bottom {
+      flex-direction: column !important;
+      gap: 12px;
+      text-align: center;
+      font-size: 0.8rem;
     }
   }
-
