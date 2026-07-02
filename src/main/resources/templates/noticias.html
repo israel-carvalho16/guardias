@@ -8,11 +8,10 @@
 
   <script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
   
-  <!-- Arquivo JavaScript Unificado com caminho limpo do Thymeleaf (Mantido comentado para evitar duplicação)
-  <script th:src="@{/js/home.js}" defer></script>-->
+  
+  
 
-  <!-- Biblioteca FontAwesome corrigida para os ícones funcionarem nativamente -->
-<!-- SUBSTITUA O LINK QUEBRADO POR ESTE LINK OFICIAL DO FONTAWESOME -->
+  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
@@ -22,9 +21,14 @@
     <script src="js/api.js?v=1.2"></script>
   <script th:src="@{/js/home.js}" defer></script>
 
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script style="display: block; margin: auto;">
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </head>
 
 <body>
+
   <!-- Componente de Acessibilidade VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -32,12 +36,7 @@
       <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-
-  <!-- CDN do plugin VLibras corrigida -->
-  <script src="https://vlibras.gov.br"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br');
-  </script>
+  
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER) -->
   <header class="site-header" role="banner"> 
     <div class="header-brand">
@@ -63,6 +62,8 @@
         <li><a th:href="@{/contatos}">Contato</a></li> 
       </ul>
     </nav> 
+
+    
 
     <!-- Botões de ação alinhados com as rotas do SecurityConfig -->
     <div class="auth-actions">

@@ -1199,3 +1199,103 @@ header.site-header.header-scrolled {
       font-size: 0.8rem;
     }
   }
+
+  /* --- ESTILOS PARA COMPUTADOR --- */
+.menu-toggle {
+  display: none;
+}
+/* Remove a setinha padrão do details */
+.menu-responsivo summary::-webkit-details-marker,
+.menu-responsivo summary {
+  list-style: none;
+  display: none;
+}
+
+
+/* --- REGRAS APENAS PARA O CELULAR (MENOR QUE 768PX) --- */
+@media (max-width: 768px) {
+ 
+  .site-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    position: relative !important;
+    padding: 10px 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+
+  .header-brand {
+    max-width: 70% !important;
+  }
+
+
+  /* Mostra o container do menu */
+  .menu-responsivo {
+    display: block !important;
+  }
+
+
+  /* Transforma o resumo do details no nosso botão clicável */
+  .menu-toggle {
+    display: block !important;
+    font-size: 32px !important;
+    color: #333 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+  }
+
+
+  /* O menu de links que abre e fecha */
+  .menu-list {
+    width: 100% !important;
+    position: absolute !important;
+    top: 60px !important; /* Ajuste se o menu brotar muito embaixo */
+    left: 0 !important;
+    background-color: white !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+    z-index: 99999 !important;
+  }
+
+
+  .nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 20px !important;
+    gap: 15px !important;
+  }
+ 
+  .auth-actions, .auth-buttons {
+    display: none !important;
+  }
+}
+
+
+/* Força o ícone do UserWay a se afastar da borda direita da tela */
+/* Força o ícone do UserWay a se afastar da direita e descer na tela */
+/* Força o UserWay a descer de qualquer jeito */
+#userwayAccessibilityIcon,
+.uew-lightbox-wrapper,
+div[id^="userway"],
+.userway-accessibility-icon {
+    /* 1. Reseta o bottom caso o script esteja usando a base da tela */
+    bottom: auto !important;
+   
+    /* 2. Empurra para baixo (aumente de 350px para 500px se quiser que desça mais) */
+    top: 390px !important;  
+   
+    /* 3. Mantém ele afastado da direita para não cobrir o VLibras */
+    right: 0px !important;  
+    left: auto !important;
+
+
+    /* 4. Zera qualquer em  purrão automático do script */
+    transform: none !important;
+}
+
+
+
+
+
+  

@@ -17,7 +17,11 @@
 
   <!-- Links de Folha de Estilo Padronizados e Integrados ao Servidor -->
   <link rel="stylesheet" th:href="@{/css/Inicio.css}">
-  <link rel="stylesheet" th:href="@{/css/MG.css}">
+  
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script id="m">
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </head>
 
 <body>
@@ -28,11 +32,6 @@
       <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-
-  <script src="https://vlibras.gov.br"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br');
-  </script>
 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER COPIADO DA HOME) -->
   <header class="site-header" role="banner"> 
