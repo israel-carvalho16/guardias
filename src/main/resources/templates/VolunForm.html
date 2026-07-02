@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrição de Voluntariado - Guardiãs das Águas</title>
+    <script th:src="@{/js/Validar_CPF.js}" defer></script>
     
     <!-- Biblioteca FontAwesome obrigatória para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script th:href="@{/js/Validar_CPF.js}"></script>
-    
     <!-- 2. Arquivos CSS limpos e isolados a partir da raiz da pasta static -->
     <link rel="stylesheet" th:href="@{/css/voluntario.css}">
     <link rel="stylesheet" th:href="@{/css/formularios.css}">
@@ -53,6 +52,10 @@
                 <div class="input-field">
                     <label for="volun-email">E-mail</label>
                     <input type="email" placeholder="seuemail@exemplo.com" id="volun-email" name="email" required>
+                </div>
+
+                <div id="erro-cpf-backend" style="display: none; color: #ff4d4f; margin-bottom: 10px; font-weight: bold;">
+                    O CPF informado já está cadastrado ou é inválido no servidor.
                 </div>
 
                 <div class="input-field">
