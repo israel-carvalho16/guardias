@@ -1,10 +1,17 @@
+
 package com.project.omni.Admin;
 
+import com.project.omni.Blog.security.UserDetailsServiceImpl;
+import com.project.omni.Blog.security.jwt.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,28 +19,53 @@ import java.util.Optional;
 public class ControllerAd {
 
     private final Repository_admin repositoryAdmin;
-    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    // Injetando o PasswordEncoder configurado no SecurityConfig
-    ControllerAd(Repository_admin repositoryAdmin, PasswordEncoder passwordEncoder) {
+    ControllerAd(Repository_admin repositoryAdmin, JwtService jwtService, UserDetailsServiceImpl userDetailsService) {
         this.repositoryAdmin = repositoryAdmin;
-        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
     }
 
+    @GetMapping("/AdminForm")
+    public String abrirPagina() {
+        return "AdminForm"; 
+    }
+
+    @GetMapping("/admin-dashboard")
+    public String exibirPainel() {
+        return "admin-dashboard"; 
+    }
+
+    @GetMapping("/admin/novo-admin")
+    public String abrirPaginaCadastro() {
+        return "AdminCadastro"; 
+    }
+
+    // ADAPTADO: Agora valida estritamente usando apenas E-mail e Senha!
     @PostMapping("/admin/login-api")
-    @ResponseBody
     public ResponseEntity<?> validarLoginAdmin(@RequestBody Map<String, String> dados) {
         String email = dados.get("email") != null ? dados.get("email").trim() : "";
         String senha = dados.get("senha") != null ? dados.get("senha").trim() : "";
+
+        System.out.println("=== TENTATIVA DE LOGIN TRADICIONAL ===");
+        System.out.println("E-mail inserido: " + email);
 
         Optional<Repo> adminOpt = repositoryAdmin.findByEmail(email);
 
         if (adminOpt.isPresent()) {
             Repo admin = adminOpt.get();
             
-            // Valida a senha usando o algoritmo BCrypt
-            if (passwordEncoder.matches(senha, admin.getSenha())) {
-                return ResponseEntity.ok(Map.of("sucesso", true));
+            // Valida apenas se a senha bate com a cadastrada no Neon
+            if (admin.getSenha().trim().equals(senha)) {
+                System.out.println("Login efetuado com sucesso!");
+
+                // CORREÇÃO: Gera um token JWT real para autenticar as próximas requisições
+                UserDetails userDetails = userDetailsService.loadUserByUsername(admin.getEmail());
+                String token = jwtService.generateToken(userDetails);
+
+                return ResponseEntity.ok(Map.of("sucesso", true, "token", token));
             }
         }
 
@@ -49,8 +81,7 @@ public class ControllerAd {
         novoAdmin.setNome(nome);
         novoAdmin.setEmail(email);
         novoAdmin.setCpf(cpf);
-        // CRIPTOGRAFA A SENHA ANTES DE SALVAR
-        novoAdmin.setSenha(passwordEncoder.encode(senha)); 
+        novoAdmin.setSenha(senha); 
         repositoryAdmin.save(novoAdmin);
         return "redirect:/admin-dashboard"; 
     }

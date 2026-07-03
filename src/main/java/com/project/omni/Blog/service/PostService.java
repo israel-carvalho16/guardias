@@ -1,3 +1,4 @@
+
 package com.project.omni.Blog.service;
 
 import com.project.omni.Blog.dto.request.PostRequest;
@@ -144,8 +145,19 @@ public class PostService {
     private User getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
+
+        // CORREÇÃO: Admins ficam numa tabela separada (admin), não na tabela "users" do Blog.
+        // Se o autor autenticado ainda não tiver um registro de User (ex: é um admin),
+        // criamos um automaticamente para que ele possa ser vinculado como autor do post.
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+                .orElseGet(() -> {
+                    User novoUsuario = new User();
+                    novoUsuario.setEmail(email);
+                    novoUsuario.setName(email);
+                    // Senha não é usada para login por esse caminho (autenticação é via JWT do admin)
+                    novoUsuario.setPassword("N/A");
+                    return userRepository.save(novoUsuario);
+                });
     }
 
     private PostResponse toResponse(Post post) {
