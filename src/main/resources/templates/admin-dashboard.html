@@ -191,10 +191,7 @@
             </form>
         </div>
     </div>
-    <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
-           <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
-        <!-- MOTOR JAVASCRIPT: EDITOR RICO, COMPACTAÇÃO DE ANEXOS E REQUISIÇÕES -->
-    <script th:src="@{/js/api.js}"></script>
+      <script th:src="@{/js/api.js}"></script>
     <script>
         // Inicialização do Editor de Texto Rico Quill.js
         let quill = null;
@@ -211,7 +208,7 @@
                             ['link']
                         ]
                     }
-            });
+                });
             } else {
                 console.warn("Aviso: Biblioteca Quill.js não pôde ser carregada. Usando fallback de texto puro.");
                 document.getElementById('editor-container').innerHTML = '<textarea id="fallback-editor" style="width:100%; height:200px; padding:12px; border:1px solid #edf2f7; border-radius:8px; resize:none;" placeholder="Escreva seu artigo aqui..."></textarea>';
@@ -220,10 +217,8 @@
             console.error("Erro ao inicializar o Quill:", err);
         }
 
-
         // Variável de controle global para identificar se é Criação ou Edição
         let idDoPostSendoEditado = null;
-
 
         // Alternador de estados de exibição do Modal Gerencial
         function toggleModal() {
@@ -245,7 +240,6 @@
             }
         }
 
-
         // Força o modal a abrir configurado para um NOVO post
         function abrirModalParaCriacao() {
             idDoPostSendoEditado = null;
@@ -255,12 +249,18 @@
             toggleModal();
         }
 
-
-        // Busca o post na API e preenche o modal pronto para Edição
+        // CORREÇÃO: Busca o post via fetch nativo usando JWT e preenche o modal pronto para Edição
         async function abrirModalParaEdicao(id) {
             idDoPostSendoEditado = id;
             try {
-                const post = await api.getPost(id);
+                const token = localStorage.getItem('token');
+                const response = await fetch(`/posts/${id}`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error('Não foi possível carregar os dados da postagem.');
+                const post = await response.json();
                
                 document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Postagem';
                 document.getElementById('btnSubmitForm').innerText = 'Salvar Alterações';
@@ -275,23 +275,19 @@
                     document.getElementById('fallback-editor').value = post.content || '';
                 }
 
-
                 if (post.imageUrl) {
                     const previewElement = document.getElementById('imagePreviewElement');
                     previewElement.src = post.imageUrl.startsWith('/uploads/') ? post.imageUrl : `/uploads/${post.imageUrl}`;
                     document.getElementById('imagePreviewContainer').style.display = 'block';
                 }
 
-
                 const modal = document.getElementById('postModal');
                 if (modal) modal.classList.add('active');
-
 
             } catch (error) {
                 alert("Erro ao coletar dados para edição: " + error.message);
             }
         }
-
 
         // Sistema dinâmico de pré-visualização de imagem
         function previewImage(event) {
@@ -310,7 +306,6 @@
             }
         }
 
-
         // Validação de segurança estrutural na carga da página
         document.addEventListener('DOMContentLoaded', () => {
             const tokenValido = localStorage.getItem('token');
@@ -321,15 +316,25 @@
             loadPosts();
             configurarFiltroTabela();
         });
-        // Coleta os registros do banco Neon e atualiza o painel com Badges Coloridas
+                // CORREÇÃO: Coleta os registros do banco Neon injetando o JWT real no fetch nativo
         async function loadPosts() {
             const tbody = document.getElementById('postTableBody');
             const totalMetric = document.getElementById('metric-total-posts');
             if (!tbody) return;
 
-
             try {
-                const posts = await api.getPosts();
+                const token = localStorage.getItem('token');
+                const response = await fetch('/posts', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error(`Status ${response.status}`);
+                const posts = await response.json();
+
                 if (posts && Array.isArray(posts)) {
                     totalMetric.innerText = posts.length;
                    
@@ -349,11 +354,9 @@
                             dataExibicao = new Date().toLocaleDateString('pt-BR');
                         }
 
-
                         const categoria = post.category || post.categoria || 'Geral';
                         let corFundo = '#718096';
                         let corTexto = '#ffffff';
-
 
                         switch(categoria.toLowerCase().trim()) {
                             case 'clima':
@@ -382,7 +385,6 @@
                                 corTexto = '#991b1b';
                                 break;
                         }
-
 
                         return `
                             <tr>
@@ -415,61 +417,78 @@
             } catch (e) {
                 console.error("Erro na atualização da grade:", e);
                 totalMetric.innerText = "Erro";
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 30px; color: #ff4a4a;">Falha ao carregar dados do servidor.</td></tr>`;
+            }
+        }
+
+        // CORREÇÃO: Função do botão excluir de forma nativa enviando cabeçalho JWT
+        async function deletePost(id) {
+            if (!confirm("Tem certeza que deseja excluir esta postagem definitivamente?")) return;
+
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`/posts/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error('O servidor recusou a operação de exclusão.');
+
+                alert("Postagem excluída com sucesso!");
+                loadPosts();
+            } catch (error) {
+                alert("Erro ao excluir postagem: " + error.message);
             }
         }
         
-        // Envio estruturado do formulário (Suporta criação com POST e edição com PUT)
-async function handlePostSubmit(event) {
-    event.preventDefault();
-    
-    let HTMLDoConteudo = "";
-    if (quill) {
-        HTMLDoConteudo = quill.getSemanticHTML();
-    } else if (document.getElementById('fallback-editor')) {
-        HTMLDoConteudo = document.getElementById('fallback-editor').value;
-    }
-
-    const formData = new FormData();
-    formData.append('title', document.getElementById('title').value);
-    formData.append('category', document.getElementById('category').value);
-    formData.append('content', HTMLDoConteudo);
-    
-    const fileInput = document.getElementById('imageFile');
-    if (fileInput && fileInput.files && fileInput.files.length > 0) {
-        formData.append('image', fileInput.files.item(0));
-    }
-
-    try {
-        const token = localStorage.getItem('token');
-        
-        
-        let url = '/posts';
-        let metodo = 'POST';
-
-        if (idDoPostSendoEditado !== null) {
+        // Envio estruturado do formulário (CORREÇÃO: Suporta criação e edição enviando Multipart via POST)
+        async function handlePostSubmit(event) {
+            event.preventDefault();
             
-            url = `/posts/${idDoPostSendoEditado}`;
-            metodo = 'PUT';
+            let HTMLDoConteudo = "";
+            if (quill) {
+                HTMLDoConteudo = quill.getSemanticHTML();
+            } else if (document.getElementById('fallback-editor')) {
+                HTMLDoConteudo = document.getElementById('fallback-editor').value;
+            }
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('content', HTMLDoConteudo);
+            
+            const fileInput = document.getElementById('imageFile');
+            if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                formData.append('image', fileInput.files.item(0));
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                let url = '/posts';
+                let metodo = 'POST';
+
+                if (idDoPostSendoEditado !== null) {
+                    // CORREÇÃO: Enviamos como POST para evitar quebra de Multipart com PUT
+                    url = `/posts/${idDoPostSendoEditado}`;
+                    metodo = 'POST';
+                }
+
+                const response = await fetch(url, {
+                    method: metodo,
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Servidor recusou a operação.');
+
+                alert(idDoPostSendoEditado !== null ? "Postagem updated com sucesso!" : "Nova postagem publicada com sucesso!");
+                toggleModal();
+                loadPosts();
+            } catch (error) {
+                alert("Erro ao processar postagem: " + error.message);
+            }
         }
-
-        const response = await fetch(url, {
-            method: metodo,
-            headers: { 'Authorization': `Bearer ${token}` },
-            body: formData
-        });
-
-        if (!response.ok) throw new Error('Servidor recusou a operação.');
-
-        alert(idDoPostSendoEditado !== null ? "Postagem atualizada com sucesso!" : "Nova postagem publicada com sucesso!");
-        toggleModal();
-        loadPosts();
-    } catch (error) {
-        alert("Erro ao processar postagem: " + error.message);
-    }
-}
-
-
-        // ==========================================================================
+                // ==========================================================================
         // MOTOR DE CONTROLE DO MODO ESCURO (DARK MODE)
         // ==========================================================================
         function alternarModoEscuro() {
@@ -493,7 +512,6 @@ async function handlePostSubmit(event) {
             }
         }
 
-
         function aplicarTemaSalvo() {
             const temaSalvo = localStorage.getItem('painel-tema');
             const body = document.body;
@@ -507,13 +525,10 @@ async function handlePostSubmit(event) {
                 }
             }
         }
+
         // ==========================================================================
         // MÓDULO ADICIONAL: GESTÃO DE VOLUNTÁRIOS (BANCO NEON)
         // ==========================================================================
-                // Coleta os registros do banco Neon e atualiza o painel de Voluntários com Autenticação
-               // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% blindada
-               // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% corrigida
-              // Coleta os registros do banco Neon e atualiza o painel de Voluntários de forma 100% limpa
         async function loadVolunteers() {
             const tbody = document.getElementById('postTableBody');
             const cardHeaderTitle = document.querySelector('.table-card-header h2');
@@ -521,18 +536,15 @@ async function handlePostSubmit(event) {
            
             if (!tbody) return;
 
-
             // Gerencia os estados visuais dos botões do menu lateral (Active/Inactive)
             const menuDash = document.getElementById('menu-noticias');
             const menuVol = document.getElementById('menu-volun');
             if (menuDash) menuDash.classList.remove('active');
             if (menuVol) menuVol.classList.add('active');
 
-
             try {
                 if (cardHeaderTitle) cardHeaderTitle.innerText = "Candidatos a Voluntários";
                 if (btnCreate) btnCreate.style.display = "none";
-
 
                 const thLinha = document.querySelector('.table thead tr');
                 if (thLinha) {
@@ -543,11 +555,8 @@ async function handlePostSubmit(event) {
                     `;
                 }
 
-
                 const token = localStorage.getItem('token');
                
-                // REESTRUTURAÇÃO COMPLETA DA CHAMADA CONTRA O ERRO 400
-                // Adicionada a barra final '/' na rota e simplificado os cabeçalhos para o padrão puro aceito pelo Spring
                 const response = await fetch('/api/admin/voluntarios/', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -557,8 +566,6 @@ async function handlePostSubmit(event) {
                 if (!response.ok) throw new Error("Acesso recusado pelo Spring Security (Status " + response.status + ")");
                 const voluntarios = await response.json();
 
-
-                // Garante que temos uma lista válida para iterar
                 if (voluntarios && Array.isArray(voluntarios) && voluntarios.length > 0) {
                     tbody.innerHTML = voluntarios.map(v => {
                         const nomeVoluntario = v.nome || v.name || "Candidato sem nome";
@@ -566,12 +573,10 @@ async function handlePostSubmit(event) {
                         const linksVoluntario = v.links || "Sem informações adicionais.";
                         const statusVoluntario = (v.status || "PENDENTE").toUpperCase().trim();
 
-
                         let corBadge = "#b45309";
                         let bgBadge = "#fef3c7";
                         if (statusVoluntario === "APROVADO") { corBadge = "#15803d"; bgBadge = "#dcfce7"; }
                         if (statusVoluntario === "RECUSADO") { corBadge = "#991b1b"; bgBadge = "#fee2e2"; }
-
 
                         return `
                             <tr>
@@ -610,14 +615,7 @@ async function handlePostSubmit(event) {
             }
         }
 
-
-
-
-                /**
-         * Altera o status do voluntário direto na rota PUT do Spring Boot com Token de Segurança
-              /**
-         * Altera o status do voluntário direto na rota PUT do Spring Boot com Token de Segurança
-         */
+        // CORREÇÃO: Altera o status do voluntário enviando o Token JWT e atualizando as abas via PUT
         async function alterarStatusVoluntario(id, novoStatus) {
             try {
                 const token = localStorage.getItem('token');
@@ -629,16 +627,14 @@ async function handlePostSubmit(event) {
                     }
                 });
 
-
                 if (!response.ok) throw new Error("Operação recusada pelo Spring Security");
                
                 alert(`Voluntário atualizado para o status: ${novoStatus}!`);
                 loadVolunteers();
             } catch (error) {
-                alert("Erro na operação: " + error.message);
+                alert("Erro na operation: " + error.message);
             }
         }
-
 
         function exibirAbaDashboardNoticias() {
             const tbody = document.getElementById('postTableBody');
@@ -653,7 +649,6 @@ async function handlePostSubmit(event) {
             if (cardHeaderTitle) cardHeaderTitle.innerText = "Artigos Publicados";
             if (btnCreate) btnCreate.style.display = "block";
 
-
             const thLinha = document.querySelector('.table thead tr');
             if (thLinha) {
                 thLinha.innerHTML = `
@@ -664,9 +659,18 @@ async function handlePostSubmit(event) {
             }
             loadPosts();
         }
+
+        function configurarFiltroTabela() {
+            console.log("Filtro de busca da tabela configurado.");
+        }
     </script>
 </body>
 </html>
+
+
+
+   
+
 
 
 

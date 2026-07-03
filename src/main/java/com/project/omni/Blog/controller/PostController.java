@@ -35,8 +35,8 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.create(request));
     }
 
-    // Opcional: Se quiser atualizar o post com uma nova imagem futuramente
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // CORREÇÃO DEFINITIVA: Mudado de @PutMapping para @PostMapping para aceitar o FormData de edição do navegador
+    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostResponse> update(@PathVariable Long id,
                                                @Valid @ModelAttribute PostRequest request) {
         return ResponseEntity.ok(postService.update(id, request));

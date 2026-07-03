@@ -3,7 +3,7 @@ package com.project.omni.Blog.security;
 import com.project.omni.Blog.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie; // IMPORTANTE: Importação do Cookie adicionada
+import jakarta.servlet.http.Cookie; // Mantida a importação dos cookies
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,32 +29,36 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Se a requisição for para as APIs gerenciais, ignora o filtro e passa direto
         String pathURI = request.getRequestURI();
         if (pathURI != null && (pathURI.startsWith("/api/admin") || pathURI.startsWith("/api/admin/"))) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // CORREÇÃO: Nova lógica para buscar o token JWT diretamente nos Cookies do Navegador
         String token = null;
-        if (request.getCookies() != null) {
+
+        // CORREÇÃO 1: Tenta buscar primeiro no cabeçalho Header (Usado pelo JavaScript do Painel Admin)
+        final String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7).trim();
+        } 
+        // CORREÇÃO 2: Se não achar no Header, busca nos Cookies (Usado pela navegação das páginas HTML)
+        else if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
-                if ("AUTH_TOKEN".equals(cookie.getName())) { // Nome do cookie definido no login
+                if ("AUTH_TOKEN".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
                 }
             }
         }
 
-        // Se o Cookie não existir ou estiver vazio, deixa a requisição prosseguir.
-        // O Spring Security aplicará o 403 depois apenas se a rota acessada for privada.
+        // Se não encontrar o token em nenhum dos dois locais, deixa a requisição seguir
         if (token == null || token.trim().isEmpty()) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Verificação estrutural básica do JWT obtido no cookie
+        // Verificação estrutural básica do JWT
         if (token.chars().filter(ch -> ch == '.').count() != 2) {
             filterChain.doFilter(request, response);
             return;
@@ -75,7 +79,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Limpa o contexto de segurança caso o token seja inválido ou expire
             SecurityContextHolder.clearContext();
         }
 
@@ -91,10 +94,9 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
 
+        // CORREÇÃO 3: Removemos o /admin-dashboard daqui para permitir que o filtro leia o Header JWT do Painel
         return path.equals("/AdminForm") 
             || path.equals("/AdminForm/enviar") 
-            || path.equals("/admin-dashboard") 
-            || path.equals("/admin-dashboard.html")
             || path.equals("/login.html")
             || path.equals("/register.html")
             || path.equals("/index.html")
