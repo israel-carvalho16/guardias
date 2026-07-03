@@ -1,13 +1,10 @@
 package com.project.omni.Admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,43 +12,27 @@ import java.util.Optional;
 public class ControllerAd {
 
     private final Repository_admin repositoryAdmin;
+    private final PasswordEncoder passwordEncoder;
 
-    ControllerAd(Repository_admin repositoryAdmin) {
+    // Injetando o PasswordEncoder configurado no SecurityConfig
+    ControllerAd(Repository_admin repositoryAdmin, PasswordEncoder passwordEncoder) {
         this.repositoryAdmin = repositoryAdmin;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/AdminForm")
-    public String abrirPagina() {
-        return "AdminForm"; 
-    }
-
-    @GetMapping("/admin-dashboard")
-    public String exibirPainel() {
-        return "admin-dashboard"; 
-    }
-
-    @GetMapping("/admin/novo-admin")
-    public String abrirPaginaCadastro() {
-        return "AdminCadastro"; 
-    }
-
-    // ADAPTADO: Agora valida estritamente usando apenas E-mail e Senha!
     @PostMapping("/admin/login-api")
+    @ResponseBody
     public ResponseEntity<?> validarLoginAdmin(@RequestBody Map<String, String> dados) {
         String email = dados.get("email") != null ? dados.get("email").trim() : "";
         String senha = dados.get("senha") != null ? dados.get("senha").trim() : "";
-
-        System.out.println("=== TENTATIVA DE LOGIN TRADICIONAL ===");
-        System.out.println("E-mail inserido: " + email);
 
         Optional<Repo> adminOpt = repositoryAdmin.findByEmail(email);
 
         if (adminOpt.isPresent()) {
             Repo admin = adminOpt.get();
             
-            // Valida apenas se a senha bate com a cadastrada no Neon
-            if (admin.getSenha().trim().equals(senha)) {
-                System.out.println("Login efetuado com sucesso!");
+            // Valida a senha usando o algoritmo BCrypt
+            if (passwordEncoder.matches(senha, admin.getSenha())) {
                 return ResponseEntity.ok(Map.of("sucesso", true));
             }
         }
@@ -68,7 +49,8 @@ public class ControllerAd {
         novoAdmin.setNome(nome);
         novoAdmin.setEmail(email);
         novoAdmin.setCpf(cpf);
-        novoAdmin.setSenha(senha); 
+        // CRIPTOGRAFA A SENHA ANTES DE SALVAR
+        novoAdmin.setSenha(passwordEncoder.encode(senha)); 
         repositoryAdmin.save(novoAdmin);
         return "redirect:/admin-dashboard"; 
     }

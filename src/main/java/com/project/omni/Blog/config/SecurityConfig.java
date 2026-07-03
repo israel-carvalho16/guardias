@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,44 +32,51 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/index.html", "/index", "/favicon.ico");
-    }
-
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // 1. Recursos estáticos livres de mídia e estilização
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/font/**", "/video/**", "/uploads/**", "/Núcleo - Juazeiro do Norte-CE/Saúde em ação/**", "/Núcleo - Uberlândia-MG/Evento - Dia da água (22-03) - OK/**", "/Núcleo - Uberlândia-MG/Evento - Mostra Extencionista da biologia (26-04)").permitAll()
-
-                // 2. Apenas rotas lógicas limpas na lista de requisições permitidas
-                .requestMatchers("/", "/login", "/register", "/pagina1", "/AdminForm", "/admin-dashboard",
-                                 "/noticias", "/projeto", "/evento", "/mg", "/ce", "/contatos", "/orgaoambiental","/noticiaAberta").permitAll()
+                // 1. Libera recursos estáticos (CSS, JS, Imagens)
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**").permitAll()
                 
-                // 3. Liberação total para as visualizações de páginas da pasta /admin
+                // 2. Libera todas as variações das suas páginas públicas (Case-Insensitive e extensões)
+                .requestMatchers(
+                    "/", "/index**", "/index.html",
+                    "/pagina1**", "/pagina1.html",
+                    "/contatos**", "/Contatos**",
+                    "/evento**", "/Evento**",
+                    "/mg**", "/MG**",
+                    "/ce**", "/CE**",
+                    "/noticias**", "/Noticias**",
+                    "/noticiaAberta**", "/NoticiaAberta**",
+                    "/orgaoambiental**", "/Orgaoambiental**",
+                    "/post**", "/Post**",
+                    "/projeto**", "/Projeto**",
+                    "/volunform**", "/VolunForm**", "/Volunform**",
+                    "/login**", "/Login**",
+                    "/register**", "/Register**"
+                ).permitAll()
+                
+                // 3. Mantém rotas lógicas limpas que vieram do repositório remoto
+                .requestMatchers("/AdminForm", "/admin-dashboard").permitAll()
                 .requestMatchers("/admin/**").permitAll() 
+                .requestMatchers("/api/auth/**", "/auth/**", "/admin/login-api").permitAll() 
+                .requestMatchers("/api/admin/**").permitAll()
                 
-                // Se o seu AuthController também perdeu o prefixo /api, use "/auth/**"
-                .requestMatchers("/api/auth/**", "/auth/**").permitAll() 
-                
-                // Libera os métodos GET públicos de posts e comentários (Visualização do Blog)
+                // 4. Libera visualização pública de posts e comentários do Blog (Método GET)
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/posts/**", "/comments/**").permitAll()
                 
-                // Bloqueia modificações (POST, PUT, DELETE) para exigir autenticação JWT válida
+                // 5. Bloqueia alterações (POST, PUT, DELETE) exigindo autenticação JWT
                 .requestMatchers(org.springframework.http.HttpMethod.POST, "/posts/**", "/comments/**").authenticated()
                 .requestMatchers(org.springframework.http.HttpMethod.PUT, "/posts/**").authenticated()
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/posts/**", "/comments/**").authenticated()
-
-                // Mantém regras legadas se houver outros controllers admin
-                .requestMatchers("/api/admin/**").permitAll()
                 
+                // Qualquer outra rota residual exigirá autenticação
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }   
+    } 
 }

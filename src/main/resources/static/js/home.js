@@ -146,39 +146,28 @@
            renderizarNoticias(resultadoBusca);
        });
    }
-   
-   // ==========================================================================
-   // FIX DEFINTIVO DO MENU HAMBÚRGUER (ESTILO CODEPEN)
-   // ==========================================================================
-   $(document).ready(function(){
-       // Inicia explicitamente com o ícone hambúrguer ativo
-       $(".button a").removeClass('btn-close').addClass('btn-open');
-   
-       // Monitora evento de clique direto no contêiner do botão
-       $(".button").on('click', 'a', function(e){
-           e.preventDefault();
-           e.stopPropagation();
-           
-           // Efeito de transição suave idêntico ao CodePen
-           $(".overlay").fadeToggle(200);
-           
-           // Troca o caractere do FontAwesome (\f0c9 por \f00d) alternando a classe
-           $(this).toggleClass('btn-open').toggleClass('btn-close');
-       });
-   
-       // Fecha o menu ao clicar fora das listas (no fundo preto)
-       $('.overlay').on('click', function(e){
-           if (e.target === this || $(e.target).hasClass('wrap')) {
-               $(".overlay").fadeOut(200); 
-               $(".button a").addClass('btn-open').removeClass('btn-close');
-           }
-       });
-   
-       // Se o usuário redimensionar o navegador acima de 1105px, o menu fecha sozinho
-       $(window).on('resize', function() {
-           if ($(window).width() > 1105) {
-               $(".overlay").hide();
-               $(".button a").addClass('btn-open').removeClass('btn-close');
-           }
-       });
-   });
+   $(document).ready(function() {
+    // 1. Função de abrir/fechar menu
+    $(".button").on("click", function(e) {
+        e.preventDefault();
+        
+        $(".overlay").fadeToggle(300);
+        
+        // Apenas alterna a classe do X, mantendo a classe do hambúrguer intacta
+        $(this).find('.btn-open').toggleClass('btn-close');
+    });
+
+    // 2. Fecha ao clicar em link
+    $(".overlay a").on("click", function() {
+        $(".overlay").fadeOut(300);
+        $(".btn-open").removeClass('btn-close');
+    });
+
+    // 3. Fecha ao clicar no fundo
+    $(".overlay").on("click", function(e) {
+        if ($(e.target).hasClass('overlay')) {
+            $(this).fadeOut(300);
+            $(".btn-open").removeClass('btn-close');
+        }
+    });
+});

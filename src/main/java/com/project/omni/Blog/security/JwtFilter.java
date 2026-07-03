@@ -3,6 +3,7 @@ package com.project.omni.Blog.security;
 import com.project.omni.Blog.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie; // IMPORTANTE: Importação do Cookie adicionada
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,30 +29,37 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // ESCAPE SUPREMO ANTI-ERRO 400: Se a requisição for para as APIs gerenciais, ignora o filtro e passa direto
+        // Se a requisição for para as APIs gerenciais, ignora o filtro e passa direto
         String pathURI = request.getRequestURI();
         if (pathURI != null && (pathURI.startsWith("/api/admin") || pathURI.startsWith("/api/admin/"))) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String authHeader = request.getHeader("Authorization");
+        // CORREÇÃO: Nova lógica para buscar o token JWT diretamente nos Cookies do Navegador
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("AUTH_TOKEN".equals(cookie.getName())) { // Nome do cookie definido no login
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
 
-        // CORREÇÃO 1: Ignora o filtro se o cabeçalho for nulo, não começar com Bearer ou for curto demais (como "Bearer null")
-        if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.trim().length() <= 15) {
+        // Se o Cookie não existir ou estiver vazio, deixa a requisição prosseguir.
+        // O Spring Security aplicará o 403 depois apenas se a rota acessada for privada.
+        if (token == null || token.trim().isEmpty()) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String token = authHeader.substring(7).trim();
-
-        // CORREÇÃO 2: Um JWT estruturado possui exatamente 2 pontos. Se não tiver, o token está malformado e não deve ser processado.
+        // Verificação estrutural básica do JWT obtido no cookie
         if (token.chars().filter(ch -> ch == '.').count() != 2) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // CORREÇÃO 3: Bloco try-catch para capturar qualquer falha inesperada na leitura do token e não travar o Tomcat
         try {
             final String email = jwtService.extractEmail(token);
 
@@ -79,7 +87,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         String uri = request.getRequestURI();
         
-        // Garante a redundância de segurança também na checagem de rotas nativas
         if ((path != null && path.startsWith("/api/admin")) || (uri != null && uri.startsWith("/api/admin"))) {
             return true;
         }

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 <head>
@@ -14,6 +15,21 @@
   <!-- Link oficial e funcional da biblioteca jQuery -->
   <script src="https://jquery.com"></script>
  
+=======
+<!DOCTYPE html> 
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Guardiãs das Águas</title> 
+  
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+  <script th:src="@{/js/home.js}" defer></script>
+  <script th:src="@{/js/inicio.js}" defer></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+>>>>>>> Stashed changes
   <link rel="stylesheet" th:href="@{/css/Inicio.css}">
 </head>
 <body>
@@ -28,6 +44,7 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br');
   </script>
+<<<<<<< Updated upstream
 
 
 <header class="site-header">
@@ -100,8 +117,91 @@
 
 
   <!-- CONTEÚDO PRINCIPAL DO SITE -->
-  <main class="main-content">
+=======
+  
+  <script  src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll" defer></script>
+ <header class="site-header"> 
+    <div class="header-brand">
+        <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+        <h2>Guardiãs das Águas</h2> 
+    </div>
+    
+    <nav class="nav-desktop">
+        <ul class="nav-links">
+            <li><a th:href="@{/pagina1}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            <li class="dropdown-item"> 
+                <details> 
+                    <summary id="Nucleos">Nossos Núcleos</summary> 
+                    <div class="dropdown-content" role="menu">
+                        <a th:href="@{/mg}" role="menuitem">MG</a> 
+                        <a th:href="@{/ce}" role="menuitem">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="auth-actions auth-desktop">
+        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+        <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
+    </div>
 
+    <div class="button">
+        <a class="btn-open" href="#"></a>
+    </div>
+</header> 
+
+<div class="overlay">
+    <div class="wrap">
+        <ul class="wrap-nav">
+            <li><a th:href="@{/pagina1}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            
+            <li class="dropdown-item-mobile"> 
+                <details> 
+                    <summary class="summary-nucleos">Nossos Núcleos</summary> 
+                    <div class="nucleos-links">
+                        <a th:href="@{/mg}">MG</a> 
+                        <a th:href="@{/ce}">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul> 
+        
+        <div class="auth-actions-mobile">
+            <a th:href="@{/register}" class="btn-auth-mobile btn-admin-mobile">Entrar como Admin</a>
+            <a th:href="@{/login}" class="btn-auth-mobile btn-voluntario-mobile">Entrar como Voluntário</a>
+        </div>
+    </div>
+</div>
+
+
+>>>>>>> Stashed changes
+  <main class="main-content">
+    
+    <section class="hero"> 
+      <video class="video-bg" autoplay muted loop playsinline> 
+        <source src="https://github.com/israel-carvalho16/guardias/raw/refs/heads/main/src/main/resources/static/video/videoheader.mp4" type="video/mp4"> 
+      </video> 
+      <div class="hero-content"> 
+        <h1>
+          <span class="line-intro">Educação sobre</span>
+          <span class="line-impact">Saneamento e Recursos Hídricos</span>
+          <span class="line-outro">para comunidades e escolas</span>
+          <span class="line-outro">Foco em <strong id="text-typewriter" style="color: var(--roxo-principal);"></strong></span>
+        </h1> 
+      </div> 
+    </section>
+
+<<<<<<< Updated upstream
 
     <!-- HERO BANNER (VÍDEO DE FUNDO) -->
 <!-- HERO BANNER COM VÍDEO HOSPEDADO EM NUVEM (CORRIGIDO) -->
@@ -131,8 +231,13 @@
       <h3 class="titulo-centralizado">Tópicos</h3>
       <div id="escolhe" class="topics-grid">
         <div class="card-topic">
+=======
+    <section class="topicos-section"> 
+      <h3 class="titulo-centralizado">Tópicos</h3> 
+      <div id="escolhe" class="topics-grid"> 
+        <div class="card-topic"> 
+>>>>>>> Stashed changes
           <div class="icon-box">
-            <!-- 3. Imagens limpas sem referenciar pastas do sistema operacional -->
             <img th:src="@{/img/gota.png}" alt="Ícone Gota de Água">
           </div>
           <p><strong>Saneamento e Água</strong></p>
@@ -146,6 +251,7 @@
         <div class="card-topic">
           <div class="icon-box">
             <img th:src="@{/img/Protagomismo feminino.png}" alt="Ícone Protagonismo Feminino">
+<<<<<<< Updated upstream
           </div>
           <p><strong>Protagonismo Feminino</strong></p>
         </div>
@@ -161,11 +267,50 @@
     <div class="team-card-item" style="padding: 30px 20px !important;">
       <div style="font-size: 2.8rem; color: var(--roxo-principal); font-weight: 900; margin-bottom: 5px;">
         <span class="counter-number" data-target="120">0</span>+
-      </div>
-      <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Guardiãs Formadas</p>
-      <p style="font-size: 0.85rem; color: #718096;">Jovens lideranças capacitadas</p>
-    </div>
+=======
+          </div> 
+          <p><strong>Protagonismo Feminino</strong></p> 
+        </div> 
+      </div> 
+    </section> 
 
+    <section class="team-container-block" style="margin: 80px auto;">
+      
+      <h2 class="titulo-centralizado">Nosso Impacto em Números</h2>
+      <div class="team-grid-layout" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--roxo-principal); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="120">0</span>+
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Guardiãs Formadas</p>
+          <p style="font-size: 0.85rem; color: #718096;">Jovens lideranças capacitadas</p>
+        </div>
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--azul1); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="15">0</span>
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Escolas Atendidas</p>
+          <p style="font-size: 0.85rem; color: #718096;">Comunidades estudantis integradas</p>
+        </div>
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--roxo-secundario); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="450">0</span>+
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Análises de Água</p>
+          <p style="font-size: 0.85rem; color: #718096;">Monitoramentos hídricos realizados</p>
+        </div>
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--azul3); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="3">0</span>
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Bacias Hidrográficas</p>
+          <p style="font-size: 0.85rem; color: #718096;">Rios e córregos monitorados</p>
+        </div>
+>>>>>>> Stashed changes
+      </div>
+    </section>
+
+<<<<<<< Updated upstream
 
     <!-- Métrica 2 -->
     <div class="team-card-item" style="padding: 30px 20px !important;">
@@ -225,6 +370,26 @@
         <br>
         <div>
           <strong>Valores:</strong><br>
+=======
+    <section id="toma"> 
+      <h1>Quem somos</h1> 
+      <section class="qs-text-block"> 
+        <p>Durante o mês de janeiro, o Programa Futuras Cientistas reuniu alunas e professoras da educação básica da rede pública de Uberlândia para uma imersão científica nos laboratórios da UFU...</p> 
+        <br>
+        <p>O projeto Guardiãs das Águas (@guardias.aguas), da UFU, selecionado para integrar o programa nacional, permitiu que as participantes vivenciassem a experiência de uma pesquisa científica...</p> 
+      </section> 
+      
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
+      
+      <section class="qs-mvv-block"> 
+        <div> 
+          <strong>Missão:</strong><br> 
+          Incentivar a participação feminina na ciência e na conservação ambiental, especificamente na área de recursos hídricos e saneamento... 
+        </div> 
+        <br> 
+        <div> 
+          <strong>Valores:</strong><br> 
+>>>>>>> Stashed changes
           Acreditar no potencial das mulheres como líderes e pesquisadoras na área ambiental.<br>
           <br>
           <strong>Sustentabilidade:</strong> comprometimento com a preservação do meio ambiente...<br>
@@ -235,6 +400,7 @@
     </section>
 
 
+<<<<<<< Updated upstream
     <!-- SEÇÃO SANEAMENTO BÁSICO (ACCORDIONS) -->
     <section id="saneamento">
       <h1>Saneamento Básico</h1>
@@ -286,6 +452,51 @@
     <!-- SEÇÃO PROTAGONISMO / EMPODERAMENTO -->
     <section id="empoder">
       <section class="empoder-card">
+=======
+    <section id="saneamento"> 
+      <h1>Saneamento Básico</h1> 
+      <div class="saneamento-section"> 
+        <details class="san-item"> 
+          <summary>Explicação sobre saneamento</summary> 
+          <p>Saneamento básico é o conjunto de serviços que garantem que a água que utilizamos seja limpa e segura...</p> 
+        </details> 
+        <details class="san-item"> 
+          <summary>Benefícios</summary> 
+          <ul> 
+            <li>Reduz a propagação de doenças...</li> 
+            <li>Melhora a qualidade de vida da população.</li> 
+            <li>Protege o meio ambiente...</li> 
+          </ul> 
+        </details> 
+        <details class="san-item"> 
+          <summary>Malefícios quanto à ausência</summary> 
+          <p>A acentuada ausência de tratamento de esgoto contamina rios e solos, prejudicando o ecossistema...</p> 
+        </details> 
+      </div> 
+    </section> 
+
+    <section class="team-container-block"> 
+      <h1 class="titulo-centralizado">Nossa equipe</h1> 
+      <img class="team-banner-img" th:src="@{/img/equipe.png}" alt="Foto da Equipe Reunida"> 
+      
+      <div class="team-grid-layout">
+        <div class="team-card-item"> 
+          <h3>Coordenação Geral</h3> 
+          <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin"> 
+          <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
+        </div> 
+        
+        <div class="team-card-item"> 
+          <h3>Coordenadora de Direitos Humanos</h3> 
+          <img th:src="@{/img/cord2.jfif}" alt="Dra. Claudiene Santos"> 
+          <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
+        </div> 
+      </div>
+    </section> 
+    
+    <section id="empoder"> 
+      <section class="empoder-card"> 
+>>>>>>> Stashed changes
         <h3>Protagonismo Feminino</h3>
         <img th:src="@{/img/Protagomismo feminino.png}" alt="Ilustração Protagonismo Feminino">
         <h4>Saiba mais</h4>
@@ -294,23 +505,28 @@
     </section>
 
 
-    <!-- SEÇÃO DE COLABORADORES -->
     <section class="colaboradores-section">
       <h4>COLABORADORES</h4>
       <div class="colaboradores">
         <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores">
       </div>
     </section>
+<<<<<<< Updated upstream
 
 
   </main>
 
+=======
+  </main> 
+>>>>>>> Stashed changes
 
-  <!-- RODAPÉ ULTRA PREMIUM -->
   <footer class="main-footer">
     <div class="footer-container">
+<<<<<<< Updated upstream
      
       <!-- Coluna 1: Sobre o Projeto -->
+=======
+>>>>>>> Stashed changes
       <div class="footer-column footer-about">
         <div class="footer-logo-title">
           <img th:src="@{/img/logo.png}" alt="Logo Guardiãs">
@@ -319,12 +535,14 @@
         <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
       </div>
 
+<<<<<<< Updated upstream
 
       <!-- Coluna 2: Links de Navegação -->
+=======
+>>>>>>> Stashed changes
       <div class="footer-column footer-links">
         <h4>Navegação</h4>
         <ul>
-          <!-- 5. Links do rodapé sincronizados com as rotas do Thymeleaf -->
           <li><a th:href="@{/pagina1}">Início</a></li>
           <li><a th:href="@{/noticias}">Notícias</a></li>
           <li><a th:href="@{/projeto}">Projetos</a></li>
@@ -332,8 +550,11 @@
         </ul>
       </div>
 
+<<<<<<< Updated upstream
 
       <!-- Coluna 3: Institucional e Contato -->
+=======
+>>>>>>> Stashed changes
       <div class="footer-column footer-contact">
         <h4>Institucional</h4>
         <p class="institution-tag">Vinculado à UFU</p>
@@ -343,8 +564,12 @@
         </div>
       </div>
     </div>
+<<<<<<< Updated upstream
 
 
+=======
+    
+>>>>>>> Stashed changes
     <hr class="footer-divider">
 
 
@@ -356,5 +581,9 @@
     </div>
   </footer>
 </body>
+<<<<<<< Updated upstream
 
 
+=======
+</html>
+>>>>>>> Stashed changes

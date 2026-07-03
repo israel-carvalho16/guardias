@@ -1294,8 +1294,98 @@ div[id^="userway"],
     transform: none !important;
 }
 
+<<<<<<< Updated upstream
 
 
 
 
   
+=======
+/* VLibras: Fixo no canto inferior esquerdo (Livre de obstruções) */
+div[vw], 
+[vw], 
+.enabled[vw] {
+  z-index: 999999 !important;
+  position: fixed !important;
+  top: auto !important;
+  bottom: 120px !important; /* Deixa o ícone flutuando logo acima do início do rodapé */
+  left: 24px !important;    /* Fixa no canto esquerdo limpo da tela */
+  right: auto !important;
+  transform: none !important;
+}
+/* 1. Base oculta */
+.button, .overlay { display: none; }
+
+@media (max-width: 900px) {
+    /* Estrutura do Header Mobile */
+    .site-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 15px 20px !important;
+        position: relative;
+        z-index: 10000;
+    }
+
+    .header-brand { order: 1; display: flex; align-items: center; }
+    .button { order: 2; display: block !important; cursor: pointer; padding: 10px; z-index: 100001; }
+    .nav-desktop, .auth-desktop { display: none !important; }
+
+    /* Overlay Moderno e Centralizado */
+    .overlay {
+        display: none; 
+        position: fixed !important;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: var(--lilas);
+        z-index: 9999;
+        display: flex; /* Flex para centralizar conteúdo */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow-y: auto;
+    }
+
+    /* Ajuste da lista interna */
+    .overlay .wrap-nav {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+    }
+    .overlay .wrap-nav li { margin: 20px 0; }
+    .overlay .wrap-nav a { 
+        font-size: 22px; 
+        color: var(--text-dark); 
+        text-decoration: none; 
+    }
+
+    /* Desenho Hambúrguer */
+    .btn-open {
+        display: block !important;
+        width: 25px; height: 3px;
+        background-color: var(--roxo-principal);
+        position: relative;
+        transition: 0.3s;
+    }
+    .btn-open::before, .btn-open::after {
+        content: ''; position: absolute;
+        width: 25px; height: 3px;
+        background-color: var(--roxo-principal);
+        left: 0; transition: 0.3s;
+    }
+    .btn-open::before { top: -8px; }
+    .btn-open::after { top: 8px; }
+
+    /* X - Efeito */
+    .btn-open.btn-close { background-color: transparent !important; }
+    .btn-open.btn-close::before { top: 0 !important; transform: rotate(45deg); }
+    .btn-open.btn-close::after { top: 0 !important; transform: rotate(-45deg); }
+}
+
+/* Estilos dos botões mobile */
+.auth-actions-mobile { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 30px; }
+.btn-auth-mobile { display: block; width: 70%; padding: 12px; margin: 10px 0; text-align: center; text-decoration: none; border-radius: 8px; }
+.btn-admin-mobile { border: 2px solid var(--roxo-principal); color: var(--roxo-principal); }
+.btn-voluntario-mobile { background-color: var(--roxo-principal); color: white; }
+>>>>>>> Stashed changes
