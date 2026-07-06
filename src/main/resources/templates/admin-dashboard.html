@@ -186,8 +186,6 @@
                     <label>Conteúdo Avançado do Artigo</label>
                     <div id="editor-container" style="height: 200px; background: #fff; border-radius: 0 0 8px 8px;"></div>
                 </div>
-
-
                 <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
                     <button type="button" class="btn-action-delete" style="background-color: #718096;" onclick="toggleModal()">Cancelar</button>
                     <button type="submit" id="btnSubmitForm" class="btn-create-fast">Publicar Post</button>
@@ -197,29 +195,37 @@
     </div>
       <script th:src="@{/js/api.js}"></script>
     <script>
-        // Inicialização do Editor de Texto Rico Quill.js
-        let quill = null;
-        try {
-            if (typeof Quill !== 'undefined') {
-                quill = new Quill('#editor-container', {
-                    theme: 'snow',
-                    placeholder: 'Escreva e formate o texto completo do seu artigo aqui...',
-                    modules: {
-                        toolbar: [
-                            [{ 'header': [1, 2, 3, false] }],
-                            ['bold', 'italic', 'underline', 'clean'],
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            ['link']
-                        ]
-                    }
-                });
-            } else {
-                console.warn("Aviso: Biblioteca Quill.js não pôde ser carregada. Usando fallback de texto puro.");
-                document.getElementById('editor-container').innerHTML = '<textarea id="fallback-editor" style="width:100%; height:200px; padding:12px; border:1px solid #edf2f7; border-radius:8px; resize:none;" placeholder="Escreva seu artigo aqui..."></textarea>';
+// Inicialização do Editor de Texto Rico Quill.js
+// Inicialização do Editor de Texto Rico Quill.js
+let quill = null;
+try {
+    if (typeof Quill !== 'undefined') {
+        quill = new Quill('#editor-container', {
+            theme: 'snow',
+            placeholder: 'Escreva e formate o texto completo do seu artigo aqui...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'clean'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['link', 'image'] // 📷 Ativa o botão de imagem nativo do Quill
+                ]
             }
-        } catch (err) {
-            console.error("Erro ao inicializar o Quill:", err);
-        }
+        });
+
+        // 📝 Nota: O bloco 'form.onsubmit' foi removido daqui! 
+        // Agora quem controla 100% o envio é a sua função 'handlePostSubmit(event)'.
+
+    } else {
+        console.warn("Aviso: Biblioteca Quill.js não pôde ser carregada. Usando fallback de texto puro.");
+        // Ajustado o 'name' para 'content' para dar match com o seu FormData se cair no fallback
+        document.getElementById('editor-container').innerHTML = '<textarea id="fallback-editor" name="content" style="width:100%; height:200px; padding:12px; border:1px solid #edf2f7; border-radius:8px; resize:none;" placeholder="Escreva seu artigo aqui..."></textarea>';
+    }
+} catch (err) {
+    console.error("Erro ao inicializar o Quill:", err);
+}
+
+
 
         // Variável de controle global para identificar se é Criação ou Edição
         let idDoPostSendoEditado = null;
@@ -446,52 +452,53 @@
         }
         
         // Envio estruturado do formulário (CORREÇÃO: Suporta criação e edição enviando Multipart via POST)
-        async function handlePostSubmit(event) {
-            event.preventDefault();
-            
-            let HTMLDoConteudo = "";
-            if (quill) {
-                HTMLDoConteudo = quill.getSemanticHTML();
-            } else if (document.getElementById('fallback-editor')) {
-                HTMLDoConteudo = document.getElementById('fallback-editor').value;
-            }
+      async function handlePostSubmit(event) {
+    event.preventDefault();
+    
+    let HTMLDoConteudo = "";
+    if (quill) {
+        //  CORREÇÃO: Pega o HTML completo contendo o texto E as imagens inseridas
+        HTMLDoConteudo = quill.root.innerHTML; 
+    } else if (document.getElementById('fallback-editor')) {
+        HTMLDoConteudo = document.getElementById('fallback-editor').value;
+    }
 
-            const formData = new FormData();
-            formData.append('title', document.getElementById('title').value);
-            formData.append('category', document.getElementById('category').value);
-            formData.append('content', HTMLDoConteudo);
-            
-            const fileInput = document.getElementById('imageFile');
-            if (fileInput && fileInput.files && fileInput.files.length > 0) {
-                formData.append('image', fileInput.files.item(0));
-            }
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('category', document.getElementById('category').value);
+    formData.append('content', HTMLDoConteudo); // Agora vai o texto com as tags <img> dentro!
+    
+    const fileInput = document.getElementById('imageFile');
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+        formData.append('image', fileInput.files.item(0));
+    }
 
-            try {
-                const token = localStorage.getItem('token');
-                let url = '/posts';
-                let metodo = 'POST';
+    try {
+        const token = localStorage.getItem('token');
+        let url = '/posts';
+        let metodo = 'POST';
 
-                if (idDoPostSendoEditado !== null) {
-                    // CORREÇÃO: Enviamos como POST para evitar quebra de Multipart com PUT
-                    url = `/posts/${idDoPostSendoEditado}`;
-                    metodo = 'POST';
-                }
-
-                const response = await fetch(url, {
-                    method: metodo,
-                    headers: { 'Authorization': `Bearer ${token}` },
-                    body: formData
-                });
-
-                if (!response.ok) throw new Error('Servidor recusou a operação.');
-
-                alert(idDoPostSendoEditado !== null ? "Postagem updated com sucesso!" : "Nova postagem publicada com sucesso!");
-                toggleModal();
-                loadPosts();
-            } catch (error) {
-                alert("Erro ao processar postagem: " + error.message);
-            }
+        if (idDoPostSendoEditado !== null) {
+            url = `/posts/${idDoPostSendoEditado}`;
+            metodo = 'POST';
         }
+
+        const response = await fetch(url, {
+            method: metodo,
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: formData
+        });
+
+        if (!response.ok) throw new Error('Servidor recusou a operação.');
+
+        alert(idDoPostSendoEditado !== null ? "Postagem atualizada com sucesso!" : "Nova postagem publicada com sucesso!");
+        toggleModal();
+        loadPosts();
+    } catch (error) {
+        alert("Erro ao processar postagem: " + error.message);
+    }
+}
+
                 // ==========================================================================
         // MOTOR DE CONTROLE DO MODO ESCURO (DARK MODE)
         // ==========================================================================
