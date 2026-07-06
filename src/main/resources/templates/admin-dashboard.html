@@ -1,198 +1,199 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Desenvolvedor | Omni Blog</title>
-   
-    <!-- Font Awesome para os ícones modernos do painel -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!DOCTYPE html>
+    <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Painel do Desenvolvedor | Omni Blog</title>
+    
+        <!-- Font Awesome para os ícones modernos do painel -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-   <!-- Substitua o seu link antigo por este (Contém o caminho para o CSS do Quill) -->
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <!-- Substitua o seu link antigo por este (Contém o caminho para o CSS do Quill) -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
-<!-- Substitua o seu script antigo por este (Contém o caminho para o JS do Quill) -->
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- Substitua o seu script antigo por este (Contém o caminho para o JS do Quill) -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
 
 
-    <!-- CORRIGIDO COM THYMELEAF: Vinculação correta e segura da folha de estilos -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-   
-    <script>
-        // Captura o token vindo da URL imediatamente e salva no LocalStorage
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        if (token) {
-            localStorage.setItem('token', token);
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-    </script>
-</head>
-<body>
-    <script th:src="@{/js/auth.js}"></script>
-    <script>
-        // Trava local de segurança baseada no fluxo de tempo estável
-        setTimeout(() => {
-            if (!localStorage.getItem('token')) {
-                window.location.href = '/';
+        <!-- CORRIGIDO COM THYMELEAF: Vinculação correta e segura da folha de estilos -->
+        <link rel="stylesheet" th:href="@{/css/style.css?v=2}">
+
+    
+        <script>
+            // Captura o token vindo da URL imediatamente e salva no LocalStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            if (token) {
+                localStorage.setItem('token', token);
+                window.history.replaceState({}, document.title, window.location.pathname);
             }
-        }, 300);
-    </script>
+        </script>
+    </head>
+    <body>
+        <script th:src="@{/js/auth.js}"></script>
+        <script>
+            // Trava local de segurança baseada no fluxo de tempo estável
+            setTimeout(() => {
+                if (!localStorage.getItem('token')) {
+                    window.location.href = '/';
+                }
+            }, 300);
+        </script>
 
 
-    <!-- LAYOUT CONTAINER PRINCIPAL DO DASHBOARD -->
-    <div class="dashboard-layout">
-       
-        <!-- SIDEBAR: MENU LATERAL FIXO PREMIUM -->
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-laptop-code brand-icon"></i>
-                <h2>Omni DevPanel</h2>
-            </div>
-            <nav class="sidebar-nav">
-    <!-- LINKS INTEGRADOS COM O MOTOR DE CONVERSÃO DE ABAS DO SCRIPT -->
-    <a href="#" onclick="exibirAbaDashboardNoticias()" class="nav-item active" id="menu-noticias"><i class="fas fa-chart-pie"></i> Dashboard</a>
-    <a href="#" onclick="loadVolunteers()" class="nav-item" id="menu-volun"><i class="fas fa-users"></i> Voluntários</a>
-    <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
-    <a href="#" class="nav-item" onclick="abrirModalParaCriacao()"><i class="fas fa-plus-circle"></i> Novo Post</a>
-   
-    <a th:href="@{/admin/novo-admin}" class="nav-item">
-        <i class="fas fa-user-plus"></i> Novo Admin
-    </a>
-
-
-    <button onclick="auth.logout()" class="nav-item btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Sair do Painel</button>
-</nav>
-
-
-        </aside>
-        <!-- ÁREA CONTEÚDO DA DIREITA -->
-        <div class="dashboard-main-content">
-           
-            <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES -->
-                       <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES COM ALTERNADOR DE MODO ESCURO -->
-            <header class="dashboard-topbar">
-                <div class="topbar-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="panel-search-input" placeholder="Buscar posts na tabela...">
+        <!-- LAYOUT CONTAINER PRINCIPAL DO DASHBOARD -->
+        <div class="dashboard-layout">
+        
+            <!-- SIDEBAR: MENU LATERAL FIXO PREMIUM -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-brand">
+                    <i class="fas fa-laptop-code brand-icon"></i>
+                    <h2>Omni DevPanel</h2>
                 </div>
-                <div class="topbar-user" style="display: flex; align-items: center; gap: 20px;">
-                    <!-- BOTÃO INTERRUPTOR DO MODO ESCURO INJETADO AQUI -->
-                    <button id="dark-mode-toggle" onclick="alternarModoEscuro()" style="background: none; border: none; color: var(--roxo-secundario); font-size: 1.2rem; cursor: pointer; padding: 8px; transition: color 0.3s; display: flex; align-items: center; justify-content: center;" title="Alternar tema visual">
-                        <i id="dark-mode-icon" class="fas fa-moon"></i>
-                    </button>
-                   
-                    <span class="user-status-badge"><i class="fas fa-circle"></i> Sistema Online</span>
-                    <div class="user-avatar-text">Dev</div>
-                </div>
-            </header>
+                <nav class="sidebar-nav">
+        <!-- LINKS INTEGRADOS COM O MOTOR DE CONVERSÃO DE ABAS DO SCRIPT -->
+        <a href="#" onclick="exibirAbaDashboardNoticias()" class="nav-item active" id="menu-noticias"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a href="#" onclick="loadVolunteers()" class="nav-item" id="menu-volun"><i class="fas fa-users"></i> Voluntários</a>
+        <a href="/noticias" class="nav-item"><i class="fas fa-newspaper"></i> Ver Blog</a>
+        <a href="#" class="nav-item" onclick="abrirModalParaCriacao()"><i class="fas fa-plus-circle"></i> Novo Post</a>
+    
+        <a th:href="@{/admin/novo-admin}" class="nav-item">
+            <i class="fas fa-user-plus"></i> Novo Admin
+        </a>
+
+
+        <button onclick="auth.logout()" class="nav-item btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Sair do Painel</button>
+    </nav>
+
+
+            </aside>
+            <!-- ÁREA CONTEÚDO DA DIREITA -->
+            <div class="dashboard-main-content">
+            
+                <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES -->
+                        <!-- TOPBAR: BARRA SUPERIOR DE INFORMAÇÕES COM ALTERNADOR DE MODO ESCURO -->
+                <header class="dashboard-topbar">
+                    <div class="topbar-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="panel-search-input" placeholder="Buscar posts na tabela...">
+                    </div>
+                    <div class="topbar-user" style="display: flex; align-items: center; gap: 20px;">
+                        <!-- BOTÃO INTERRUPTOR DO MODO ESCURO INJETADO AQUI -->
+                        <button id="dark-mode-toggle" onclick="alternarModoEscuro()" style="background: none; border: none; color: var(--roxo-secundario); font-size: 1.2rem; cursor: pointer; padding: 8px; transition: color 0.3s; display: flex; align-items: center; justify-content: center;" title="Alternar tema visual">
+                            <i id="dark-mode-icon" class="fas fa-moon"></i>
+                        </button>
+                    
+                        <span class="user-status-badge"><i class="fas fa-circle"></i> Sistema Online</span>
+                        <div class="user-avatar-text">Dev</div>
+                    </div>
+                </header>
 
 
 
 
-            <!-- CONTEÚDO INTERNO INTERATIVO -->
-            <main class="dashboard-view-body">
-                <div class="view-header-intro">
-                    <h1>Visão Geral do Sistema</h1>
-                    <p>Gerencie as postagens das Guardiãs das Águas e acompanhe o banco Neon.</p>
-                </div>
+                <!-- CONTEÚDO INTERNO INTERATIVO -->
+                <main class="dashboard-view-body">
+                    <div class="view-header-intro">
+                        <h1>Visão Geral do Sistema</h1>
+                        <p>Gerencie as postagens das Guardiãs das Águas e acompanhe o banco Neon.</p>
+                    </div>
 
 
-                <!-- CARDS DE INDICADORES / ESTATÍSTICAS RÁPIDAS -->
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-info">
-                            <span class="metric-label">Total de Postagens</span>
-                            <h3 class="metric-value" id="metric-total-posts">0</h3>
+                    <!-- CARDS DE INDICADORES / ESTATÍSTICAS RÁPIDAS -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-info">
+                                <span class="metric-label">Total de Postagens</span>
+                                <h3 class="metric-value" id="metric-total-posts">0</h3>
+                            </div>
+                            <div class="metric-icon-box"><i class="fas fa-file-alt"></i></div>
                         </div>
-                        <div class="metric-icon-box"><i class="fas fa-file-alt"></i></div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-info">
-                            <span class="metric-label">Status do Banco</span>
-                            <h3 class="metric-value" style="color: #2ed573;">Sistema operante funcional</h3>
+                        <div class="metric-card">
+                            <div class="metric-info">
+                                <span class="metric-label">Status do Banco</span>
+                                <h3 class="metric-value" style="color: #2ed573;">Sistema operante funcional</h3>
+                            </div>
+                            <div class="metric-icon-box" style="background: rgba(46, 213, 115, 0.1); color: #2ed573;"><i class="fas fa-database"></i></div>
                         </div>
-                        <div class="metric-icon-box" style="background: rgba(46, 213, 115, 0.1); color: #2ed573;"><i class="fas fa-database"></i></div>
                     </div>
-                </div>
 
 
-                <!-- TABELA DE POSTAGENS REESTRUTURADA -->
-                <div class="panel-card-table">
-                    <div class="table-card-header">
-                        <h2>Artigos Publicados</h2>
-                        <button class="btn-create-fast" onclick="abrirModalParaCriacao()">+ Criar Post</button>
+                    <!-- TABELA DE POSTAGENS REESTRUTURADA -->
+                    <div class="panel-card-table">
+                        <div class="table-card-header">
+                            <h2>Artigos Publicados</h2>
+                            <button class="btn-create-fast" onclick="abrirModalParaCriacao()">+ Criar Post</button>
+                        </div>
+                        <div class="admin-table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Título da Postagem</th>
+                                        <th>Data de Criação</th>
+                                        <th style="text-align: center;">Ações Gerenciais</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="postTableBody">
+                                    <!-- Preenchido dinamicamente via JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="admin-table-wrapper">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Título da Postagem</th>
-                                    <th>Data de Criação</th>
-                                    <th style="text-align: center;">Ações Gerenciais</th>
-                                </tr>
-                            </thead>
-                            <tbody id="postTableBody">
-                                <!-- Preenchido dinamicamente via JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-
-    <!-- MODAL DE CRIAÇÃO E EDIÇÃO DE POST TOTALMENTE TURBINADO -->
-    <div id="postModal" class="modal">
-        <div class="modal-content" style="width: 700px; max-height: 90vh; overflow-y: auto;">
-            <div class="modal-header">
-                <h2 id="modalTitle"><i class="fas fa-pen-fancy"></i> Criar Nova Postagem</h2>
-                <button class="modal-close" onclick="toggleModal()">&times;</button>
+                </main>
             </div>
-            <form id="postForm" onsubmit="handlePostSubmit(event)">
-                <div class="form-group">
-                    <label>Título do Artigo</label>
-                    <input type="text" id="title" placeholder="Digite um título chamativo..." required>
-                </div>
-
-
-                <div class="form-group">
-                    <label>Categoria do Assunto</label>
-                    <select id="category" required style="width: 100%; padding: 12px 16px; border: 1px solid #edf2f7; background-color: #f8fafc; border-radius: 8px; font-size: 14px; outline: none; cursor: pointer;">
-                        <option value="" disabled selected>Selecione uma categoria...</option>
-                        <option value="Clima">Clima</option>
-                        <option value="Recursos Hidricos">Recursos Hídricos</option>
-                        <option value="Sustentabilidade">Sustentabilidade</option>
-                        <option value="Saneamento">Saneamento</option>
-                        <option value="Eventos">Eventos</option>
-                        <option value="Avisos">Avisos</option>
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <label>Imagem de Capa (Upload)</label>
-                    <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
-                   
-                    <div id="imagePreviewContainer" style="display: none; margin-top: 12px; width: 100%; height: 180px; border-radius: 8px; overflow: hidden; border: 2px dashed #5c2d91;">
-                        <img id="imagePreviewElement" src="" alt="Pré-visualização" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-               
-                <div class="form-group">
-                    <label>Conteúdo Avançado do Artigo</label>
-                    <div id="editor-container" style="height: 200px; background: #fff; border-radius: 0 0 8px 8px;"></div>
-                </div>
-                <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-                    <button type="button" class="btn-action-delete" style="background-color: #718096;" onclick="toggleModal()">Cancelar</button>
-                    <button type="submit" id="btnSubmitForm" class="btn-create-fast">Publicar Post</button>
-                </div>
-            </form>
         </div>
-    </div>
+
+
+        <!-- MODAL DE CRIAÇÃO E EDIÇÃO DE POST TOTALMENTE TURBINADO -->
+        <div id="postModal" class="modal">
+            <div class="modal-content" style="width: 700px; max-height: 90vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <h2 id="modalTitle"><i class="fas fa-pen-fancy"></i> Criar Nova Postagem</h2>
+                    <button class="modal-close" onclick="toggleModal()">&times;</button>
+                </div>
+                <form id="postForm" onsubmit="handlePostSubmit(event)">
+                    <div class="form-group">
+                        <label>Título do Artigo</label>
+                        <input type="text" id="title" placeholder="Digite um título chamativo..." required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Categoria do Assunto</label>
+                        <select id="category" required style="width: 100%; padding: 12px 16px; border: 1px solid #edf2f7; background-color: #f8fafc; border-radius: 8px; font-size: 14px; outline: none; cursor: pointer;">
+                            <option value="" disabled selected>Selecione uma categoria...</option>
+                            <option value="Clima">Clima</option>
+                            <option value="Recursos Hidricos">Recursos Hídricos</option>
+                            <option value="Sustentabilidade">Sustentabilidade</option>
+                            <option value="Saneamento">Saneamento</option>
+                            <option value="Eventos">Eventos</option>
+                            <option value="Avisos">Avisos</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Imagem de Capa (Upload)</label>
+                        <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
+                    
+                        <div id="imagePreviewContainer" style="display: none; margin-top: 12px; width: 100%; height: 180px; border-radius: 8px; overflow: hidden; border: 2px dashed #5c2d91;">
+                            <img id="imagePreviewElement" src="" alt="Pré-visualização" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Conteúdo Avançado do Artigo</label>
+                        <div id="editor-container" style="height: 200px; background: #fff; border-radius: 0 0 8px 8px;"></div>
+                    </div>
+                    <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn-action-delete" style="background-color: #718096;" onclick="toggleModal()">Cancelar</button>
+                        <button type="submit" id="btnSubmitForm" class="btn-create-fast">Publicar Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
       <script th:src="@{/js/api.js}"></script>
     <script>
 // Inicialização do Editor de Texto Rico Quill.js

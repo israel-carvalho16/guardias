@@ -14,17 +14,15 @@
     --shadow-soft: 0 4px 20px rgba(92, 45, 145, 0.04);
 }
 
-/* ==========================================================================
-   CONFIGURAÇÃO DE PALETA NOTURNA PREMIUM (DARK MODE)
-   ========================================================================= */
+/* CONFIGURAÇÃO DE PALETA NOTURNA PREMIUM (DARK MODE) */
 body.dark-theme {
-    --bg-layout: #0f111a;      /* Fundo da tela em grafite escuro militar */
-    --white: #161925;          /* Fundos dos cards, cabeçalho e tabelas em azul-escuro fosco */
-    --text-dark: #f8fafc;      /* Títulos e textos principais em branco puro */
-    --text-muted: #94a3b8;     /* Subtítulos e legendas em cinza claro */
-    --border-color: #26293b;   /* Divisórias discretas de tabelas */
-    --purple-light: #21153b;   /* Detalhes translúcidos em roxo profundo */
-    --shadow-soft: 0 4px 25px rgba(0, 0, 0, 0.4); /* Sombras escuras realistas */
+    --bg-layout: #0f111a;      
+    --white: #161925;          
+    --text-dark: #f8fafc;      
+    --text-muted: #94a3b8;     
+    --border-color: #26293b;   
+    --purple-light: #21153b;   
+    --shadow-soft: 0 4px 25px rgba(0, 0, 0, 0.4); 
 }
 
 * {
@@ -38,14 +36,14 @@ body {
     background-color: var(--bg-layout);
     color: var(--text-dark);
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave ao apagar a luz */
+    transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 /* Estrutura Grid Lateral */
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 
 /* MENU LATERAL (SIDEBAR) */
@@ -63,9 +61,8 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Garante o ajuste visual da sidebar se o grupo preferir deixá-la escura também no futuro */
 body.dark-theme .dashboard-sidebar {
-    background-color: #0b0d14; /* Tom opcional mais escuro para o menu lateral */
+    background-color: #0b0d14; 
     border-right: 1px solid #1e2235;
 }
 
@@ -128,13 +125,13 @@ body.dark-theme .dashboard-sidebar {
     background-color: rgba(234, 32, 39, 0.1) !important;
     color: #ff4d4d;
 }
-
 /* ÁREA CONTEÚDO DA DIREITA */
 .dashboard-main-content {
     margin-left: 260px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 /* TOPO (TOPBAR) */
@@ -448,4 +445,203 @@ body.dark-theme .dashboard-sidebar {
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;
+}
+/* ==========================================================================
+   SISTEMA DE RESPONSIVIDADE COMPLETO E ULTRA-CORRIGIDO (OMNI DEVPANEL)
+   ========================================================================== */
+
+/* Regra unificada para tablets e celulares (Telas até 992px) */
+@media (max-width: 992px) {
+    /* 1. RESET DE ESTRUTURA DO LAYOUT */
+    .dashboard-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* 2. SIDEBAR (MENU TOPO HORIZONTAL) - TOTALMENTE CORRIGIDO */
+    .dashboard-sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        padding: 15px 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Mudado de stretch para center para liberar o fluxo horizontal */
+        overflow: visible !important; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }
+    
+    .sidebar-brand {
+        margin-bottom: 12px !important;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 0 10px 0 !important;
+    }
+    
+    /* CORREÇÃO DO SCROLL HORIZONTAL CRÍTICO */
+    .dashboard-sidebar .sidebar-nav,
+    .sidebar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important; /* Trava rigidamente todos na mesma linha */
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important; /* Habilita a rolagem lateral ativa */
+        overflow-y: hidden !important; /* Mata o empilhamento vertical indesejado */
+        padding-bottom: 10px !important;
+        justify-content: flex-start !important; /* Garante o alinhamento inicial perfeito para o scroll */
+        align-items: center !important;
+        -webkit-overflow-scrolling: touch !important; /* Deixa o deslize super macio no mobile */
+        scrollbar-width: none !important; /* Oculta barra no Firefox */
+    }
+    
+    .sidebar-nav::-webkit-scrollbar {
+        display: none !important; /* Oculta barra no Chrome/Safari */
+    }
+    
+    /* GARANTIA DE VISIBILIDADE COMPLETA DOS BOTÕES */
+    .dashboard-sidebar .sidebar-nav .nav-item,
+    .sidebar-nav .nav-item,
+    .nav-item {
+        white-space: nowrap !important; /* Impede a quebra ou corte do texto */
+        flex-shrink: 0 !important;      /* IMPEDE O NAVEGADOR DE REDUZIR OU ESCONDER O BOTÃO */
+        display: inline-flex !important;
+        align-items: center !important;
+        width: max-content !important;  /* Obriga o botão a assumir o tamanho do próprio texto */
+        min-width: max-content !important;
+        padding: 10px 16px !important;
+        margin: 0 !important;
+    }
+    
+    /* Botão de sair integrado ao fim da fila */
+    .sidebar-nav .btn-logout-sidebar,
+    .btn-logout-sidebar {
+        margin-top: 0 !important;
+        margin-left: 0 !important; 
+        flex-shrink: 0 !important;
+    }
+    
+    /* 3. CONTEÚDO PRINCIPAL (EXPANSÃO TOTAL) */
+    .dashboard-main-content {
+        margin-left: 0 !important; /* Mata os 260px fixos da sidebar antiga */
+        width: 100% !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0 !important;
+    }
+    
+    /* 4. TOPBAR (ALINHAMENTO EM COLUNA) */
+    .dashboard-topbar {
+        height: auto !important;
+        padding: 15px 20px !important;
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        gap: 12px !important;
+        align-items: stretch !important;
+    }
+    
+    .topbar-search, .topbar-search input {
+        width: 100% !important;
+    }
+    
+    .topbar-user {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        align-items: center !important;
+    }
+    
+    /* 5. CONTEÚDO INTERNO INTERATIVO */
+    .dashboard-view-body {
+        padding: 20px !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 6. GRID DE MÉTRICAS ADAPTÁVEL */
+    .metrics-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 15px !important;
+        width: 100% !important;
+    }
+    
+    .metric-card {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* 7. PAINEL DE TABELA E BOTÕES */
+    .table-card-header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    
+    .btn-create-fast {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+    
+    .admin-table-wrapper {
+        padding: 10px 20px 20px 20px !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .table {
+        min-width: 600px !important;
+    }
+    
+    /* 8. JANELA FLUTUANTE (MODAL FLUIDO) */
+    .modal-content {
+        width: 92% !important;
+        max-width: 92% !important;
+        margin: 20px auto !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+
+@media (max-width: 576px) {
+    .view-header-intro h1 {
+        font-size: 1.35rem !important; 
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .modal-footer, .modal-footer-actions {
+        display: flex !important;
+        flex-direction: column-reverse !important; 
+        gap: 10px !important;
+        width: 100% !important;
+    }
+    .modal-footer button, 
+    .modal-footer-actions button, 
+    .btn-cancel, 
+    .btn-success {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 12px !important;
+    }
+    #editor-container {
+        height: 140px !important;
+    }
 }
