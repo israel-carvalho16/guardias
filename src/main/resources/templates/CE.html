@@ -29,26 +29,20 @@
     }
   </style>
 
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-new window.VLibras.Widget('https://vlibras.gov.br/app');
+<script style="display: block; margin: auto;">
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
 </head>
 
 
 <body>
-  <!-- Componente de Acessibilidade VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
- 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED PADRONIZADO (HEADER COMPARTILHADO) -->
   <header class="site-header" role="banner">
     <div class="header-brand">
@@ -104,7 +98,7 @@ new window.VLibras.Widget('https://vlibras.gov.br/app');
        
         <!-- Container adicionado para centralizar a imagem perfeitamente -->
         <div class="image-center-wrapper">
-          <img th:src="@{/Núcleo - Juazeiro do Norte-CE/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg}" alt="Núcleo Juazeiro do Norte">
+          <img th:src="@{/CE_/Saúde em ação/WhatsApp Image 2025-04-29 at 20.51.37 (4).jpeg}" alt="Núcleo Juazeiro do Norte">
         </div>
       </div>
     </section>

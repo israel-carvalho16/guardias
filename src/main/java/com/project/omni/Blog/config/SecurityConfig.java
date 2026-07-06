@@ -38,7 +38,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // 1. Libera recursos estáticos (CSS, JS, Imagens)
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**", "/CE_/**","/UBER/**").permitAll()
                 
                 // 2. Libera todas as variações das suas páginas públicas (Case-Insensitive e extensões)
                 .requestMatchers(

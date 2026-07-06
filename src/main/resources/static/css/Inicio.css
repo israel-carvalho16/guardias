@@ -1294,25 +1294,7 @@ div[id^="userway"],
     transform: none !important;
 }
 
-<<<<<<< Updated upstream
 
-
-
-
-  
-=======
-/* VLibras: Fixo no canto inferior esquerdo (Livre de obstruções) */
-div[vw], 
-[vw], 
-.enabled[vw] {
-  z-index: 999999 !important;
-  position: fixed !important;
-  top: auto !important;
-  bottom: 120px !important; /* Deixa o ícone flutuando logo acima do início do rodapé */
-  left: 24px !important;    /* Fixa no canto esquerdo limpo da tela */
-  right: auto !important;
-  transform: none !important;
-}
 /* 1. Base oculta */
 .button, .overlay { display: none; }
 
@@ -1388,4 +1370,3 @@ div[vw],
 .btn-auth-mobile { display: block; width: 70%; padding: 12px; margin: 10px 0; text-align: center; text-decoration: none; border-radius: 8px; }
 .btn-admin-mobile { border: 2px solid var(--roxo-principal); color: var(--roxo-principal); }
 .btn-voluntario-mobile { background-color: var(--roxo-principal); color: white; }
->>>>>>> Stashed changes

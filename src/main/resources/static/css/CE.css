@@ -1,7 +1,3 @@
-
-
-
-
 :root {
   /* Cores Principais */
   --roxo-logo: #8e6db5;
@@ -23,6 +19,24 @@
   --shadow-md: 0 10px 15px -3px rgba(91, 40, 158, 0.08);
   --radius-lg: 16px;
   --radius-md: 12px;
+}
+#userwayAccessibilityIcon,
+.uew-lightbox-wrapper,
+div[id^="userway"],
+.userway-accessibility-icon {
+    /* 1. Reseta o bottom caso o script esteja usando a base da tela */
+    bottom: auto !important;
+   
+    /* 2. Empurra para baixo (aumente de 350px para 500px se quiser que desça mais) */
+    top: 390px !important;  
+   
+    /* 3. Mantém ele afastado da direita para não cobrir o VLibras */
+    right: 0px !important;  
+    left: auto !important;
+
+
+    /* 4. Zera qualquer em  purrão automático do script */
+    transform: none !important;
 }
 
 
@@ -1009,17 +1023,9 @@ header.site-header {
  
 }
 }
-
-
-
-
-
-<<<<<<< Updated upstream
-=======
   .intro img {
     width: 100%;
   }
-}
 /* 1. Base oculta */
 .button, .overlay { display: none; }
 
@@ -1095,4 +1101,4 @@ header.site-header {
 .btn-auth-mobile { display: block; width: 70%; padding: 12px; margin: 10px 0; text-align: center; text-decoration: none; border-radius: 8px; }
 .btn-admin-mobile { border: 2px solid var(--roxo-principal); color: var(--roxo-principal); }
 .btn-voluntario-mobile { background-color: var(--roxo-principal); color: white; }
->>>>>>> Stashed changes
+
