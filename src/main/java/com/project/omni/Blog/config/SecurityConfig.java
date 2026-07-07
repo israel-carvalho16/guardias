@@ -56,7 +56,7 @@ public class SecurityConfig {
                     "/volunform**", "/VolunForm**", "/Volunform**",
                     "/login**", "/Login**",
                     "/register**", "/Register**",
-                    "/protagonismo-feminino**"
+                    "/protagonismo-feminino**", "/Protagonismo-feminino**"
                 ).permitAll()
                 
                 // 3. Telas (apenas HTML) do painel administrativo. Não existe mais um
