@@ -945,7 +945,7 @@ header.site-header.header-scrolled {
   /* ==========================================================================
      MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
      ========================================================================= */
-  @media (max-width: 1024px) {
+  @media (max-width: 1570px) {
     header.site-header {
       flex-direction: column;
       gap: 16px;

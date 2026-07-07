@@ -59,11 +59,18 @@ public class SecurityConfig {
                     "/protagonismo-feminino**"
                 ).permitAll()
                 
-                // 3. Mantém rotas lógicas limpas que vieram do repositório remoto
-                .requestMatchers("/AdminForm", "/admin-dashboard").permitAll()
-                .requestMatchers("/admin/**").permitAll() 
-                .requestMatchers("/api/auth/**", "/auth/**", "/admin/login-api").permitAll() 
-                .requestMatchers("/api/admin/**").permitAll()
+                // 3. Telas (apenas HTML) do painel administrativo. Não existe mais um
+                // login/tabela "admin" separados: quem entra aqui usa a MESMA tela e o
+                // MESMO /api/auth/login de todo mundo. A tela só funciona de fato se o
+                // token retornado tiver ROLE_ADMIN, garantido pelas regras abaixo.
+                .requestMatchers("/AdminForm", "/admin-dashboard", "/admin/novo-admin").permitAll()
+                .requestMatchers("/api/auth/**", "/auth/**").permitAll()
+                // CORREÇÃO DE SEGURANÇA: rotas administrativas (ex: aprovar/recusar voluntário,
+                // listar/promover/rebaixar usuários) agora exigem token JWT válido de um
+                // usuário com ROLE_ADMIN.
+                // Antes, qualquer pessoa podia chamar essas rotas direto pelo DevTools/console
+                // do navegador (fetch manual), sem estar logada, e aprovar voluntários à vontade.
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 
                 // 4. Libera visualização pública de posts e comentários do Blog (Método GET)
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/posts/**", "/comments/**").permitAll()
