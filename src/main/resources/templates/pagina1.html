@@ -7,8 +7,11 @@
   
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   
+  <script th:src="@{/js/api.js}" defer></script>
+  <script th:src="@{/js/auth.js}" defer></script>
   <script th:src="@{/js/home.js}" defer></script>
   <script th:src="@{/js/inicio.js}" defer></script>
+  <script th:src="@{/js/global-auth-ui.js}" defer></script>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" th:href="@{/css/Inicio.css}">
@@ -22,7 +25,7 @@
   </script>
 </head>
 <body>
-  <!-- CORRIGIDO: URL da CDN oficial do UserWay com a extensão /widget.js obrigatória -->
+  <!--URL da CDN oficial do UserWay com a extensão /widget.js obrigatória -->
   <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
 
   <!-- Componente VLibras sem o display:none ou opacidade zero na tag para não quebrar a árvore de elementos -->
@@ -268,8 +271,9 @@
       <section class="empoder-card"> 
         <h3>Protagonismo Feminino</h3>
         <img th:src="@{/img/Protagomismo feminino.png}" alt="Ilustração Protagonismo Feminino">
-        <h4>Saiba mais</h4>
+        <a><h4>Saiba mais</h4></a>
         <p>O protagonismo feminino refere-se à atuação activa das mulheres em diferentes espaços sociais...</p>
+        <a th:href="@{/protagonismo-feminino}" class="btn-auth btn-admin" style="display:inline-block; margin-top:12px; text-decoration:none;">Saiba mais</a>
       </section>
     </section>
 

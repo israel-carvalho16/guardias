@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protagonismo Feminino - Guardiãs das Águas</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+
+  <!-- Autenticação: mantém o usuário logado e exibe o Painel Admin em todas as páginas -->
+  <script th:src="@{/js/api.js}" defer></script>
+  <script th:src="@{/js/auth.js}" defer></script>
+  <script th:src="@{/js/global-auth-ui.js}" defer></script>
+
+  <style>
+    .pf-hero {
+      background: linear-gradient(135deg, #5c2d91 0%, #8e44ad 100%);
+      color: #fff;
+      padding: 120px 24px 60px 24px;
+      text-align: center;
+    }
+    .pf-hero h1 { font-size: 2.4rem; margin-bottom: 12px; }
+    .pf-hero p { max-width: 700px; margin: 0 auto; font-size: 1.05rem; opacity: 0.95; }
+
+    .pf-container { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+
+    .pf-section { display: flex; align-items: center; gap: 40px; margin-bottom: 70px; flex-wrap: wrap; }
+    .pf-section.reverse { flex-direction: row-reverse; }
+    .pf-section img { width: 100%; max-width: 380px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .pf-section .pf-text { flex: 1; min-width: 280px; }
+    .pf-text h2 { color: #5c2d91; margin-bottom: 14px; font-size: 1.6rem; }
+    .pf-text p { color: #444; line-height: 1.7; }
+
+    .pf-pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin: 40px 0 70px 0; }
+    .pf-pilar-card {
+      background: #fff; border-radius: 12px; padding: 28px 20px; text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08); border-top: 4px solid #5c2d91;
+    }
+    .pf-pilar-card i { font-size: 2rem; color: #5c2d91; margin-bottom: 14px; }
+    .pf-pilar-card h3 { font-size: 1.05rem; color: #2c3e50; margin-bottom: 10px; }
+    .pf-pilar-card p { font-size: 0.9rem; color: #666; line-height: 1.5; }
+
+    .pf-numeros { background: #f8f5fc; padding: 50px 24px; text-align: center; }
+    .pf-numeros-grid { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; margin-top: 24px; }
+    .pf-numero { font-size: 2.6rem; font-weight: 900; color: #5c2d91; }
+    .pf-numero-label { color: #555; font-size: 0.95rem; }
+
+    .pf-cta { text-align: center; padding: 70px 24px; }
+    .pf-cta h2 { color: #2c3e50; margin-bottom: 16px; }
+    .pf-cta a {
+      display: inline-block; margin-top: 10px; background: #5c2d91; color: #fff;
+      padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-brand">
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+      <h2>Guardiãs das Águas</h2>
+    </div>
+    <nav class="nav-desktop">
+      <ul class="nav-links">
+        <li><a th:href="@{/pagina1}">Início</a></li>
+        <li><a th:href="@{/noticias}">Notícias</a></li>
+        <li><a th:href="@{/projeto}">Projetos</a></li>
+        <li><a th:href="@{/evento}">Eventos</a></li>
+        <li><a th:href="@{/protagonismo-feminino}" style="font-weight:700; color:#5c2d91;">Protagonismo Feminino</a></li>
+        <li><a th:href="@{/contatos}">Contatos</a></li>
+      </ul>
+    </nav>
+    <div class="auth-actions auth-desktop">
+      <a th:href="@{/login}" class="btn-auth btn-admin">Login</a>
+      <a th:href="@{/register}" class="btn-auth btn-voluntario">Cadastro</a>
+    </div>
+  </header>
+
+  <section class="pf-hero">
+    <h1>Protagonismo Feminino</h1>
+    <p>Mulheres à frente da ciência, da educação ambiental e da conservação dos recursos hídricos do nosso país.</p>
+  </section>
+
+  <div class="pf-container">
+
+    <section class="pf-section">
+      <img th:src="@{/img/Protagomismo feminino.png}" alt="Ilustração representando o protagonismo feminino">
+      <div class="pf-text">
+        <h2>O que é protagonismo feminino?</h2>
+        <p>
+          O protagonismo feminino refere-se à atuação ativa das mulheres em diferentes espaços sociais,
+          científicos e de liderança — assumindo posições de destaque, tomando decisões e influenciando
+          diretamente os rumos de projetos, comunidades e pesquisas.
+        </p>
+        <p>
+          No projeto Guardiãs das Águas, isso significa colocar meninas e mulheres no centro da pesquisa
+          científica sobre recursos hídricos e saneamento, rompendo barreiras historicamente impostas
+          à participação feminina nas áreas de exatas e ciências ambientais.
+        </p>
+      </div>
+    </section>
+
+    <section class="pf-section reverse">
+      <img th:src="@{/img/equipe.png}" alt="Equipe do projeto Guardiãs das Águas">
+      <div class="pf-text">
+        <h2>Por que isso importa?</h2>
+        <p>
+          Mulheres seguem sub-representadas em carreiras de ciência, tecnologia, engenharia e matemática (STEM).
+          Ao formar jovens lideranças femininas desde a educação básica, o projeto Guardiãs das Águas contribui
+          para reduzir essa desigualdade e mostrar, na prática, que ciência também é lugar de mulher.
+        </p>
+        <p>
+          Além do impacto individual na vida de cada participante, o protagonismo feminino fortalece a própria
+          causa ambiental: comunidades lideradas por mulheres tendem a adotar práticas mais sustentáveis e
+          duradouras de gestão dos recursos hídricos.
+        </p>
+      </div>
+    </section>
+
+    <h2 class="titulo-centralizado" style="color:#5c2d91; margin-bottom: 10px;">Como colocamos isso em prática</h2>
+    <div class="pf-pilares">
+      <div class="pf-pilar-card">
+        <i class="fas fa-flask"></i>
+        <h3>Imersão Científica</h3>
+        <p>Alunas e professoras da rede pública participam de experiências reais de pesquisa nos laboratórios da UFU.</p>
+      </div>
+      <div class="pf-pilar-card">
+        <i class="fas fa-users"></i>
+        <h3>Mentoria e Referências</h3>
+        <p>Coordenação formada por pesquisadoras que atuam como referência e mentoras para as novas gerações.</p>
+      </div>
+      <div class="pf-pilar-card">
+        <i class="fas fa-hand-holding-heart"></i>
+        <h3>Direitos Humanos</h3>
+        <p>Atuação conjunta com a coordenação de Direitos Humanos, garantindo um espaço seguro e acolhedor.</p>
+      </div>
+      <div class="pf-pilar-card">
+        <i class="fas fa-seedling"></i>
+        <h3>Educação Ambiental</h3>
+        <p>Formação técnica aliada à consciência socioambiental, unindo ciência e responsabilidade social.</p>
+      </div>
+    </div>
+
+    <section class="pf-section">
+      <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin">
+      <div class="pf-text">
+        <h2>Vozes que inspiram</h2>
+        <p>
+          <strong>Dra. Jeamylle Nilin</strong> (UFU/Biologia), coordenadora geral do projeto, é bióloga com
+          doutorado em Ciências Marinhas Tropicais e uma das principais referências científicas que guiam as
+          participantes do programa.
+        </p>
+        <p>
+          <strong>Dra. Claudiene Santos</strong> (UFU/Pedagogia ICHPO), coordenadora de Direitos Humanos, soma
+          sua formação em Psicologia para garantir que o protagonismo feminino seja construído com acolhimento
+          e respeito às trajetórias de cada participante.
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="pf-numeros">
+    <h2 style="color:#2c3e50;">Impacto até agora</h2>
+    <div class="pf-numeros-grid">
+      <div>
+        <div class="pf-numero">10+</div>
+        <div class="pf-numero-label">Guardiãs formadas</div>
+      </div>
+      <div>
+        <div class="pf-numero">10</div>
+        <div class="pf-numero-label">Escolas atendidas</div>
+      </div>
+      <div>
+        <div class="pf-numero">2</div>
+        <div class="pf-numero-label">Coordenadoras pesquisadoras</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pf-cta">
+    <h2>Quer fazer parte dessa transformação?</h2>
+    <p>Conheça o projeto completo e saiba como se envolver com as Guardiãs das Águas.</p>
+    <a th:href="@{/register}">Quero me cadastrar</a>
+  </section>
+
+  <footer class="main-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a th:href="@{/pagina1}">Início</a></li>
+          <li><a th:href="@{/noticias}">Notícias</a></li>
+          <li><a th:href="@{/projeto}">Projetos</a></li>
+          <li><a th:href="@{/evento}">Eventos</a></li>
+          <li><a th:href="@{/protagonismo-feminino}">Protagonismo Feminino</a></li>
+        </ul>
+      </div>
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

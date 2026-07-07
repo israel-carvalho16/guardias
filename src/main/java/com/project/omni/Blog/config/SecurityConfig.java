@@ -55,7 +55,8 @@ public class SecurityConfig {
                     "/projeto**", "/Projeto**",
                     "/volunform**", "/VolunForm**", "/Volunform**",
                     "/login**", "/Login**",
-                    "/register**", "/Register**"
+                    "/register**", "/Register**",
+                    "/protagonismo-feminino**"
                 ).permitAll()
                 
                 // 3. Mantém rotas lógicas limpas que vieram do repositório remoto
