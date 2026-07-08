@@ -1,7 +1,6 @@
 package com.project.omni.contatos;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,13 +13,9 @@ public class Controler {
         this.repositoryFeed = repositoryFeed;
     }
 
-    
-    @GetMapping("/contato")
-    public String abrirPagina() {
-        return "contatos"; 
-    }
+    // O @GetMapping("/contatos") FOI REMOVIDO DAQUI para não conflitar com o PageController
 
-    @PostMapping("/contato/enviar")
+    @PostMapping("/contatos")
     public String salvarDados(@RequestParam("nome") String nome,
                               @RequestParam("email") String email,
                               @RequestParam("mensagem") String mensagem,
@@ -34,8 +29,7 @@ public class Controler {
 
         repositoryFeed.save(novoFeed);
 
-        return "redirect:/contato"; 
+        // Continua redirecionando para /contatos, que o PageController vai renderizar com sucesso!
+        return "redirect:/contatos?sucesso"; 
     }
-    
-    // RESOLUÇÃO: O método @GetMapping("/") foi deletado daqui!
 }
