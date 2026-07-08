@@ -357,19 +357,7 @@ nav ul li a:hover {
 }
 
 /* Responsividade Mobile */
-@media (max-width: 768px) {
-  .hero { height: 420px; }
-  .hero-content h1 span.line-impact { 
-    font-size: 2.2rem !important; 
-    -webkit-text-stroke: 2px #000000 !important; /* Contorno menor no celular para não juntar as letras */
-    text-stroke: 2px #000000 !important;
-  }
-}
 
-
-
-
-  
   /* ==========================================================================
      SEÇÃO TÓPICOS (COM CORREÇÃO DE IMAGENS GIGANTES)
      ========================================================================= */
@@ -719,259 +707,369 @@ nav ul li a:hover {
    8. RODAPÉ FINAL (FOOTER RESTRUTURADO)
    ========================================================================= */
 /* ==========================================================================
-   8. RODAPÉ FINAL (ESTILO CORPORATIVO PREMIUM LAPIDADO)
+   8. RODAPÉ FINAL (ESTILO CORPORATIVO PREMIUM LAPIDADO - CORRIGIDO)
    ========================================================================= */
-   footer.main-footer {
-    background: linear-gradient(135deg, #2d0f5a, #1a0636) !important; /* Gradiente profundo e sóbrio */
-    color: rgba(255, 255, 255, 0.85) !important;
-    padding: 80px 6% 35px !important;
-    margin-top: 100px;
-    font-family: "arabic", sans-serif;
-    border-top: 4px solid var(--azul1); /* Linha sutil de transição com a paleta */
-  }
-  
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr; /* Distribuição profissional assimétrica */
-    gap: 50px;
-  }
-  
-  .footer-column h4 {
-    color: #ffffff;
-    font-size: 1.15rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-    position: relative;
-  }
-  
-  /* Marcação sutil abaixo dos subtítulos do footer */
-  .footer-column h4::after {
-    content: "";
-    display: block;
-    width: 30px;
-    height: 2px;
-    background-color: var(--azul1);
-    margin-top: 6px;
-  }
-  
-  /* Tratamento da Logo interna do Footer */
-  .footer-logo-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  
-  .footer-logo-title img {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background: white;
-    padding: 2px;
-  }
-  
-  .footer-logo-title h3 {
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin: 0;
-  }
-  
-  .footer-about p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    opacity: 0.75;
-  }
-  
-  /* Links Rápidos com Efeito Slide de Linha */
-  .footer-links ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start; /* Corrige alinhamento */
-  }
-  
-  .footer-links ul li a {
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 0; /* Limpa paddings antigos */
-    position: relative;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-links ul li a::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--azul1);
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  .footer-links ul li a:hover {
-    color: #ffffff;
-    background-color: transparent; /* Anula heranças */
-  }
-  
-  .footer-links ul li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-  
-  /* Coluna de Contato e Ícones Redes */
-  .footer-contact .institution-tag {
-    font-size: 0.95rem;
-    margin-bottom: 16px;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* Força o container das redes sociais a ficar lado a lado */
-  .footer-contact .redes-sociais {
-    display: flex !important;
+footer.main-footer {
+  background: linear-gradient(135deg, #2d0f5a, #1a0636) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  padding: 60px 6% 35px !important; /* Reduzido padding superior para evitar vazio enorme */
+  margin-top: 100px;
+  font-family: "arabic", sans-serif;
+  border-top: 4px solid var(--azul1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 50px;
+  align-items: start !important; /* CRÍTICO: Força o topo de todos os blocos a começarem na mesma linha visual */
+}
+
+/* Tratamento Global das Colunas */
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-column h4 {
+  color: #ffffff;
+  font-size: 1.15rem;
+  margin: 0 0 16px 0 !important; /* Fixa margem padrão limpa */
+  font-weight: 700;
+  position: relative;
+  line-height: 1.2;
+}
+
+/* Marcação sutil abaixo dos subtítulos do footer */
+.footer-column h4::after {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 2px;
+  background-color: var(--azul1);
+  margin-top: 8px; /* Ajustado espaço sutil */
+}
+
+/* Tratamento da Logo interna do Footer */
+.footer-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-title img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: white;
+  padding: 2px;
+  object-fit: cover;
+}
+
+.footer-logo-title h3 {
+  font-size: 1.4rem; /* Ajustado ligeiramente para casar com a proporção */
+  color: #ffffff;
+  margin: 0;
+  font-weight: 700;
+}
+
+.footer-about p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* Links Rápidos com Efeito Slide de Linha */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.footer-links ul li {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1; /* Estabiliza a altura da linha */
+}
+
+.footer-links ul li a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 2px 0; /* Pequeno toque seguro para o clique */
+  position: relative;
+  display: inline-block; /* Garante que a pseudo-linha meça o tamanho do texto */
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--azul1);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.footer-links ul li a:hover {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.footer-links ul li a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Coluna de Contato e Ícones Redes */
+.footer-contact .institution-tag {
+  font-size: 0.95rem;
+  margin: 0 0 16px 0 !important;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.2;
+}
+
+/* Força o container das redes sociais a ficar lado a lado */
+.footer-contact .redes-sociais {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  justify-content: flex-start !important;
+  margin-top: 10px !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+/* Remove qualquer herança de tag img antiga */
+.redes-sociais a img {
+  display: none !important;
+}
+
+/* Transforma as esferas em containers de texto perfeitos, circulares e brancos */
+.redes-sociais a {
+  display: inline-flex !important; /* Mudado para inline-flex para comportamento exato de botão */
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important; /* Ajuste milimétrico de tamanho circular */
+  height: 38px !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 50% !important;
+  text-decoration: none !important;
+  color: #ffffff !important;
+  font-size: 0.8rem !important; /* Letras centralizadas sem quebrar */
+  font-weight: 700 !important;
+  letter-spacing: 0px !important;
+  line-height: 1 !important; /* Centralização perfeita do texto interno (YT / IG) */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Efeito Hover Premium individual para cada botão */
+.redes-sociais a.icon-yt:hover {
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 15px rgba(255, 0, 0, 0.35) !important;
+}
+
+.redes-sociais a.icon-insta:hover {
+  background-color: #e1306c !important;
+  color: #ffffff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.35) !important;
+}
+
+/* Divisores e Base */
+.footer-divider {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 40px auto 25px !important; /* Diminuído para manter a proporção compacta */
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  opacity: 0.65;
+  padding-top: 0;
+}
+
+.footer-credits a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+  transition: var(--transition);
+}
+
+.footer-credits a:hover {
+  color: var(--azul3);
+  border-bottom-color: var(--azul3);
+}
+/* ==========================================================================
+   MEDIA QUERIES UNIFICADAS (RESPONSIVIDADE DO CABEÇALHO, MENU CORTINA E FOOTER)
+   ========================================================================= */
+
+/* 1. MANTÉM O CABEÇALHO EM LINHA EM MONITORES MENORES (CORREÇÃO DE 1570PX) */
+@media (max-width: 1570px) {
+  header.site-header {
     flex-direction: row !important;
-    gap: 12px !important;
-    justify-content: flex-start !important;
-    margin-top: 15px !important;
-    padding: 0 !important;
-    list-style: none !important;
+    gap: 0 !important;
+    padding: 0 4% !important;
   }
-  
-  /* Remove qualquer herança de tag img antiga */
-  .redes-sociais a img {
+}
+
+/* 2. REGRA DE OURO DA BARRA DE NAVEGAÇÃO (TABLETS E CELULARES ATÉ 1024PX) */
+@media (max-width: 1024px) {
+  header.site-header {
+    height: 75px !important;       /* Fixa uma altura fina e elegante para telas touch */
+    padding: 0 4% !important;
+    display: flex !important;
+    flex-direction: row !important; /* Obriga a logo e o botão a ficarem lado a lado na horizontal */
+    justify-content: space-between !important;
+    align-items: center !important; /* Alinhamento vertical exato ao centro */
+  }
+
+  /* ESCONDE O MENU DESKTOP PARA NÃO VAZAR NA TELA */
+  header.site-header .nav-desktop,
+  header.site-header nav,
+  header.site-header .nav-links {
     display: none !important;
   }
-  
-  /* Transforma as esferas em containers de texto perfeitos, circulares e brancos */
-  .redes-sociais a {
-    display: flex !important;
+
+  /* ESCONDE OS DOIS BOTÕES GRANDES DE AUTENTICAÇÃO DO DESKTOP */
+  header.site-header .auth-actions,
+  header.site-header .auth-desktop,
+  header.site-header .btn-auth {
+    display: none !important;
+  }
+
+  /* EXIBE E EMITE O ESTILO DO BOTÃO HAMBÚRGUER ROXO */
+  header.site-header #btn-toggle-menu,
+  header.site-header .button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    width: 42px !important;
+    height: 42px !important;
+    background-color: var(--roxo-principal) !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+  }
+
+  /* Garante o ícone do Font Awesome centralizado perfeitamente */
+  header.site-header #btn-toggle-menu i {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+    display: block !important;
+  }
+
+  /* Compacta a logo vertical para telas mobile */
+  header .header-brand {
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 40px !important;
-    height: 40px !important;
-    background-color: rgba(255, 255, 255, 0.15) !important; /* Esfera translúcida sutil */
-    border-radius: 50% !important;
-    text-decoration: none !important;
-    color: #ffffff !important; /* Força o texto interno (YT/IG) a ficar branco */
-    font-size: 0.85rem !important; /* Proporção ideal para as siglas */
-    font-weight: 700 !important;
-    letter-spacing: 0px !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    height: 100% !important;
+    gap: 2px !important;
   }
-  
-  /* Efeito Hover Premium individual para cada botão */
-  .redes-sociais a.icon-yt:hover {
-    background-color: #ff0000 !important; /* Vermelho do YouTube */
-    color: #ffffff !important;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
-  }
-  
-  .redes-sociais a.icon-insta:hover {
-    background-color: #e1306c !important; /* Rosa do Instagram */
-    color: #ffffff !important;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
-  }
-  
-  /* Divisores e Base */
-  .footer-divider {
-    border: 0;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 50px auto 25px;
-  }
-  
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 0.85rem;
-    opacity: 0.65;
-    padding-top: 10px;
-  }
-  
-  .footer-credits a {
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
-    transition: var(--transition);
-  }
-  
-  .footer-credits a:hover {
-    color: var(--azul3);
-    border-bottom-color: var(--azul3);
-  }
-  
-  /* Ajustes de Responsividade do Novo Layout */
-  @media (max-width: 900px) {
-    .footer-container {
-      grid-template-columns: 1fr;
-      gap: 35px;
-      text-align: center;
-    }
-    .footer-logo-title, .footer-links ul {
-      justify-content: center;
-      align-items: center;
-    }
-    .footer-column h4::after {
-      margin: 6px auto 0;
-    }
-    .footer-contact .redes-sociais {
-      justify-content: center !important;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-  }
-  
-  
-  /* Ajustes de Responsividade do Novo Layout */
-  @media (max-width: 900px) {
-    .footer-container {
-      grid-template-columns: 1fr;
-      gap: 35px;
-      text-align: center;
-    }
-    .footer-logo-title, .footer-links ul {
-      justify-content: center;
-      align-items: center;
-    }
-    .footer-column h4::after {
-      margin: 6px auto 0;
-    }
-    .footer-contact .institution-tag {
-      justify-content: center;
-    }
-    .redes-sociais {
-      justify-content: center;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
-    }
-  }
-  
 
-/* Responsividade do Novo Footer */
-@media (max-width: 768px) {
+  header img {
+    width: 34px !important;       /* Ícone menor para celulares */
+    height: 34px !important;
+    margin: 0 !important;
+  }
+
+  header h2 {
+    font-size: 0.75rem !important; /* Nome compacto para não quebrar a linha */
+    margin: 0 !important;
+  }
+
+  /* Corrige a folga do topo da página para o banner no celular */
+  html, body {
+    padding-top: 75px !important;
+  }
+}
+
+/* 3. AJUSTES GERAIS DE CONTEÚDO (ATÉ 900PX) */
+@media (max-width: 900px) { 
+  /* Seção de Conteúdo #toma */
+  #toma { 
+    grid-template-columns: 1fr; 
+    text-align: center; 
+    padding: 24px;
+  } 
+  #toma h1, #toma img, #toma section:nth-of-type(1), #toma section:nth-of-type(2) { 
+    grid-column: auto; 
+  } 
+  #toma img { 
+    max-width: 220px; 
+    order: -1;
+  } 
+  .hero-content h1 { font-size: 32px; } 
+
+  /* Centralização Limpa do Footer Premium */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    text-align: center;
+  }
+  .footer-logo-title, .footer-links ul {
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-column h4::after {
+    margin: 6px auto 0;
+  }
+  .footer-contact .institution-tag,
+  .redes-sociais {
+    justify-content: center !important;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+/* 4. AJUSTES PARA TELAS DE CELULAR PADRÃO (ATÉ 768PX) */
+@media (max-width: 768px) { 
+  .hero { height: 420px; }
+  .hero-content h1 span.line-impact { 
+    font-size: 2.2rem !important; 
+    -webkit-text-stroke: 2px #000000 !important;
+    text-stroke: 2px #000000 !important;
+  }
+  #escolhe, .team-grid-layout { grid-template-columns: 1fr; } 
+  #saneamento h1 { font-size: 28px; } 
+  
   .footer-container {
     flex-direction: column;
     text-align: center;
@@ -986,69 +1084,36 @@ nav ul li a:hover {
     flex-direction: column;
     align-items: center;
   }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
 }
 
-  /* ==========================================================================
-     MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
-     ========================================================================= */
-  @media (max-width: 1570px) {
-    header.site-header {
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
-  }
-  
-  @media (max-width: 900px) { 
-    #toma { 
-      grid-template-columns: 1fr; 
-      text-align: center; 
-      padding: 24px;
-    } 
-    #toma h1, #toma img, #toma section:nth-of-type(1), #toma section:nth-of-type(2) { 
-      grid-column: auto; 
-    } 
-    #toma img { 
-      max-width: 220px; 
-      order: -1;
-    } 
-    .hero-content h1 { font-size: 32px; } 
-  } 
-  
-  @media (max-width: 768px) { 
-    #escolhe, .team-grid-layout { grid-template-columns: 1fr; } 
-    #saneamento h1 { font-size: 28px; } 
-  } 
-  
- /* ==========================================================================
-   TRAVAMENTO ABSOLUTO DO CABEÇALHO (MATA O PULO DOS 600PX)
-   ========================================================================= */
+/* 5. CELULARES PEQUENOS E TRAVAMENTO DE FLUXO (ATÉ 600PX) */
 @media (max-width: 600px) {
-    .site-header,
-    header.site-header {
-        position: fixed !important; /* Transforma o header em uma camada flutuante fixa no teto */
-        top: 0 !important;
-        left: 0 !important;
-        margin-top: 0 !important;   /* Zera qualquer margem fantasma que jogue ele para baixo */
-        padding-top: 15px !important; 
-        padding-bottom: 15px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        z-index: 99998 !important;  /* Fica à frente do site, mas atrás do menu mobile aberto */
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
-    }
+  header.site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 70px !important;     /* Barra fina para telas pequenas */
+    width: 100% !important;
+    max-width: 100% !important;
+    z-index: 99998 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    padding: 0 5% !important;
+  }
+  
+  header img {
+    width: 32px !important;
+    height: 32px !important;
+  }
 
-    /* Compensa o topo da página para que o título do site não suma por trás do header fixo */
-    .hero, 
-    #toma {
-        margin-top: 0 !important;
-        padding-top: 90px !important; /* Cria o colchão seguro para o texto respirar */
-    }
+  header h2 {
+    font-size: 0.7rem !important;
+  }
+
+  html, body, .hero, #toma {
+    padding-top: 80px !important; /* Cria o colchão seguro para o texto respirar */
+  }
 }
+
 /* ==========================================================================
    MENU DE ACESSIBILIDADE LATERAL DUPLO (PRO)
    ========================================================================= */
