@@ -82,4 +82,5 @@
 
             return new AuthResponse(token, user.getName(), user.getEmail(), role);
         }
+        
     }

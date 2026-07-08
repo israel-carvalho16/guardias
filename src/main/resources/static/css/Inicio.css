@@ -67,153 +67,203 @@
     margin: 8px auto 0;
     border-radius: 2px;
   }
-  
-  /* ==========================================================================
-     CABEÇALHO GLOBAL E NAVEGAÇÃO
+   /* ==========================================================================
+     CABEÇALHO GLOBAL E NAVEGAÇÃO (TODOS OS DETALHES CORRIGIDOS)
      ========================================================================= */
 header.site-header {
-  background-color: rgba(255, 255, 255, 0.82) !important; /* Efeito vidro translúcido */
+  background-color: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   
-  box-shadow: 0 4px 30px rgba(91, 40, 158, 0.03) !important;
+  box-shadow: 0 4px 20px rgba(91, 40, 158, 0.06) !important;
   border-bottom: 1px solid rgba(145, 164, 206, 0.15) !important;
   
-  /* MUDANÇA CRÍTICA: Fixa o menu no topo de forma absoluta e isolada */
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  z-index: 99999 !important; /* Fica na frente de absolutamente tudo */
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease-in-out !important;
-  padding: 14px 5% !important;
+  z-index: 99999 !important;
+  
+  /* CORREÇÃO DO ALINHAMENTO VISUAL */
+  height: 90px !important;       /* Altura controlada para o Flexbox centralizar os itens */
+  padding: 0 5% !important;      /* Remove o padding vertical para não empurrar os elementos */
   display: flex !important;
   justify-content: space-between !important;
-  align-items: center !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  align-items: center !important; /* Alinha o centro de todos os blocos na horizontal */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Mantém o encolhimento perfeito com o script de rolagem */
+/* Encolhimento proporcional e sutil ao rolar a página */
 header.site-header.header-scrolled {
-  padding: 10px 5% !important;
-  background-color: rgba(255, 255, 255, 0.92) !important;
-  box-shadow: 0 10px 30px rgba(91, 40, 158, 0.06) !important;
+  height: 75px !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 30px rgba(91, 40, 158, 0.08) !important;
 }
 
+/* BLOCO DA LOGO (ESQUERDA) */
+header .header-brand {
+  display: flex !important;
+  flex-direction: column !important; /* Texto embaixo da imagem */
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;              /* Espaço controlado e curto */
+  height: 100% !important;
+}
 
+header img {
+  width: 38px !important;        /* Tamanho otimizado para o novo formato de barra */
+  height: 38px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: none !important;       /* CONTORNO ROXO RETIRADO DEFINITIVAMENTE */
+  margin: 0 !important;
+}
+
+header h2 {
+  font-size: 0.95rem !important;  /* Aumentado de 0.8rem para 0.95rem */
+  font-weight: 700 !important;
+  color: var(--roxo-principal) !important;
+  letter-spacing: -0.2px !important;
+  margin-top: 4px !important;     /* Empurra levemente para não colar no círculo */
+  white-space: nowrap !important;
+}
+/* BLOCO DO MENU CENTRAL */
+nav.nav-desktop {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  flex: 1 !important;
+}
+
+nav ul.nav-links {
+  list-style: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;           /* Reduzido de 20px para 12px para agrupar melhor */
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+}
+
+nav ul li {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
   
-  header .header-brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+nav ul li a {
+  color: #4a5568 !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;  /* Fonte levemente reduzida para harmonia perfeita */
+  padding: 6px 12px !important;   /* Botão mais discreto e moderno */
+  border-radius: var(--radius-md) !important;
+  transition: var(--transition) !important;
+}
+  
+nav ul li a:hover {
+  background-color: #f7f4fc !important;
+  color: var(--roxo-principal) !important;
+}
+
+    /* ==========================================================================
+     Dropdown Nossos Núcleos - CORRIGIDO
+     ========================================================================= */
+  details { 
+    position: relative !important; 
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important; /* Faz o dropdown usar toda a altura da barra */
   }
-  
-  header img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--roxo-logo);
+
+  /* Remove a seta cinza padrão do navegador (Chrome, Safari, Edge) */
+  details summary::-webkit-details-marker {
+    display: none !important;
   }
-  
-  header h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--roxo-principal);
-    letter-spacing: -0.5px;
+  /* Remove a seta cinza padrão no Firefox */
+  details summary {
+    list-style: none !important;
   }
-  
-  nav ul.nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 28px;
-    background-color: transparent !important;
-    margin-top: 0 !important;
-    padding: 0 !important;
-  }
-  
-  nav ul li a {
-    color: #4a5568;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 8px 16px;
-    border-radius: var(--radius-md);
-    transition: var(--transition);
-    display: inline-block;
-  }
-  
-  nav ul li a:hover {
-    background-color: #f7f4fc;
-    color: var(--roxo-principal);
-  }
-  
-  /* Dropdown Nossos Núcleos */
-  details { position: relative; }
+
   #Nucleos {
-    text-decoration: none;
-    color: #4a5568;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 8px 16px;
+    text-decoration: none !important;
+    color: #4a5568 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important; /* Padronizado com o resto do menu */
+    cursor: pointer !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important; /* Espaço perfeito entre a palavra e a seta do HTML */
   }
-  #Nucleos:hover { color: var(--roxo-principal); }
+  #Nucleos:hover { color: var(--roxo-principal) !important; }
   
   details .dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--bg-white);
-    box-shadow: var(--shadow-md);
-    border-radius: 8px;
-    padding: 12px;
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-    border: 1px solid #e2e8f0;
+    position: absolute !important;
+    top: 85% !important; /* Posiciona o balão logo abaixo da barra do menu */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: var(--bg-white) !important;
+    box-shadow: var(--shadow-md) !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    display: flex !important;
+    gap: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    z-index: 100000 !important; /* Garante que fique por cima do conteúdo da página */
   }
   
-  /* Botões de Autenticação */
+  /* ==========================================================================
+     Botões de Autenticação - ALINHAMENTO VERTICAL CORRIGIDO
+     ========================================================================= */
   .auth-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex !important;
+    align-items: center !important; /* Puxa os botões para o centro exato da barra */
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    height: 100% !important; /* Ocupa a altura total do cabeçalho */
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .auth-actions a { margin: 0 !important; }
   
   .btn-auth {
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: var(--transition);
-    white-space: nowrap;
-    display: inline-block;
+    text-decoration: none !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    transition: var(--transition) !important;
+    white-space: nowrap !important;
+    display: inline-flex !important; /* Alinha o texto do botão de forma simétrica */
+    align-items: center !important;
+    height: auto !important; /* Impede que o botão estique verticalmente */
   }
   
   .btn-admin {
-    color: var(--roxo-principal);
-    border: 2px solid var(--roxo-principal);
-    background-color: transparent;
+    color: var(--roxo-principal) !important;
+    border: 2px solid var(--roxo-principal) !important;
+    background-color: transparent !important;
   }
-  .btn-admin:hover { background-color: #f7f4fc; transform: translateY(-1px); }
+  .btn-admin:hover { 
+    background-color: #f7f4fc !important; 
+    transform: translateY(-1px) !important; 
+  }
   
   .btn-voluntario {
-    background-color: var(--roxo-principal);
-    color: var(--text-light);
-    border: 2px solid var(--roxo-principal);
+    background-color: var(--roxo-principal) !important;
+    color: var(--text-light) !important;
+    border: 2px solid var(--roxo-principal) !important;
   }
   .btn-voluntario:hover {
-    background-color: #441c78;
-    border-color: #441c78;
-    transform: translateY(-1px);
+    background-color: #441c78 !important;
+    border-color: #441c78 !important;
+    transform: translateY(-1px) !important;
   }
-  
+
 /* ==========================================================================
    3. HERO SECTION (TEXT MASK COM FONT-WEIGHT MAXIMIZADO)
    ========================================================================= */
