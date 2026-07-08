@@ -19,24 +19,44 @@ public class ControlerVolun {
         this.Repository_Voluntário = Repository_Voluntário;
     }
 
-    // Rota POST original: Continua como @Controller para fazer o redirecionamento HTML perfeito
+    // Rota POST corrigida para aceitar o JSON enviado pelo JavaScript (Opção 2)
     @PostMapping("/api/auth/volun-form")
-    public String salvarDados(@RequestParam("name") String nome,
-                              @RequestParam("email") String email,
-                              @RequestParam("cpf") String cpf,
-                              @RequestParam("phone") String phone,
-                              @RequestParam("gender") String gender,
-                              @RequestParam("password") String password) {
-        
-        V novoV = new V();
-        novoV.setNome(nome);
-        novoV.setEmail(email);
-        novoV.setLinks("CPF: " + cpf + " | Tel: " + phone + " | Gênero: " + gender);
-        novoV.setStatus("PENDENTE"); 
+    @ResponseBody // Permite retornar um ResponseEntity direto dentro de um @Controller comum
+    public ResponseEntity<?> salvarDados(@RequestBody Map<String, String> dados) {
+        try {
+            // Extrai as strings do JSON enviado pelo JavaScript com segurança
+            String nome = dados.get("name");
+            String email = dados.get("email");
+            String cpf = dados.get("cpf");
+            String phone = dados.get("phone");
+            String gender = dados.get("gender");
 
-        Repository_Voluntário.save(novoV);
+            // Validação simples: impede o cadastro se campos essenciais vierem nulos
+            if (nome == null || email == null || cpf == null) {
+                return ResponseEntity.badRequest().body("Campos obrigatórios ausentes no formulário.");
+            }
 
-        return "redirect:/pagina1"; 
+            // OPCIONAL: Limpeza de máscara do CPF se a sua validação futura exigir apenas números
+            // String cpfLimpo = cpf.replaceAll("[^0-9]", "");
+
+            V novoV = new V();
+            novoV.setNome(nome);
+            novoV.setEmail(email);
+            // Salva as informações complementares dentro da coluna de links estruturada
+            novoV.setLinks("CPF: " + cpf + " | Tel: " + phone + " | Gênero: " + gender);
+            novoV.setStatus("PENDENTE"); 
+
+            Repository_Voluntário.save(novoV);
+
+            // Retorna sucesso para o JavaScript saber que deu tudo certo
+            Map<String, String> resposta = new HashMap<>();
+            resposta.put("mensagem", "Voluntário cadastrado com sucesso!");
+            return ResponseEntity.ok(resposta);
+
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar voluntário: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Erro no servidor: " + e.getMessage());
+        }
     }
 
     // ==========================================================================
@@ -51,6 +71,7 @@ public class ControlerVolun {
     @ResponseBody 
     public ResponseEntity<?> listarTodosParaOAdmin() {
         try {
+            
             // Retorna ao método nativo do JPA para evitar erros de ResultSet de queries customizadas
             List<V> lista = Repository_Voluntário.findAll();
             

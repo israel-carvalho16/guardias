@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscrição de Voluntariado - Guardiãs das Águas</title>
     <script th:src="@{/js/Validar_CPF.js}" defer></script>
+    <script th:src="@{/js/validarNumber.js}" defer></script>
+    <script th:src="@{/js/volun.js}" defer></script>
     
     <!-- Biblioteca FontAwesome obrigatória para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -38,7 +40,7 @@
             <p>Faça parte do movimento</p>
         </div>
         <!-- 1. CORREÇÃO DA ROTA: th:action ajustado para passar livre pelo Spring Security em casa -->
-        <form th:action="@{/api/auth/volun-form}" method="POST">
+        <form th:action="@{/api/auth/volun-form}" method="POST" id="form-voluntario">
             <h3>Ficha de Inscrição</h3>
             
             <!-- Grid de Duas Colunas para os Campos -->

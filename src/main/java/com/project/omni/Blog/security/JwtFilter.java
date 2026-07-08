@@ -3,7 +3,7 @@ package com.project.omni.Blog.security;
 import com.project.omni.Blog.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie; // Mantida a importação dos cookies
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,20 +29,17 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String pathURI = request.getRequestURI();
-        if (pathURI != null && (pathURI.startsWith("/api/admin") || pathURI.startsWith("/api/admin/"))) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        // CORREÇÃO: Removeu-se o bloco if (pathURI.startsWith("/api/admin")) daqui 
+        // para que as rotas de admin possam ler e validar o token JWT enviado no Header
 
         String token = null;
 
-        // CORREÇÃO 1: Tenta buscar primeiro no cabeçalho Header (Usado pelo JavaScript do Painel Admin)
+        // 1. Tenta buscar primeiro no cabeçalho Header (Usado pelo JavaScript do Painel Admin)
         final String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7).trim();
         } 
-        // CORREÇÃO 2: Se não achar no Header, busca nos Cookies (Usado pela navegação das páginas HTML)
+        // 2. Se não achar no Header, busca nos Cookies (Usado pela navegação das páginas HTML)
         else if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if ("AUTH_TOKEN".equals(cookie.getName())) {
@@ -88,13 +85,10 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
-        String uri = request.getRequestURI();
         
-        if ((path != null && path.startsWith("/api/admin")) || (uri != null && uri.startsWith("/api/admin"))) {
-            return true;
-        }
+        // CORREÇÃO: Removeu-se a verificação de prefixo /api/admin daqui.
+        // Agora as APIs de administração serão processadas pelo filtro para coletar o Token.
 
-        // CORREÇÃO 3: Removemos o /admin-dashboard daqui para permitir que o filtro leia o Header JWT do Painel
         return path.equals("/AdminForm") 
             || path.equals("/AdminForm/enviar") 
             || path.equals("/login.html")

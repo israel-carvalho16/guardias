@@ -23,15 +23,22 @@ public class JwtService {
     private Long expiration;
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return Jwts.builder()
-                .claims(claims)
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey())
-                .compact();
-    }
+    Map<String, Object> claims = new HashMap<>();
+    
+    // CORREÇÃO: Extrai as permissões (Roles) do usuário e injeta no mapa de claims
+    var roles = userDetails.getAuthorities().stream()
+            .map(auth -> auth.getAuthority())
+            .toList();
+    claims.put("roles", roles); 
+
+    return Jwts.builder()
+            .claims(claims) // Agora o mapa 'claims' contém a lista de roles!
+            .subject(userDetails.getUsername())
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(getSigningKey())
+            .compact();
+}
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
