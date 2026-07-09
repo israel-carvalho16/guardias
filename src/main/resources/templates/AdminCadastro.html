@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://thymeleaf.org">
 <head>
-    <script th:src="@{/js/Validar_CPF.js}" defer></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Novo Administrador - Guardiãs das Águas</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/css/formularios.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/validarCPFAdmin.js}" defer></script>
 </head>
 <body>
 
@@ -41,7 +42,7 @@
             </div>
 
             <div class="input-group">
-                <label for="email">E-mail Institucional</label>
+                <label for="email">E-mail</label>
                 <input type="email" placeholder="nome@exemplo.com" id="email" name="email" required>
             </div>
 
