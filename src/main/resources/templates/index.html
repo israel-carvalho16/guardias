@@ -234,24 +234,48 @@
       </div> 
     </section> 
 
-    <section class="team-container-block"> 
-      <h1 class="titulo-centralizado">Nossa equipe</h1> 
-      <img class="team-banner-img" th:src="@{/img/equipe.png}" alt="Foto da Equipe Reunida"> 
-      
-      <div class="team-grid-layout">
-        <div class="team-card-item"> 
-          <h3>Coordenação Geral</h3> 
-          <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin"> 
-          <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
-        </div> 
+ <section class="team-container-block"> 
+    
+    <!-- Container alinhado horizontalmente -->
+    <div class="team-header-inline">
+        <h1 class="titulo-centralizado">Nossa equipe</h1> 
         
+        <div class="team-icon-container">
+            <!-- xmlns corrigido para validação do W3C -->
+     <svg xmlns="http://w3.org" viewBox="0 0 64 64" class="team-svg-icon">
+    <!-- Pessoa da Esquerda -->
+    <circle cx="22" cy="26" r="7" />
+    <path d="M6 50c0-7.7 6.3-11 11-11h10c2.4 0 5 .9 6.8 2.3" />
+
+    <!-- Pessoa da Direita -->
+    <circle cx="42" cy="26" r="7" />
+    <path d="M30.2 41.3c1.8-1.4 4.4-2.3 6.8-2.3h10c4.7 0 11 3.3 11 11" />
+
+    <!-- Pessoa do Centro (Sobreposta com borda de corte) -->
+    <circle cx="32" cy="20" r="8" class="svg-center-user" />
+    <path d="M16 48c0-8.8 7.2-13 16-13s16 4.2 16 13" class="svg-center-user" />
+</svg>
+
+
+        </div>
+    </div>
+
+    <!-- Grid de layout dos cards -->
+    <div class="team-grid-layout"> 
         <div class="team-card-item"> 
-          <h3>Coordenadora de Direitos Humanos</h3> 
-          <img th:src="@{/img/cord2.jfif}" alt="Dra. Claudiene Santos"> 
-          <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
+            <h3>Coordenação Geral</h3> 
+            <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin"> 
+            <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
         </div> 
-      </div>
-    </section> 
+        <div class="team-card-item"> 
+            <h3>Coordenadora de Direitos Humanos</h3> 
+            <img th:src="@{/img/cord2.jfif}" alt="Dra. Claudiene Santos"> 
+            <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
+        </div> 
+    </div> 
+</section>
+
+
     
     <section id="empoder"> 
       <section class="empoder-card"> 

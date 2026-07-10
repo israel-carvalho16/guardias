@@ -473,80 +473,95 @@ nav ul li a:hover {
   /* ==========================================================================
      SEÇÃO SANEAMENTO BÁSICO (ACCORDIONS)
      ========================================================================= */
-  #saneamento { 
-    max-width: 850px; 
-    margin: 60px auto; 
-    padding: 0 20px; 
-    text-align: center; 
-  } 
-  
-  .saneamento-section { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 16px; 
-    margin-top: 30px;
-  } 
-  
-  .san-item { 
-    background: var(--bg-white) !important; 
-    border-radius: var(--radius-md) !important; 
-    border: 1px solid #e2e8f0 !important; 
-    overflow: hidden; 
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-  } 
-  
-  .san-item:hover { 
-    transform: translateY(-2px);
-  } 
-  
-  .san-item summary { 
-    padding: 18px 24px !important; 
-    cursor: pointer; 
-    font-size: 1.15rem; 
-    font-weight: 600; 
-    background: var(--bg-white) !important; 
-    color: var(--roxo-principal) !important; 
-    position: relative; 
-    list-style: none; 
-    text-align: left;
-    border-bottom: 1px solid transparent;
-    transition: var(--transition);
-  } 
-  
-  .san-item[open] summary {
-    background: #fdfbff !important;
-    border-bottom-color: #f1edfa !important;
-  }
-  
-  .san-item summary::-webkit-details-marker { display: none; } 
-  
-  .san-item summary::after { 
-    content: "➔" !important; 
-    display: inline-block;
-    position: absolute; 
-    right: 24px; 
-    top: 50%; 
-    transform: translateY(-50%) !important; 
-    transition: var(--transition); 
-    font-size: 0.9rem;
-    color: var(--roxo-principal);
-  } 
-  
-  .san-item[open] summary::after { 
-    transform: translateY(-50%) rotate(90deg) !important; 
-  } 
-  
-  .san-item p, .san-item ul { 
-    padding: 24px !important; 
-    background: #ffffff !important; 
-    line-height: 1.7; 
-    color: var(--text-dark) !important; 
-    text-align: left; 
-  } 
-  
-  .san-item ul { padding-left: 40px !important; }
-  
+ #saneamento { 
+  max-width: 850px; 
+  margin: 60px auto; 
+  padding: 0 20px; 
+  text-align: center; 
+} 
+
+.saneamento-section { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  margin-top: 30px;
+} 
+
+/* O container principal agora gerencia o fluxo em blocos empilhados */
+.san-item { 
+  display: flex;
+  flex-direction: column; /* Força o conteúdo interno a quebrar linha e ir para baixo */
+  background: var(--bg-white) !important; 
+  border-radius: var(--radius-md) !important; 
+  border: 1px solid #e2e8f0 !important; 
+  overflow: hidden; 
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+} 
+
+.san-item:hover { 
+  transform: translateY(-2px);
+} 
+
+/* O summary lida apenas com a linha do título e da seta */
+.san-item summary { 
+  display: flex; 
+  justify-content: space-between; /* Empurra o título para a esquerda e a seta para a direita */
+  align-items: center; 
+  padding: 18px 24px !important; 
+  cursor: pointer; 
+  font-size: 1.15rem; 
+  font-weight: 600; 
+  background: var(--bg-white) !important; 
+  color: var(--roxo-principal) !important; 
+  position: relative; 
+  list-style: none; 
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+  width: 100%; /* Ocupa a largura total da barra */
+  box-sizing: border-box;
+} 
+
+.san-item[open] summary {
+  background: #fdfbff !important;
+  border-bottom-color: #f1edfa !important;
+}
+
+.san-item summary::-webkit-details-marker { 
+  display: none; 
+} 
+
+/* Substituímos o caractere absoluto por um posicionamento flex nativo e seguro */
+.san-item summary::after { 
+  content: "➔" !important; 
+  display: inline-block;
+  transition: var(--transition); 
+  font-size: 0.9rem;
+  color: var(--roxo-principal);
+  margin-left: auto; /* Garante que a seta fique na extrema direita */
+} 
+
+.san-item[open] summary::after { 
+  transform: rotate(90deg) !important; 
+} 
+
+/* Estilização dos textos explicativos internos */
+.san-item p, .san-item ul { 
+  display: block; /* Garante que o texto se comporte como bloco abaixo do summary */
+  width: 100%;
+  padding: 24px !important; 
+  background: #ffffff !important; 
+  line-height: 1.7; 
+  color: var(--text-dark) !important; 
+  text-align: left; 
+  box-sizing: border-box;
+  margin: 0;
+} 
+
+.san-item ul { 
+  padding-left: 40px !important; 
+}
+
   /* ==========================================================================
      SEÇÃO EQUIPE (GRID LADO A LADO)
      ========================================================================= */
@@ -1413,4 +1428,37 @@ div[vw] .vw-plugin-wrapper {
     .btn-voluntario-mobile:hover {
         background-color: var(--roxo-secundario) !important;
     }
+}
+/* Container pai que junta o h1 e o ícone na mesma linha */
+.team-header-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espaço horizontal entre o texto e o ícone */
+    margin: 30px auto 40px auto; /* Espaçamento externo superior e inferior */
+    width: 100%;
+}
+
+/* Remove margens padrões do h1 que possam desalinhá-lo verticalmente */
+.team-header-inline .titulo-centralizado {
+    margin: 0;
+}
+
+/* Container do ícone de equipe ajustado para o fluxo inline */
+.team-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilização do tamanho e da cor do ícone (reduzido para 45px para casar com o h1) */
+.team-svg-icon {
+    width: 48px;  
+    height: 48px; /* Força a proporção quadrada para não achatar */
+    fill: #5c2d91; 
+    opacity: 0.95;
+    transition: transform 0.2s ease;
+}
+
+.team-svg-icon:hover {
+    transform: scale(1.05);
 }
