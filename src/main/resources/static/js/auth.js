@@ -19,7 +19,7 @@ const auth = {
     // CORREÇÃO CRÍTICA: Redirecionamentos limpos sem usar a extensão física .html
     logout: () => {
         localStorage.clear();
-        window.location.href = '/login';
+        window.location.href = '/index';
     },
 
     requireLogin: () => {

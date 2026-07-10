@@ -82,23 +82,31 @@
           }
 
           try {
-              const post = await api.getPost(idNoticia);
+    const post = await api.getPost(idNoticia);
 
-              if (post) {
-                  document.getElementById('artigo-categoria').innerText = post.category || 'Geral';
-                  document.getElementById('artigo-titulo').innerText = post.title;
-                  document.getElementById('artigo-data').innerText = new Date(post.createdAt).toLocaleDateString('pt-BR');
-                  document.getElementById('artigo-texto').innerHTML = post.content;
+    if (post) {
+        document.getElementById('artigo-categoria').innerText = post.category || post.categoria || 'Geral';
+        document.getElementById('artigo-titulo').innerText = post.title || post.titulo || 'Sem Título';
+        
+        const dataBruta = post.createdAt || post.dataCriacao || new Date();
+        document.getElementById('artigo-data').innerText = new Date(dataBruta).toLocaleDateString('pt-BR');
+        document.getElementById('artigo-texto').innerHTML = post.content || post.conteudo;
 
+        // LÓGICA CORRIGIDA: Puxa a imagem real do banco Neon
+        let nomeImagem = post.imageUrl || post.imagemUrl || "";
+        let linkImagem = "/img/primeira.png"; // Imagem padrão caso o post não tenha uma
 
-                  const cat = (post.category || '').toLowerCase();
-                  if (cat.includes('clima')) document.getElementById('artigo-imagem').src = '/img/lula.webp';
-                  if (cat.includes('hidricos') || cat.includes('saneamento')) document.getElementById('artigo-imagem').src = '/img/AGUA 03.jpg';
+        if (nomeImagem) {
+            linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
+        }
 
-                  document.getElementById('loading-article').style.display = 'none';
-                  document.getElementById('container-artigo').style.display = 'block';
-              }
-          } catch (error) {
+        // Aplica o link correto na tag img do banner
+        document.getElementById('artigo-imagem').src = linkImagem;
+
+        document.getElementById('loading-article').style.display = 'none';
+        document.getElementById('container-artigo').style.display = 'block';
+    }
+            } catch (error) {
               console.error("Erro ao processar renderização:", error);
               document.getElementById('loading-article').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao renderizar a notícia.';
           }

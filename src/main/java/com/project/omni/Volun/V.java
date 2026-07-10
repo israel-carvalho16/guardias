@@ -10,7 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_voluntario")
+@Table(name = "tb_inscrevaSe") // SINCROnIZADO COM O NOVO NOME DA TABELA NO NEON
 public class V {
 
     @Id
@@ -19,13 +19,13 @@ public class V {
 
     private String nome;
     private String email;
-    private String links;
+    private String links; // Armazenará concatenado apenas "Tel: ... | Gênero: ..."
 
-    // NOVO CAMPO: Para controlar se o voluntário foi aprovado, recusado ou está aguardando contato
+    // Controle se a inscrição foi aprovada, recusada ou está aguardando contato
     @Column(nullable = false)
     private String status = "PENDENTE"; 
 
-    // NOVO CAMPO: Registra automaticamente o dia e horário do cadastro no banco Neon
+    // Registra automaticamente o dia e horário do cadastro no banco Neon
     @CreationTimestamp
     @Column(name = "data_cadastro", updatable = false)
     private LocalDateTime dataCadastro;
