@@ -13,7 +13,6 @@ public class Controler {
         this.repositoryFeed = repositoryFeed;
     }
 
-    // O @GetMapping("/contatos") FOI REMOVIDO DAQUI para não conflitar com o PageController
 
     @PostMapping("/contatos")
     public String salvarDados(@RequestParam("nome") String nome,

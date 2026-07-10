@@ -77,8 +77,13 @@
     </nav>
     
     <div class="auth-actions auth-desktop">
+<<<<<<< HEAD
         <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
         <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
+=======
+        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+        <a th:href="@{/login}" class="btn-auth btn-voluntario">Inscrever-se</a>
+>>>>>>> 867ab6d185ab90f244575fece0bb366eb21b7e68
     </div>
 
     <!-- BOTÃO HAMBÚRGUER COM ÍCONE -->
@@ -115,6 +120,7 @@
             <li><a th:href="@{/contatos}">Contatos</a></li>
         </ul> 
         
+<<<<<<< HEAD
         <div class="auth-actions auth-desktop">
         <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
         <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
@@ -127,6 +133,15 @@
         <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
         <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
     </div>
+=======
+        <div class="auth-actions-mobile">
+            <a th:href="@{/register}" class="btn-auth-mobile btn-admin-mobile">Entrar como Admin</a>
+            <a th:href="@{/login}" class="btn-auth-mobile btn-voluntario-mobile">Inscrever-se</a>
+        </div>
+    </div>
+</div>
+
+>>>>>>> 867ab6d185ab90f244575fece0bb366eb21b7e68
   </header>
 
   <!-- ESPAÇADOR DE SEGURANÇA PARA O CONTEÚDO NÃO SUMIR ATRÁS DO HEADER FIXED -->
@@ -212,17 +227,20 @@
       </div>
 
       <!-- Coluna 3: Redes Sociais com Siglas em Esferas e Hover Dinâmico -->
-      <div class="footer-column footer-contact">
+   <div class="footer-column footer-contact">
         <h4>Institucional</h4>
         <p class="institution-tag">Vinculado à UFU</p>
-        <div class="redes-sociais" role="img" aria-label="Links para redes sociais">
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="icon-yt" aria-label="Acesse nosso canal no YouTube">YT</a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="icon-insta" aria-label="Siga nosso perfil no Instagram">IG</a>
-        </div>
-      </div>
+        <div class="redes-sociais">
+  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube" class="icon-yt">
+    <i class="fab fa-youtube"></i>
+  </a>
+  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" class="icon-insta">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
 
     </div>
-
+    </div>
     <hr class="footer-divider">
 
     <div class="footer-bottom">
