@@ -31,27 +31,24 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         
-        // ADICIONE ESTE BLOCO DE EXCEPTION HANDLING
-        .exceptionHandling(exception -> exception
-            .accessDeniedPage("/error/403") 
-        )
-        // ------------------------------------------
+        // 1. REMOVA o bloco antigo de exceptionHandling que redirecionava para /error/403
 
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**", "/CE_/**","/UBER/**").permitAll()
+            // 2. ADICIONE as rotas nativas de erro aqui no início dos matches permitidos
+            .requestMatchers("/error", "/error/**").permitAll()
             
-            // Liberação necessária para o seu controlador de erro funcionar
-            .requestMatchers("/error/**").permitAll() 
+            .requestMatchers("/css/**", "/js/**", "/img/**", "/uploads/**", "/CE_/**","/UBER/**").permitAll()
+            .requestMatchers("/403/**").permitAll() 
             
             .requestMatchers(
                 "/", "/index**", "/index.html",
-                "/pagina1**", "/pagina1.html",
+                "/carregamento**", "/carregamento.html",
                 "/contatos**", "/Contatos**",
                 "/evento**", "/Evento**",
                 "/mg**", "/MG**",
@@ -82,4 +79,5 @@ public class SecurityConfig {
 
     return http.build();
 }
+
 }
