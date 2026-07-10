@@ -35,7 +35,6 @@ public class PageController {
     public String exibirPainelAdmin() {
         return "admin"; 
     }
-
     // Rota de Órgãos Ambientais (Abre o arquivo orgaoambiental.html)
     @GetMapping("/post")
     public String post() {
@@ -81,6 +80,5 @@ public class PageController {
     public String exibirNoticiaAberta() {
     return "noticiaAberta"; // Deve retornar o nome exato do seu arquivo html
 }
-
 
 }
