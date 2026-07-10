@@ -1,96 +1,319 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-    <div th:replace="~{fragments :: navbar}"></div>
+<!DOCTYPE html> 
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Guardiãs das Águas</title> 
 
-    <div class="container">
-        <div id="loading" class="loading">Carregando posts...</div>
-        <div id="alert" class="alert alert-error" style="display:none"></div>
-        <div id="posts"></div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+  <script th:src="@{/js/api.js}" defer></script>
+  <script th:src="@{/js/auth.js}" defer></script>
+  <script th:src="@{/js/home.js}" defer></script>
+  <script th:src="@{/js/inicio.js}" defer></script>
+  <script th:src="@{/js/global-auth-ui.js}" defer></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  
+  <!-- VLibras Plugin Script -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    $(document).ready(function() {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    });
+  </script>
+</head>
+<script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
+<body>
+
+ 
+  <!-- Componente VLibras sem o display:none ou opacidade zero na tag para não quebrar a árvore de elementos -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <!-- ABA FLUTUANTE DE ACESSIBILIDADE DUPLA -->
+  <div class="accessibility-wrapper">
+      <button class="btn-accessibility-floating" id="btn-toggle-access" aria-label="Menu de Acessibilidade">
+          <i class="fas fa-universal-access"></i>
+      </button>
+      <div class="accessibility-menu" id="access-dropdown-menu">
+          <button id="trigger-vlibras" class="btn-access-option">
+              <i class="fas fa-sign-language"></i> Tradutor de Libras
+          </button>
+        
+      </div>
+  </div>
+
+  <!-- CABEÇALHO DO SITE (HEADER) -->
+  <header class="site-header"> 
+    <div class="header-brand">
+        <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+        <h2>Guardiãs das Águas</h2> 
+    </div>
+    
+    <nav class="nav-desktop">
+        <ul class="nav-links">
+            <li><a th:href="@{/index}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            <li class="dropdown-item"> 
+                <details> 
+                    <summary id="Nucleos">Nossos Núcleos</summary> 
+                    <div class="dropdown-content" role="menu">
+                        <a th:href="@{/mg}" role="menuitem">MG</a> 
+                        <a th:href="@{/ce}" role="menuitem">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="auth-actions auth-desktop">
+        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+        <a th:href="@{/login}" class="btn-auth btn-voluntario">Entrar como Voluntário</a>
     </div>
 
-    <script th:src="@{/js/api.js}"></script>
-    <script th:src="@{/js/auth.js}"></script>
-    <script>
-    function buildNav() {
-    const nav = document.getElementById('navLinks');
+    <!-- BOTÃO HAMBÚRGUER COM ÍCONE -->
+    <div class="button" id="btn-toggle-menu">
+        <a class="btn-open" href="#">
+            <i class="fas fa-bars" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 16px;"></i>
+        </a>
+    </div>
+</header>
+
+
+<!-- ADICIONADO O ID "mobile-menu-overlay" E O BOTÃO DE FECHAR DA CORTINA -->
+<div class="overlay" id="mobile-menu-overlay">
+    <!-- Botão 'X' para fechar a tela cheia no mobile -->
+    <button id="btn-close-menu" style="position: absolute; top: 20px; right: 25px; background: none; border: none; color: var(--roxo-principal); font-size: 42px; cursor: pointer; z-index: 100010;">&times;</button>
+
+    <div class="wrap">
+        <ul class="wrap-nav">
+            <li><a th:href="@{/index}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            
+            <li class="dropdown-item-mobile"> 
+                <details> 
+                    <summary class="summary-nucleos">Nossos Núcleos</summary> 
+                    <div class="nucleos-links">
+                        <a th:href="@{/mg}">MG</a> 
+                        <a th:href="@{/ce}">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul> 
+        
+        <div class="auth-actions-mobile">
+            <a th:href="@{/register}" class="btn-auth-mobile btn-admin-mobile">Entrar como Admin</a>
+            <a th:href="@{/login}" class="btn-auth-mobile btn-voluntario-mobile">Entrar como Voluntário</a>
+        </div>
+    </div>
+</div>
+
+  <main class="main-content">
     
-    // VACINA CRÍTICA: Se a barra de navegação ainda não carregou na tela, sai da função sem travar o código
-    if (!nav) return; 
+    <section class="hero"> 
+      <video class="video-bg" autoplay muted loop playsinline> 
+        <source src="https://github.com/israel-carvalho16/guardias/raw/refs/heads/main/src/main/resources/static/video/videoheader.mp4" type="video/mp4"> 
+      </video> 
+      <div class="hero-content"> 
+        <h1>
+          <span class="line-intro">Educação sobre</span>
+          <span class="line-impact">Saneamento e Recursos Hídricos</span>
+          <span class="line-outro">para comunidades e escolas</span>
+          <span class="line-outro">Foco em <strong id="text-typewriter" style="color: var(--roxo-principal);"></strong></span>
+        </h1> 
+      </div> 
+    </section>
+
+    <section class="topicos-section"> 
+      <h3 class="titulo-centralizado">Tópicos</h3> 
+      <div id="escolhe" class="topics-grid"> 
+        <div class="card-topic"> 
+          <div class="icon-box">
+            <img th:src="@{/img/gota.png}" alt="Ícone Gota de Água">
+          </div>
+          <p><strong>Saneamento e Água</strong></p>
+        </div>
+        <div class="card-topic">
+          <div class="icon-box">
+            <img th:src="@{/img/equipe.png}" alt="Ícone de Equipe">
+          </div>
+          <p><strong>Equipe</strong></p>
+        </div>
+        <div class="card-topic">
+          <div class="icon-box">
+            <img th:src="@{/img/Protagomismo feminino.png}" alt="Ícone Protagonismo Feminino">
+          </div> 
+          <p><strong>Protagonismo Feminino</strong></p> 
+        </div> 
+      </div> 
+    </section> 
+
+    <section class="team-container-block" style="margin: 80px auto;">
+      
+      <h2 class="titulo-centralizado">Nosso Impacto em Números</h2>
+      <div class="team-grid-layout" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px;">
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--roxo-principal); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="10">0</span>+
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Guardiãs Formadas</p>
+          <p style="font-size: 0.85rem; color: #718096;">Jovens lideranças capacitadas</p>
+        </div>
+        
     
-    if (!auth.isLoggedIn()) {
-        nav.innerHTML = '<a href="/login">Entrar</a><a href="/register">Cadastrar</a>';
-        return;
-    }
-    const user = auth.getUser();
-    let links = '<span style="color:white;font-size:0.9rem">Olá, ' + user.name + '</span>';
-    if (auth.isAdmin()) links += '<a href="/admin">Painel Admin</a>';
-    links += '<button onclick="auth.logout()">Sair</button>';
-    nav.innerHTML = links;
-}
+        <div class="team-card-item" style="padding: 30px 20px !important;">
+          <div style="font-size: 2.8rem; color: var(--azul3); font-weight: 900; margin-bottom: 5px;">
+            <span class="counter-number" data-target="3">0</span>
+          </div>
+          <p style="font-weight: 700; color: var(--text-dark); margin-bottom: 5px;">Bacias Hidrográficas</p>
+          <p style="font-size: 0.85rem; color: #718096;">Rios e córregos monitorados</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="toma"> 
+      <h1>Quem somos</h1> 
+      <section class="qs-text-block"> 
+        <p>Durante o mês de janeiro, o Programa Futuras Cientistas reuniu alunas e professoras da educação básica da rede pública de Uberlândia para uma imersão científica nos laboratórios da UFU...</p> 
+        <br>
+        <p>O projeto Guardiãs das Águas (@guardias.aguas), da UFU, selecionado para integrar o programa nacional, permitiu que as participantes vivenciassem a experiência de uma pesquisa científica...</p> 
+      </section> 
+      
+      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
+      
+      <section class="qs-mvv-block"> 
+        <div> 
+          <strong>Missão:</strong><br> 
+          Incentivar a participação feminina na ciência e na conservação ambiental, especificamente na área de recursos hídricos e saneamento... 
+        </div> 
+        <br> 
+        <div> 
+          <strong>Valores:</strong><br> 
+          Acreditar no potencial das mulheres como líderes e pesquisadoras na área ambiental.<br>
+          <br>
+          <strong>Sustentabilidade:</strong> comprometimento com a preservação do meio ambiente...<br>
+          <strong>Inovação e Ciência:</strong> utilizar a pesquisa, a tecnologia e a educação...<br>
+          <strong>Responsabilidade Social:</strong> atuar em colaboração com comunidades...
+        </div>
+      </section>
+    </section>
 
 
-        async function loadPosts() {
-            const loading = document.getElementById('loading');
-            const alertEl = document.getElementById('alert');
-            const postsEl = document.getElementById('posts');
-            try {
-                // Tenta buscar os dados reais vindos do banco de dados Neon
-                let posts = await api.getPosts();
-                if (loading) loading.style.display = 'none';
-                
-                // SEGURO CONTRA ERROS: Se o banco estiver vazio ou a API falhar, injeta dados fictícios para testar a interface
-                if (!posts || posts.length === 0) {
-                    posts = [
-                        {
-                            id: 1,
-                            title: "Guardiãs das Águas iniciam monitoramento no Rio Uberlândia",
-                            authorName: "Administrador",
-                            createdAt: new Date(),
-                            content: "O projeto iniciou as coletas de amostras hídricas para avaliar o índice de saneamento básico nas escolas da comunidade rural.",
-                            comments: []
-                        },
-                        {
-                            id: 2,
-                            title: "Workshop de Educação Ambiental capacita 50 estudantes",
-                            authorName: "Coordenação",
-                            createdAt: new Date(),
-                            content: "Capacitação focada no protagonismo feminino e na conservação dos recursos hídricos regionais.",
-                            comments: [1, 2]
-                        }
-                    ];
-                }
+    <section id="saneamento"> 
+      <h1>Saneamento Básico</h1> 
+      <div class="saneamento-section"> 
+        <details class="san-item"> 
+          <summary>Explicação sobre saneamento</summary> 
+          <p>Saneamento básico é o conjunto de serviços que garantem que a água que utilizamos seja limpa e segura...</p> 
+        </details> 
+        <details class="san-item"> 
+          <summary>Benefícios</summary> 
+          <ul> 
+            <li>Reduz a propagação de doenças...</li> 
+            <li>Melhora a qualidade de vida da população.</li> 
+            <li>Protege o meio ambiente...</li> 
+          </ul> 
+        </details> 
+        <details class="san-item"> 
+          <summary>Malefícios quanto à ausência</summary> 
+          <p>A acentuada ausência de tratamento de esgoto contamina rios e solos, prejudicando o ecossistema...</p> 
+        </details> 
+      </div> 
+    </section> 
 
-                if (postsEl) {
-                    postsEl.innerHTML = posts.map(function(post) {
-                        return '<div class="post-card" onclick="window.location.href=\'/post?id=' + post.id + '\'">' +
-                            '<h2>' + post.title + '</h2>' +
-                            '<div class="meta">Por ' + post.authorName + ' &mdash; ' + new Date(post.createdAt).toLocaleDateString('pt-BR') + ' &mdash; ' + (post.comments ? post.comments.length : 0) + ' comentário(s)</div>' +
-                            '<p>' + post.content.substring(0, 200) + (post.content.length > 200 ? '...' : '') + '</p>' +
-                            '</div>';
-                    }).join('');
-                }
+    <section class="team-container-block"> 
+      <h1 class="titulo-centralizado">Nossa equipe</h1> 
+      <img class="team-banner-img" th:src="@{/img/equipe.png}" alt="Foto da Equipe Reunida"> 
+      
+      <div class="team-grid-layout">
+        <div class="team-card-item"> 
+          <h3>Coordenação Geral</h3> 
+          <img th:src="@{/img/cord1.jfif}" alt="Dra. Jeamylle Nilin"> 
+          <p>Dra. Jeamylle Nilin (UFU/Biologia). Bióloga com doutorado em Ciências Marinhas Tropicais...</p> 
+        </div> 
+        
+        <div class="team-card-item"> 
+          <h3>Coordenadora de Direitos Humanos</h3> 
+          <img th:src="@{/img/cord2.jfif}" alt="Dra. Claudiene Santos"> 
+          <p>Dra. Claudiene Santos (UFU/Pedagogia ICHPO). Bióloga com doutorado em Psicologia...</p> 
+        </div> 
+      </div>
+    </section> 
+    
+    <section id="empoder"> 
+      <section class="empoder-card"> 
+        <h3>Protagonismo Feminino</h3>
+        <img th:src="@{/img/Protagomismo feminino.png}" alt="Ilustração Protagonismo Feminino">
+        <p>O protagonismo feminino refere-se à atuação activa das mulheres em diferentes espaços sociais...</p>
+      </section>
+    </section>
 
-            } catch (e) {
-                console.error("Falha ao ler API pública, injetando cards de segurança:", e);
-                if (loading) loading.style.display = 'none';
-                
-                // Fallback robusto se a rede cair ou der erro de requisição
-                if (alertEl) {
-                    alertEl.textContent = "Aviso da API: " + e.message + ". Carregando dados locais de contingência...";
-                    alertEl.style.display = 'block';
-                }
-            }
-        }
 
-        buildNav();
-        loadPosts();
-    </script>
+    <section class="colaboradores-section">
+      <h4>COLABORADORES</h4>
+      <div class="colaboradores">
+        <img th:src="@{/img/Link do site PLEASE (1).png}" alt="Logos dos parceiros e colaboradores">
+      </div>
+    </section>
+  </main> 
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-column footer-about">
+        <div class="footer-logo-title">
+          <img th:src="@{/img/logo.png}" alt="Logo Guardiãs">
+          <h3>Guardiãs das Águas</h3>
+        </div>
+        <p>Incentivando o protagonismo feminino na ciência e na educação ambiental para a conservação de recursos hídricos.</p>
+      </div>
+
+      <div class="footer-column footer-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a th:href="@{/index}">Início</a></li>
+          <li><a th:href="@{/noticias}">Notícias</a></li>
+          <li><a th:href="@{/projeto}">Projetos</a></li>
+          <li><a th:href="@{/evento}">Eventos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column footer-contact">
+        <h4>Institucional</h4>
+        <p class="institution-tag">Vinculado à UFU</p>
+        <div class="redes-sociais">
+  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube" class="icon-yt">
+    <i class="fab fa-youtube"></i>
+  </a>
+  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" class="icon-insta">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
+
+      </div>
+    </div>
+    
+    <hr class="footer-divider">
+
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Guardiãs das Águas. Todos os direitos reservados.</p>
+      <p class="footer-credits">
+        Fonte da imagem: <a href="https://permution.com.br" target="_blank" rel="noopener noreferrer">Permution</a>
+      </p>
+    </div>
+  </footer>
 </body>
 </html>

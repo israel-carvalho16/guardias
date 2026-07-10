@@ -9,13 +9,13 @@ public class PageController {
     // Rota Raiz - Abre a página inicial
     @GetMapping("/")
     public String home() {
-        return "pagina1"; 
+        return "index"; 
     }
 
     // Rota Alternativa para a Página Inicial
-    @GetMapping("/pagina1")
+    @GetMapping("/index")
     public String pagina1() {
-        return "pagina1";
+        return "index";
     }
 
     // Rota do Formulário de Login (Abre o arquivo VolunForm.html)
