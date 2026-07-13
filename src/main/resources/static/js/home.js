@@ -174,12 +174,22 @@ function renderizarNoticias(lista) {
         const tituloTexto = post.title || post.titulo || 'Sem Título';
         const conteudoTexto = post.content || post.conteudo || 'Sem conteúdo disponível...';
         
+        // ==========================================
+        // SCRIPT REPARADO: SUPORTE AO CLOUDINARY E ARCHIVOS LOCAIS
+        // ==========================================
         let nomeImagem = post.imageUrl || post.imagemUrl || "";
-        let linkImagem = "/img/primeira.png"; 
+        let linkImagem = "/img/logo.png"; // Fallback se não houver imagem
 
         if (nomeImagem) {
-            linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
+            // Se já for uma URL completa da web (Cloudinary), usa direto
+            if (nomeImagem.startsWith("http://") || nomeImagem.startsWith("https://")) {
+                linkImagem = nomeImagem;
+            } else {
+                // Suporte para arquivos locais antigos
+                linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
+            }
         }
+        // ==========================================
         
         const dataBruta = post.createdAt || post.dataCriacao || new Date();
         const dataFormatada = new Date(dataBruta).toLocaleDateString('pt-BR');

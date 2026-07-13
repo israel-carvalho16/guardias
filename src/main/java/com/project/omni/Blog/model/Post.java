@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "posts")
+@Data // 🔥 ADICIONADO: Agora o Lombok gera todos os Getters e Setters reais automaticamente!
 public class Post {
 
     @Id
@@ -22,7 +23,6 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    // NOVA COLUNA: Mapeia a categoria/tag para os filtros do Front-End
     @Column(nullable = false)
     private String category;
 
@@ -42,39 +42,6 @@ public class Post {
     @Column(name = "image_url")
     private String imageUrl;
 
-    public Long getId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
-    }
-
-    public String getTitle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTitle'");
-    }
-
-    public String getContent() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getContent'");
-    }
-
-    public String getImageUrl() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImageUrl'");
-    }
-
-    public void setTitle(String title2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setTitle'");
-    }
-
-    public void setContent(String content2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setContent'");
-    }
-
-    public void setImageUrl(String novaUrl) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setImageUrl'");
-    } // Armazenará o nome ou o caminho do arquivo (Ex: "foto123.jpg")
-
+    // ✂️ TODOS OS MÉTODOS MANUAIS COM "Unimplemented method" FORAM REMOVIDOS DAQUI!
+    // O Lombok cuidará de tudo perfeitamente em tempo de compilação.
 }

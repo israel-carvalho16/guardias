@@ -1,12 +1,12 @@
 package com.project.omni.Blog.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.project.omni.Blog.dto.request.PostRequest;
 import com.project.omni.Blog.dto.response.PostResponse;
 import com.project.omni.Blog.model.Post;
+import com.project.omni.Blog.model.User; // Certifique-se de importar a Model User
 import com.project.omni.Blog.repository.PostRepository;
+import com.project.omni.Blog.repository.UserRepository; // 🔥 IMPORTADO: Seu repositório existente
 import com.project.omni.Claud.CloudinaryService;
 
 import java.io.IOException;
@@ -20,6 +20,7 @@ public class PostService {
 
     private final PostRepository postRepository; 
     private final CloudinaryService cloudinaryService; 
+    private final UserRepository userRepository; // 🔥 ADICIONADO: O Lombok vai injetar o repositório aqui automaticamente
 
     public List<PostResponse> findAll() {
         return postRepository.findAll()
@@ -44,7 +45,14 @@ public class PostService {
             Post post = new Post();
             post.setTitle(request.getTitle());
             post.setContent(request.getContent());
+            post.setCategory(request.getCategory()); // 🔥 Adicione o mapeamento da Categoria que estava faltando!
             post.setImageUrl(urlImagem); 
+
+            // 🔥 ADICIONADO: Busca o Administrador (ID 1, visto nos seus logs anteriores)
+            User autor = userRepository.findById(1L)
+                    .orElseThrow(() -> new RuntimeException("Administrador padrão (ID 1) não encontrado no banco Neon.Tech"));
+            
+            post.setAuthor(autor); // 🔥 ADICIONADO: Vincula o autor à notícia para não dar o erro de Constraint no Banco!
 
             Post salvo = postRepository.save(post);
             return convertToResponse(salvo);
@@ -60,6 +68,7 @@ public class PostService {
 
             postExistente.setTitle(request.getTitle());
             postExistente.setContent(request.getContent());
+            postExistente.setCategory(request.getCategory()); // 🔥 Atualiza a categoria também se necessário
 
             if (request.getFoto() != null && !request.getFoto().isEmpty()) {
                 String novaUrl = cloudinaryService.uploadImagem(request.getFoto());
@@ -79,20 +88,18 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    // ==========================================================================
-    // MÉTODO CONVERSOR SIMPLIFICADO E SEGURO CONTRA ERROS DE COMPILAÇÃO
-    // ==========================================================================
-    private PostResponse convertToResponse(Post post) {
-        PostResponse response = new PostResponse();
-        response.setId(post.getId());
-        response.setTitle(post.getTitle());
-        response.setContent(post.getContent());
-        response.setImageUrl(post.getImageUrl());
-        
-        // Se a sua Entity possuir os métodos abaixo descomente-os para preencher o DTO:
-        // response.setCategory(post.getCategory()); 
-        // response.setCreatedAt(post.getCreatedAt());
-        
-        return response;
-    }
+ private PostResponse convertToResponse(Post post) {
+    PostResponse response = new PostResponse();
+    response.setId(post.getId());
+    response.setTitle(post.getTitle());
+    response.setContent(post.getContent());
+    
+    // 🔥 ESSA LINHA É CRUCIAL! Se ela não existir, a imagem não vai para o Front-End:
+    response.setImageUrl(post.getImageUrl()); 
+    
+    response.setCategory(post.getCategory()); 
+    return response;
 }
+}
+
+    

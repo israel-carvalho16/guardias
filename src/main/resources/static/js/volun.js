@@ -16,7 +16,7 @@ document.getElementById('form-voluntario').addEventListener('submit', async (e) 
 
         if (response.ok) {
             alert('Inscrição enviada com sucesso!');
-            window.location.href = '/pagina1';
+            window.location.href = '/index.html';
         } else {
             document.getElementById('erro-cpf-backend').style.display = 'block';
         }

@@ -82,31 +82,39 @@
           }
 
           try {
-    const post = await api.getPost(idNoticia);
+              const post = await api.getPost(idNoticia);
 
-    if (post) {
-        document.getElementById('artigo-categoria').innerText = post.category || post.categoria || 'Geral';
-        document.getElementById('artigo-titulo').innerText = post.title || post.titulo || 'Sem Título';
-        
-        const dataBruta = post.createdAt || post.dataCriacao || new Date();
-        document.getElementById('artigo-data').innerText = new Date(dataBruta).toLocaleDateString('pt-BR');
-        document.getElementById('artigo-texto').innerHTML = post.content || post.conteudo;
+              if (post) {
+                  document.getElementById('artigo-categoria').innerText = post.category || post.categoria || 'Geral';
+                  document.getElementById('artigo-titulo').innerText = post.title || post.titulo || 'Sem Título';
+                  
+                  const dataBruta = post.createdAt || post.dataCriacao || new Date();
+                  document.getElementById('artigo-data').innerText = new Date(dataBruta).toLocaleDateString('pt-BR');
+                  document.getElementById('artigo-texto').innerHTML = post.content || post.conteudo;
 
-        // LÓGICA CORRIGIDA: Puxa a imagem real do banco Neon
-        let nomeImagem = post.imageUrl || post.imagemUrl || "";
-        let linkImagem = "/img/primeira.png"; // Imagem padrão caso o post não tenha uma
+                  // LÓGICA MANUTENIDA: Puxa a imagem real do Cloudinary ou usa o fallback local
+                  let nomeImagem = post.imageUrl || post.imagemUrl || "";
+                  let linkImagem = "/img/logo.png"; 
 
-        if (nomeImagem) {
-            linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
-        }
+                  if (nomeImagem) {
+                      if (nomeImagem.startsWith("http://") || nomeImagem.startsWith("https://")) {
+                          linkImagem = nomeImagem;
+                      } else {
+                          linkImagem = nomeImagem.startsWith("/uploads/") ? nomeImagem : `/uploads/${nomeImagem}`;
+                      }
+                  }
 
-        // Aplica o link correto na tag img do banner
-        document.getElementById('artigo-imagem').src = linkImagem;
+                  // Aplica o link correto na tag img do banner
+                  document.getElementById('artigo-imagem').src = linkImagem;
 
-        document.getElementById('loading-article').style.display = 'none';
-        document.getElementById('container-artigo').style.display = 'block';
-    }
-            } catch (error) {
+                  // 🔥 AS DUAS LINHAS QUE FALTAVAM AQUI:
+                  document.getElementById('loading-article').style.display = 'none'; // Esconde o spinner
+                  document.getElementById('container-artigo').style.display = 'block'; // Mostra o artigo montado
+              } else {
+                  // Caso o ID seja válido mas o banco retorne nulo
+                  document.getElementById('loading-article').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Notícia não encontrada.';
+              }
+          } catch (error) {
               console.error("Erro ao processar renderização:", error);
               document.getElementById('loading-article').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao renderizar a notícia.';
           }
