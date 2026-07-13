@@ -39,43 +39,85 @@
   </script>
 
   <!-- CABEÇALHO GLOBAL TRANSLÚCIDO FIXED (HEADER) -->
-  <header class="site-header" role="banner"> 
+ <header class="site-header"> 
     <div class="header-brand">
-      <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas"> 
-      <h2>Guardiãs das Águas</h2> 
+        <img th:src="@{/img/logo.png}" alt="Logo das Guardiãs das Águas">
+        <h2>Guardiãs das Águas</h2> 
+    </div>
+    
+    <nav class="nav-desktop">
+        <ul class="nav-links">
+            <li><a th:href="@{/index}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            <li class="dropdown-item"> 
+                <details> 
+                    <summary id="Nucleos">Nossos Núcleos</summary> 
+                    <div class="dropdown-content" role="menu">
+                        <a th:href="@{/mg}" role="menuitem">MG</a> 
+                        <a th:href="@{/ce}" role="menuitem">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul>
+    </nav>
+    
+    <div class="auth-actions auth-desktop">
+
+
+        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
+        <a th:href="@{/login}" class="btn-auth btn-voluntario">Inscrever-se</a>
     </div>
 
-    <nav class="header-nav" role="navigation" aria-label="Navegação principal"> 
-      <ul class="nav-links"> 
-        <li><a th:href="@{/index}">Início</a></li> 
-        <li><a th:href="@{/noticias}">Notícias</a></li> 
-        <li><a th:href="@{/projeto}">Projetos</a></li> 
-        <li><a th:href="@{/evento}">Eventos</a></li> 
-        <li class="dropdown-item"> 
-          <details> 
-            <summary id="Nucleos">Nossos Núcleos</summary> 
-            <div class="dropdown-content" role="menu">
-              <a th:href="@{/mg}" role="menuitem">MG</a> 
-              <a th:href="@{/ce}" role="menuitem">CE</a> 
-            </div>
-          </details> 
-        </li> 
-        <li><a th:href="@{/contatos}">Contato</a></li> 
-      </ul>
-    </nav> 
+    <!-- BOTÃO HAMBÚRGUER COM ÍCONE -->
+    <div class="button" id="btn-toggle-menu">
+        <a class="btn-open" href="#">
+            <i class="fas fa-bars" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 16px;"></i>
+        </a>
+    </div>
+</header>
 
-    <!-- Botões de Ação Unificados e Rotas do Java -->
-<<<<<<< HEAD
-    <div class="auth-actions auth-desktop">
+
+<!-- ADICIONADO O ID "mobile-menu-overlay" E O BOTÃO DE FECHAR DA CORTINA -->
+<div class="overlay" id="mobile-menu-overlay">
+    <!-- Botão 'X' para fechar a tela cheia no mobile -->
+    <button id="btn-close-menu" style="position: absolute; top: 20px; right: 25px; background: none; border: none; color: var(--roxo-principal); font-size: 42px; cursor: pointer; z-index: 100010;">&times;</button>
+
+    <div class="wrap">
+        <ul class="wrap-nav">
+            <li><a th:href="@{/index}">Início</a></li>
+            <li><a th:href="@{/noticias}">Notícias</a></li>
+            <li><a th:href="@{/projeto}">Projetos</a></li> 
+            <li><a th:href="@{/evento}">Eventos</a></li>
+            
+            <li class="dropdown-item-mobile"> 
+                <details> 
+                    <summary class="summary-nucleos">Nossos Núcleos</summary> 
+                    <div class="nucleos-links">
+                        <a th:href="@{/mg}">MG</a> 
+                        <a th:href="@{/ce}">CE</a> 
+                    </div>
+                </details> 
+            </li>
+            
+            <li><a th:href="@{/contatos}">Contatos</a></li>
+        </ul> 
+        
+
+        <div class="auth-actions auth-desktop">
         <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
         <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
-=======
-    <div class="auth-actions">
-      <a th:href="@{/admin}" class="btn-auth btn-admin">Entrar como Admin</a>
-      <a th:href="@{/VolunForm}" class="btn-auth btn-voluntario">Inscrever-se</a>
->>>>>>> 867ab6d185ab90f244575fece0bb366eb21b7e68
     </div>
-  </header>
+
+        <div class="auth-actions-mobile">
+            <a th:href="@{/register}" class="btn-auth-mobile btn-admin-mobile">Entrar como Admin</a>
+            <a th:href="@{/login}" class="btn-auth-mobile btn-voluntario-mobile">Inscrever-se</a>
+        </div>
+
+    </div>
+</div>
   <!-- CONTEÚDO PRINCIPAL (DIRETÓRIO DE ORGÃOS AMBIENTAIS) -->
   <main class="orgaos-page-container" id="conteudo-principal" role="main">
     

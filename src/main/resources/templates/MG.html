@@ -1,35 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://thymeleaf.org">
+<!DOCTYPE html> 
+<html lang="pt-BR" xmlns:th="http://thymeleaf.org"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Guardiãs das Águas</title> 
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Núcleo MG - Guardiãs das Águas</title>
-
-  <!-- Widgets de Acessibilidade Estáveis -->
-  <script src="https://userway.org" data-account="WkxSCXRUll"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   
+  <script th:src="@{/js/api.js}" defer></script>
+  <script th:src="@{/js/auth.js}" defer></script>
+  <script th:src="@{/js/home.js}" defer></script>
   
-
-  <!-- Biblioteca FontAwesome obrigatória para os ícones -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Links de Folha de Estilo Padronizados e Integrados ao Servidor -->
-  <link rel="stylesheet" th:href="@{/css/CE.css}">
+  <script th:src="@{/js/global-auth-ui.js}" defer></script>
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/Inicio.css}">
+  
+  <!-- VLibras Plugin Script -->
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script style="display: block; margin: auto;">
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-
+  <script>
+    $(document).ready(function() {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    });
+  </script>
 </head>
-
-
-
+<script src="https://cdn.userway.org/widget.js" data-account="WkxSCXRUll"></script>
 <body>
-  <!--URL da CDN oficial do UserWay com a extensão /widget.js obrigatória -->
-  <script src="https://userway.org" data-account="WkxSCXRUll" defer></script>
 
+ 
   <!-- Componente VLibras sem o display:none ou opacidade zero na tag para não quebrar a árvore de elementos -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -47,6 +45,7 @@
           <button id="trigger-vlibras" class="btn-access-option">
               <i class="fas fa-sign-language"></i> Tradutor de Libras
           </button>
+        
       </div>
   </div>
 
@@ -77,13 +76,10 @@
     </nav>
     
     <div class="auth-actions auth-desktop">
-<<<<<<< HEAD
-        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
-        <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
-=======
+
+
         <a th:href="@{/register}" class="btn-auth btn-admin">Entrar como Admin</a>
         <a th:href="@{/login}" class="btn-auth btn-voluntario">Inscrever-se</a>
->>>>>>> 867ab6d185ab90f244575fece0bb366eb21b7e68
     </div>
 
     <!-- BOTÃO HAMBÚRGUER COM ÍCONE -->
@@ -120,20 +116,6 @@
             <li><a th:href="@{/contatos}">Contatos</a></li>
         </ul> 
         
-<<<<<<< HEAD
-        <div class="auth-actions auth-desktop">
-        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
-        <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
-    </div>
-    </div>
-</div>
-
-    <!-- Botões unificados com as rotas permitidas do SecurityConfig -->
-    <div class="auth-actions auth-desktop">
-        <a th:href="@{/register}" class="btn-auth btn-admin">Entrar no painel</a>
-        <a th:href="@{/login}" class="btn-auth btn-voluntario">inscreva-se</a>
-    </div>
-=======
         <div class="auth-actions-mobile">
             <a th:href="@{/register}" class="btn-auth-mobile btn-admin-mobile">Entrar como Admin</a>
             <a th:href="@{/login}" class="btn-auth-mobile btn-voluntario-mobile">Inscrever-se</a>
@@ -141,7 +123,6 @@
     </div>
 </div>
 
->>>>>>> 867ab6d185ab90f244575fece0bb366eb21b7e68
   </header>
 
   <!-- ESPAÇADOR DE SEGURANÇA PARA O CONTEÚDO NÃO SUMIR ATRÁS DO HEADER FIXED -->
