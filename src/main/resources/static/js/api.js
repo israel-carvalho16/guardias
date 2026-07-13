@@ -1,4 +1,3 @@
-
 const API_URL = ''; 
 
 const api = {
@@ -29,9 +28,6 @@ const api = {
             config.body = body instanceof FormData ? body : JSON.stringify(body);
         }
 
-        // CORREÇÃO DA ROTA: Se o endpoint for de autenticação, garante o prefixo antigo caso usem.
-        // Se suas rotas de login continuarem usando /api/auth/login no backend, descomente a linha abaixo:
-        // const finalUrl = endpoint.startsWith('/auth') ? `/api${endpoint}` : `${API_URL}${endpoint}`;
         const finalUrl = `${API_URL}${endpoint}`;
 
         const response = await fetch(finalUrl, config);
@@ -52,9 +48,8 @@ const api = {
         return await response.json();
     },
 
-    /* MÓDULO DE AUTENTICAÇÃO (Adicionado /api para manter compatibilidade com o backend caso necessário) */
+    /* MÓDULO DE AUTENTICAÇÃO */
     login: async (data) => {
-        // Se seu AuthController ainda usa o prefixo /api, mude para '/api/auth/login'
         const response = await api.request('POST', '/api/auth/login', data);
         if (response && response.token) {
             localStorage.setItem('token', response.token);
@@ -63,7 +58,6 @@ const api = {
     },
 
     register: async (data) => {
-        // Se seu AuthController ainda usa o prefixo /api, mude para '/api/auth/register'
         const response = await api.request('POST', '/api/auth/register', data);
         if (response && response.token) {
             localStorage.setItem('token', response.token);
@@ -75,9 +69,11 @@ const api = {
     getPosts: () => api.request('GET', '/posts', null, { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }),
     getPost: (id) => api.request('GET', `/posts/${id}`, null, { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }),
 
-    // Esse método agora vai funcionar aceitando tanto objetos normais quanto FormData!
+    // Ambos os métodos agora estão prontos para receber o FormData
     createPost: (formData) => api.request('POST', '/posts', formData),
-    updatePost: (id, formData) => api.request('PUT', `/posts/${id}`, formData),
+    
+    // ALTERADO AQUI: Mudado para 'POST' para bater com o @PostMapping("/{id}") do seu PostController
+    updatePost: (id, formData) => api.request('POST', `/posts/${id}`, formData), 
     
     deletePost: (id) => api.request('DELETE', `/posts/${id}`),
     getComments: (postId) => api.request('GET', `/comments/post/${postId}`),

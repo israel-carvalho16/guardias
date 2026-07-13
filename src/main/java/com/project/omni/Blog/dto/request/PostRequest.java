@@ -16,6 +16,5 @@ public class PostRequest {
     @NotBlank(message = "A categoria é obrigatória")
     private String category;
 
-    // NOVO CAMPO: Recebe o arquivo binário da imagem física vindo do painel HTML
-    private MultipartFile image; 
+    private MultipartFile foto;
 }

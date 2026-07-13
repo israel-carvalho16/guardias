@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "posts")
-@Data
 public class Post {
 
     @Id
@@ -41,6 +40,41 @@ public class Post {
     private LocalDateTime updatedAt;
   
     @Column(name = "image_url")
-    private String imageUrl; // Armazenará o nome ou o caminho do arquivo (Ex: "foto123.jpg")
+    private String imageUrl;
+
+    public Long getId() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    }
+
+    public String getTitle() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTitle'");
+    }
+
+    public String getContent() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getContent'");
+    }
+
+    public String getImageUrl() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getImageUrl'");
+    }
+
+    public void setTitle(String title2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setTitle'");
+    }
+
+    public void setContent(String content2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setContent'");
+    }
+
+    public void setImageUrl(String novaUrl) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setImageUrl'");
+    } // Armazenará o nome ou o caminho do arquivo (Ex: "foto123.jpg")
 
 }

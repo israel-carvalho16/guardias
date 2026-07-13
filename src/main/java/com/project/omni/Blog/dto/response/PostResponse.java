@@ -4,6 +4,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.project.omni.Blog.model.User;
+
 @Data
 public class PostResponse {
     private Long id;
